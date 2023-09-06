@@ -31,6 +31,7 @@ CREATE TABLE reserva (
   idevento int NOT NULL ,
   idusuario int not null,
   qtdingressos int,
+  valortotal decimal(10,2),
   PRIMARY KEY (idreserva),
   FOREIGN KEY (idevento) REFERENCES evento (idevento),
   FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
