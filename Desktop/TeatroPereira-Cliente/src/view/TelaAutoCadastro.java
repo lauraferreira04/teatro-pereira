@@ -33,14 +33,13 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
         jTFTelefone = new javax.swing.JTextField();
         jTFUsuario = new javax.swing.JTextField();
         jBCadastrar = new javax.swing.JButton();
-        jLTitulo = new javax.swing.JLabel();
         jPFSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro");
 
         jLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLLogo.setText("LOGO");
+        jLLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/logo pereira.png"))); // NOI18N
 
         jTFCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFCpf.setForeground(new java.awt.Color(153, 153, 153));
@@ -67,11 +66,6 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
         jBCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         jBCadastrar.setText("CADASTRAR");
 
-        jLTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLTitulo.setForeground(new java.awt.Color(90, 90, 205));
-        jLTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLTitulo.setText("CADASTRO");
-
         jPFSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPFSenha.setForeground(new java.awt.Color(153, 153, 153));
         jPFSenha.setText("jPasswordField1");
@@ -80,7 +74,6 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -92,21 +85,15 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
                     .addComponent(jPFSenha))
                 .addGap(52, 52, 52))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jBCadastrar)))
+                .addGap(94, 94, 94)
+                .addComponent(jBCadastrar)
                 .addContainerGap(94, Short.MAX_VALUE))
+            .addComponent(jLLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLTitulo)
-                .addGap(31, 31, 31)
+                .addGap(40, 40, 40)
                 .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,7 +109,7 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
                 .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -133,7 +120,6 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JLabel jLLogo;
-    private javax.swing.JLabel jLTitulo;
     private javax.swing.JPasswordField jPFSenha;
     private javax.swing.JTextField jTFCpf;
     private javax.swing.JTextField jTFEmail;

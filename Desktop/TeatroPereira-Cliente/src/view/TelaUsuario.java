@@ -39,11 +39,9 @@ public class TelaUsuario extends javax.swing.JFrame {
         jPFSenha = new javax.swing.JPasswordField();
         jBSalvar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
-        jLTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Usuário");
-        setPreferredSize(new java.awt.Dimension(593, 460));
 
         jBVoltar.setBackground(new java.awt.Color(90, 90, 205));
         jBVoltar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -55,7 +53,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         jBNovoUsuario.setForeground(new java.awt.Color(255, 255, 255));
         jBNovoUsuario.setText("NOVO");
 
-        jLLogo.setText("logo");
+        jLLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/logo pereira.png"))); // NOI18N
 
         jTUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -108,27 +106,22 @@ public class TelaUsuario extends javax.swing.JFrame {
         jBExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jBExcluir.setText("EXCLUIR");
 
-        jLTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLTitulo.setForeground(new java.awt.Color(90, 90, 205));
-        jLTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLTitulo.setText("USUÁRIOS");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLLogo))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTFUsuario)
                             .addComponent(jTFCpf)
@@ -140,15 +133,12 @@ public class TelaUsuario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTFNome))))
-                .addGap(17, 17, 17))
-            .addComponent(jLTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,7 +177,6 @@ public class TelaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jBSalvar;
     private javax.swing.JButton jBVoltar;
     private javax.swing.JLabel jLLogo;
-    private javax.swing.JLabel jLTitulo;
     private javax.swing.JPasswordField jPFSenha;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCpf;
