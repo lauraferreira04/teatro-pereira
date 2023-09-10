@@ -14,27 +14,27 @@ import java.util.Date;
 public class Evento implements Serializable{
     private static final long serialVersionUID = 123L;
     private int idEvento;
-    private String artista;
     private String nomeEvento;
-    private Date dataHora;
+    private String artista;
+    private Date data;
     private float valor;
     private int qtdCadeiras;
     private byte banner;
 
-    public Evento(int idEvento, String artista, String nomeEvento, Date dataHora, float valor, int qtdCadeiras, byte banner) {
+    public Evento(int idEvento, String artista, String nomeEvento, Date data, float valor, int qtdCadeiras, byte banner) {
         this.idEvento = idEvento;
-        this.artista = artista;
         this.nomeEvento = nomeEvento;
-        this.dataHora = dataHora;
+        this.artista = artista;
+        this.data = data;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
         this.banner = banner;
     }
 
-    public Evento(String artista, String nomeEvento, Date dataHora, float valor, int qtdCadeiras, byte banner) {
-        this.artista = artista;
+    public Evento(String artista, String nomeEvento, Date data, float valor, int qtdCadeiras, byte banner) {
         this.nomeEvento = nomeEvento;
-        this.dataHora = dataHora;
+        this.artista = artista;
+        this.data = data;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
         this.banner = banner;
@@ -48,6 +48,14 @@ public class Evento implements Serializable{
         this.idEvento = idEvento;
     }
 
+    public String getNomeEvento() {
+        return nomeEvento;
+    }
+
+    public void setNomeEvento(String nomeEvento) {
+        this.nomeEvento = nomeEvento;
+    }
+    
     public String getArtista() {
         return artista;
     }
@@ -56,20 +64,12 @@ public class Evento implements Serializable{
         this.artista = artista;
     }
 
-    public String getNomeEvento() {
-        return nomeEvento;
-    }
-
-    public void setNomeEvento(String nomeEvento) {
-        this.nomeEvento = nomeEvento;
-    }
-
     public Date getDataHora() {
-        return dataHora;
+        return data;
     }
 
     public void setDataHora(Date dataHora) {
-        this.dataHora = dataHora;
+        this.data = dataHora;
     }
 
     public float getValor() {
@@ -98,6 +98,6 @@ public class Evento implements Serializable{
 
     @Override
     public String toString() {
-        return "Evento{" + "codEvento=" + idEvento + ", artista=" + artista + ", nome evento=" + nomeEvento + ", data e hora=" + dataHora + ", valor=" + valor + ", quantidade cadeiras" + qtdCadeiras + '}';
+        return "Evento{" + "codEvento=" + idEvento + ", nome evento=" + nomeEvento + ", artista=" + artista + ", data e hora=" + data + ", valor=" + valor + ", quantidade cadeiras" + qtdCadeiras + '}';
     }
 }

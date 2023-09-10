@@ -4,17 +4,30 @@
  */
 package view;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
  */
 public class TeatroPereiraCliente {
-
-    /**
-     * @param args the command line arguments
-     */
+    //public static ConexaoController ccont;
     public static void main(String[] args) {
-        // TODO code application logic here
+        /*try {
+            Socket socket = new Socket("127.0.0.1", 12345);
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            
+            ccont = new ConexaoController(in, out);
+            
+            TelaLogin telaLogin = new TelaLogin();
+            telaLogin.setVisible(true);
+        } catch(IOException ioe) {
+            System.out.println("Erro: " + ioe.getMessage());
+        } */
     }
     
 }

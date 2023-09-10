@@ -4,12 +4,18 @@
  */
 package view;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import modelDominio.Evento;
+import view.util.Imagem;
+
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
  */
 public class TelaEvento extends javax.swing.JFrame {
-
+    Imagem imagem = null;
     /**
      * Creates new form TelaEvento
      */
@@ -33,13 +39,14 @@ public class TelaEvento extends javax.swing.JFrame {
         jLLogo = new javax.swing.JLabel();
         jTFNomeEvento = new javax.swing.JTextField();
         jTFArtista = new javax.swing.JTextField();
-        jTFValor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTEventos = new javax.swing.JTable();
         jLBanner = new javax.swing.JLabel();
         jBUpload = new javax.swing.JButton();
         jFTFData = new javax.swing.JFormattedTextField();
         jCBQtdCadeiras = new javax.swing.JComboBox<>();
+        jFTFValor = new javax.swing.JFormattedTextField();
+        jFTFHora = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Evento");
@@ -63,6 +70,11 @@ public class TelaEvento extends javax.swing.JFrame {
         jBSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jBSalvar.setText("SALVAR");
+        jBSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalvarActionPerformed(evt);
+            }
+        });
 
         jLLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/logo pereira.png"))); // NOI18N
 
@@ -73,10 +85,6 @@ public class TelaEvento extends javax.swing.JFrame {
         jTFArtista.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFArtista.setForeground(new java.awt.Color(153, 153, 153));
         jTFArtista.setText("Artista");
-
-        jTFValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTFValor.setForeground(new java.awt.Color(153, 153, 153));
-        jTFValor.setText("R$");
 
         jTEventos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTEventos.setModel(new javax.swing.table.DefaultTableModel(
@@ -108,6 +116,14 @@ public class TelaEvento extends javax.swing.JFrame {
         jCBQtdCadeiras.setForeground(new java.awt.Color(153, 153, 153));
         jCBQtdCadeiras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quantidade cadeiras", "5", "50", "100", "200", "300", "500" }));
 
+        jFTFValor.setForeground(new java.awt.Color(153, 153, 153));
+        jFTFValor.setText("R$");
+        jFTFValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jFTFHora.setForeground(new java.awt.Color(153, 153, 153));
+        jFTFHora.setText("Hora");
+        jFTFHora.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,15 +139,18 @@ public class TelaEvento extends javax.swing.JFrame {
                                 .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTFValor)
                             .addComponent(jTFNomeEvento)
                             .addComponent(jTFArtista)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jFTFData)
-                            .addComponent(jCBQtdCadeiras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jCBQtdCadeiras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jFTFValor)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jFTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -144,10 +163,11 @@ public class TelaEvento extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -159,9 +179,11 @@ public class TelaEvento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTFArtista, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(jTFValor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jFTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFTFValor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCBQtdCadeiras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -176,6 +198,52 @@ public class TelaEvento extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+        Date data;
+        float valor;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            data = sdf.parse(jFTFData.getText());
+        } catch (Exception e){
+            data = null;
+            System.out.println("Erro: " + e.getMessage());
+        }
+        try{
+            valor = ((Number) jFTFValor.getValue()).floatValue();
+        } catch (Exception e){
+            valor = 0;
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        if (!jTFNomeEvento.getText().equals("")){
+            if (!jTFArtista.getText().equals("")){
+                if (valor > 0){
+                    if (data != null){
+                        String nomeEvento = jTFNomeEvento.getText();
+                        String artista = jTFArtista.getText();
+
+                        byte[] banner;
+                        if (this.imagem != null){
+                            banner = this.imagem.getImagem();
+                        } else {
+                            banner = null;
+                        }
+                        
+                        
+                    } else{
+                        JOptionPane.showMessageDialog(rootPane, "Erro: informe a data.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Erro: informe o valor.");
+                }
+            } else{
+                JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do artista");
+            }
+        } else{
+            JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do evento.");
+        }
+    }//GEN-LAST:event_jBSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBExcluir;
@@ -185,12 +253,13 @@ public class TelaEvento extends javax.swing.JFrame {
     private javax.swing.JButton jBVoltar;
     private javax.swing.JComboBox<String> jCBQtdCadeiras;
     private javax.swing.JFormattedTextField jFTFData;
+    private javax.swing.JFormattedTextField jFTFHora;
+    private javax.swing.JFormattedTextField jFTFValor;
     private javax.swing.JLabel jLBanner;
     private javax.swing.JLabel jLLogo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTEventos;
     private javax.swing.JTextField jTFArtista;
     private javax.swing.JTextField jTFNomeEvento;
-    private javax.swing.JTextField jTFValor;
     // End of variables declaration//GEN-END:variables
 }

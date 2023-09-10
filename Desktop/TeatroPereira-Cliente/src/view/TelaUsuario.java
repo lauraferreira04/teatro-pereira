@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
@@ -100,6 +102,11 @@ public class TelaUsuario extends javax.swing.JFrame {
         jBSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jBSalvar.setText("SALVAR");
+        jBSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalvarActionPerformed(evt);
+            }
+        });
 
         jBExcluir.setBackground(new java.awt.Color(90, 90, 205));
         jBExcluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -139,10 +146,11 @@ public class TelaUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -168,6 +176,41 @@ public class TelaUsuario extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+       if (!jTFNome.getText().equals("")) {
+           String nome = jTFNome.getText();
+           if(!jTFUsuario.getText().equals("")){
+               String usuario = jTFUsuario.getText();
+               if (!jPFSenha.getPassword().equals("")){
+                   char[] senhaChar = jPFSenha.getPassword();
+                   String senha = new String(senhaChar);
+                   
+                   if (!jTFCpf.getText().equals("")){
+                       String cpf = jTFCpf.getText();
+                       if (!jTFEmail.getText().equals("")){
+                           String email = jTFEmail.getText();
+                           if (!jTFTelefone.getText().equals("")){
+                               String telefone = jTFTelefone.getText();
+                           } else{
+                               JOptionPane.showMessageDialog(rootPane, "Erro: informe o telefone.");
+                           }
+                       } else {
+                           JOptionPane.showMessageDialog(rootPane, "Erro: informe o email.");
+                       }
+                   } else {
+                       JOptionPane.showMessageDialog(rootPane, "Erro: informe o CPF");
+                   }
+               } else {
+                   JOptionPane.showMessageDialog(rootPane, "Erro: informe a senha.");
+               }
+           } else{
+               JOptionPane.showMessageDialog(rootPane, "Erro: informe o usuário.");
+           }
+       } else {
+           JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome.");
+       }
+    }//GEN-LAST:event_jBSalvarActionPerformed
 
 
 

@@ -38,16 +38,31 @@ public class TelaHome extends javax.swing.JFrame {
         jBUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         jBUsuarios.setText("USUÁRIOS");
+        jBUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBUsuariosActionPerformed(evt);
+            }
+        });
 
         jBEventos.setBackground(new java.awt.Color(90, 90, 205));
         jBEventos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBEventos.setForeground(new java.awt.Color(255, 255, 255));
         jBEventos.setText("EVENTOS");
+        jBEventos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEventosActionPerformed(evt);
+            }
+        });
 
         jBSair.setBackground(new java.awt.Color(90, 90, 205));
         jBSair.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBSair.setForeground(new java.awt.Color(255, 255, 255));
         jBSair.setText("SAIR");
+        jBSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSairActionPerformed(evt);
+            }
+        });
 
         jLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/logo pereira.png"))); // NOI18N
@@ -82,6 +97,21 @@ public class TelaHome extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUsuariosActionPerformed
+        TelaUsuario telaUsuario = new TelaUsuario();
+        telaUsuario.setVisible(true);
+    }//GEN-LAST:event_jBUsuariosActionPerformed
+
+    private void jBEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEventosActionPerformed
+        TelaEvento telaEvento = new TelaEvento();
+        telaEvento.setVisible(true);
+    }//GEN-LAST:event_jBEventosActionPerformed
+
+    private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
+        /*TeatroPereiraCliente.ccont.fim();
+        dispose();*/
+    }//GEN-LAST:event_jBSairActionPerformed
 
 
 

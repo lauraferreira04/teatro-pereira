@@ -66,6 +66,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="USU&#xc1;RIOS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBUsuariosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBEventos">
       <Properties>
@@ -80,6 +83,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="EVENTOS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBEventosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBSair">
       <Properties>
@@ -94,6 +100,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="SAIR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBSairActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLogo">
       <Properties>
