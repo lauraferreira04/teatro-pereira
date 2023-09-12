@@ -19,8 +19,9 @@ public class Usuario implements Serializable{
     private String cpf;
     private String email;
     private String telefone;
+    private int tipo;
 
-    public Usuario(int idUsuario, String nomeUsuario, String login, String senha, String cpf, String email, String telefone) {
+    public Usuario(int idUsuario, String nomeUsuario, String login, String senha, String cpf, String email, String telefone, int tipo) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.login = login;
@@ -28,15 +29,17 @@ public class Usuario implements Serializable{
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
+        this.tipo = tipo;
     }
 
-    public Usuario(String nomeUsuario, String login, String senha, String cpf, String email, String telefone) {
+    public Usuario(String nomeUsuario, String login, String senha, String cpf, String email, String telefone,int tipo) {
         this.nomeUsuario = nomeUsuario;
         this.login = login;
         this.senha = senha;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
+        this.tipo = tipo;
     }
 
     public Usuario(String login, String senha) {
@@ -99,7 +102,17 @@ public class Usuario implements Serializable{
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
-    
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "idUsuario=" + idUsuario + ", nomeUsuario=" + nomeUsuario + ", login=" + login + ", senha=" + senha + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone + ", tipoUsuario=" + tipo + '}';
+    }
 }

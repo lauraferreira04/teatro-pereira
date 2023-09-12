@@ -13,19 +13,16 @@ import java.io.Serializable;
 public class Administrador extends Usuario implements Serializable{
     private static final long serialVersionUID = 123L;
 
-    public Administrador(int idUsuario, String nomeUsuario, String login, String senha, String cpf, String email, String telefone) {
-        super(idUsuario, nomeUsuario, login, senha, cpf, email, telefone);
+    public Administrador(int idUsuario, String nomeUsuario, String login, String senha, String cpf, String email, String telefone, int tipoUsuario) {
+        super(idUsuario, nomeUsuario, login, senha, cpf, email, telefone, tipoUsuario);
     }
 
-    public Administrador(String nomeUsuario, String login, String senha, String cpf, String email, String telefone) {
-        super(nomeUsuario, login, senha, cpf, email, telefone);
+    public Administrador(String nomeUsuario, String login, String senha, String cpf, String email, String telefone, int tipoUsuario) {
+        super(nomeUsuario, login, senha, cpf, email, telefone, tipoUsuario);
     }
 
     @Override
     public String toString() {
         return "Administrador{" + '}' + super.toString();
     }
-    
-    
-    
 }

@@ -44,9 +44,9 @@ public class UsuarioDao {
                 int tipo = res.getInt("tipo");
                 
                 if (tipo == 0) {
-                    usuarioLogado = new Administrador(idUsuario, nomeUsuario, login, senha, cpf, email, telefone);
+                    usuarioLogado = new Administrador(idUsuario, nomeUsuario, login, senha, cpf, email, telefone, tipo);
                 } else {
-                    usuarioLogado = new Comum(idUsuario, nomeUsuario, login, senha, cpf, email, telefone);
+                    usuarioLogado = new Comum(idUsuario, nomeUsuario, login, senha, cpf, email, telefone, tipo);
                 }
             }
             
