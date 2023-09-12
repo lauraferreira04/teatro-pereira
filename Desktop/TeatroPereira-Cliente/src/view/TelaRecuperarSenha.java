@@ -27,6 +27,9 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
     private void initComponents() {
 
         jLLogo = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Recuperar senha");
@@ -34,18 +37,47 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         jLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/logo pereira.png"))); // NOI18N
 
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
+        jTextField1.setText("Email");
+
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPasswordField1.setForeground(new java.awt.Color(153, 153, 153));
+        jPasswordField1.setText("jPasswordField1");
+
+        jButton1.setBackground(new java.awt.Color(90, 90, 205));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("ALTERAR");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jLLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField1)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -55,6 +87,9 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLLogo;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
