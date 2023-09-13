@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.ConexaoController;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,9 +15,9 @@ import java.net.Socket;
  * @author laura ferreira & gabriel hackenhaar
  */
 public class TeatroPereiraCliente {
-    //public static ConexaoController ccont;
+    public static ConexaoController ccont;
     public static void main(String[] args) {
-        /*try {
+        try {
             Socket socket = new Socket("127.0.0.1", 12345);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -27,7 +28,7 @@ public class TeatroPereiraCliente {
             telaLogin.setVisible(true);
         } catch(IOException ioe) {
             System.out.println("Erro: " + ioe.getMessage());
-        } */
+        } 
     }
     
 }
