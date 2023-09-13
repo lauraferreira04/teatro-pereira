@@ -11,7 +11,7 @@ CREATE TABLE usuario (
   cpf varchar(11),
   email varchar(60),
   telefone varchar(20),
-  tipo tinyint COMMENT '1 -> admin\n0 -> usuario comun',
+  tipo tinyint COMMENT '0 -> admin | 1 -> comum',
   PRIMARY KEY (idusuario)
 );
 
