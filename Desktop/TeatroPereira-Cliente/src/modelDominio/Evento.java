@@ -21,7 +21,7 @@ public class Evento implements Serializable{
     private int qtdCadeiras;
     private byte[] banner;
 
-    public Evento(int idEvento, String artista, String nomeEvento, Date data, float valor, int qtdCadeiras, byte[] banner) {
+    public Evento(int idEvento, String nomeEvento, String artista, Date data, float valor, int qtdCadeiras, byte[] banner) {
         this.idEvento = idEvento;
         this.nomeEvento = nomeEvento;
         this.artista = artista;
@@ -31,13 +31,19 @@ public class Evento implements Serializable{
         this.banner = banner;
     }
 
-    public Evento(String artista, String nomeEvento, Date data, float valor, int qtdCadeiras, byte[] banner) {
+    public Evento(String nomeEvento, String artista, Date data, float valor, int qtdCadeiras, byte[] banner) {
         this.nomeEvento = nomeEvento;
         this.artista = artista;
         this.data = data;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
         this.banner = banner;
+    }
+
+    public Evento(int idEvento, String nomeEvento, float valor) {
+        this.idEvento = idEvento;
+        this.nomeEvento = nomeEvento;
+        this.valor = valor;
     }
 
     public int getIdEvento() {
@@ -55,7 +61,7 @@ public class Evento implements Serializable{
     public void setNomeEvento(String nomeEvento) {
         this.nomeEvento = nomeEvento;
     }
-    
+
     public String getArtista() {
         return artista;
     }
@@ -64,12 +70,12 @@ public class Evento implements Serializable{
         this.artista = artista;
     }
 
-    public Date getDataHora() {
+    public Date getData() {
         return data;
     }
 
-    public void setDataHora(Date dataHora) {
-        this.data = dataHora;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public float getValor() {
@@ -94,10 +100,6 @@ public class Evento implements Serializable{
 
     public void setBanner(byte[] banner) {
         this.banner = banner;
-    }
-
-    @Override
-    public String toString() {
-        return "Evento{" + "codEvento=" + idEvento + ", nome evento=" + nomeEvento + ", artista=" + artista + ", data e hora=" + data + ", valor=" + valor + ", quantidade cadeiras" + qtdCadeiras + '}';
-    }
+    } 
+    
 }
