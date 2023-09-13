@@ -4,11 +4,14 @@
  */
 package model;
 
+import java.sql.ResultSet;
 import factory.Conector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import modelDominio.Evento;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *  trabalho interdisciplinar
@@ -135,5 +138,37 @@ public class EventoDao {
             }
         }
         return resultado;
+    }
+    
+    public ArrayList<Evento> getListaEventos() {
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+        PreparedStatement stmt = null;
+        try {
+            String sql = "select * from evento ";
+            stmt = con.prepareStatement(sql);
+            ResultSet res = stmt.executeQuery();
+            
+            while(res.next()){
+                int idEvento = res.getInt("idevento");
+                String nomeArtista = res.getString("nomeartista");
+                String nomeEvento = res.getString("nomeevento");
+                Date datahora = res.getDate("datahora");
+                float valor = res.getFloat("valor");
+                int qtdCadeiras = res.getInt("qtdcadeiras");
+                byte[] banner = res.getBytes("banner");
+                
+                Evento evento = new Evento(idEvento, nomeEvento, nomeArtista, datahora, valor, qtdCadeiras, banner);
+                
+                listaEventos.add(evento);
+            }
+            res.close();
+            con.close();            
+            stmt.close();
+            
+        } catch (SQLException exc){
+            System.out.println("Erro: " + exc.getMessage());
+            listaEventos = null;
+        }
+        return listaEventos;
     }
 }

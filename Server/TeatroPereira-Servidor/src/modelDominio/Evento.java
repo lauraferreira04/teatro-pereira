@@ -40,6 +40,12 @@ public class Evento implements Serializable{
         this.banner = banner;
     }
 
+    public Evento(int idEvento, String nomeEvento, float valor) {
+        this.idEvento = idEvento;
+        this.nomeEvento = nomeEvento;
+        this.valor = valor;
+    }
+
     public int getIdEvento() {
         return idEvento;
     }
@@ -94,10 +100,6 @@ public class Evento implements Serializable{
 
     public void setBanner(byte[] banner) {
         this.banner = banner;
-    }
-    
-    
-    
-    
+    } 
     
 }
