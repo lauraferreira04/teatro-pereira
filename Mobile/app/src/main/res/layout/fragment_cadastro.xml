@@ -51,9 +51,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvCadastroEmail"
-        android:text="Nome completo: "/>
+        android:text="Email: "/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etCadastroNome"/>
+        android:id="@+id/etCadastroEmail"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCadastroTelefone"
+        android:text="Telefone: "/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etCadastroTelefone"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bCadastroCadastrar"
+        android:text="Cadastrar"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bCadastroCancelar"
+        android:text="Cancelar"/>
+
 </LinearLayout>
