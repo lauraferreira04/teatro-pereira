@@ -8,10 +8,63 @@
         android:id="@+id/loginFragment"
         android:name="com.example.teatropereira_mobile.view.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/acao_LoginFragment_CadastroFragment"
+            app:destination="@id/cadastroFragment" />
+        <action
+            android:id="@+id/acao_LoginFragment_HomeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cadastroFragment"
         android:name="com.example.teatropereira_mobile.view.CadastroFragment"
         android:label="fragment_cadastro"
         tools:layout="@layout/fragment_cadastro" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.teatropereira_mobile.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/acao_HomeFragment_EventosFragment"
+            app:destination="@id/eventosFragment" />
+        <action
+            android:id="@+id/acao_HomeFragment_MinhasReservasFragment"
+            app:destination="@id/minhasReservasFragment" />
+        <action
+            android:id="@+id/acao_HomeFragment_SuporteFragment"
+            app:destination="@id/suporteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventosFragment"
+        android:name="com.example.teatropereira_mobile.view.EventosFragment"
+        android:label="fragment_eventos"
+        tools:layout="@layout/fragment_eventos" >
+        <action
+            android:id="@+id/acao_EventosFragment_ReservaFragment"
+            app:destination="@id/reservaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reservaFragment"
+        android:name="com.example.teatropereira_mobile.view.ReservaFragment"
+        android:label="fragment_reserva"
+        tools:layout="@layout/fragment_reserva" >
+        <action
+            android:id="@+id/acao_ReservaFragment_MinhasReservasFragment"
+            app:destination="@id/minhasReservasFragment" />
+        <action
+            android:id="@+id/acao_ReservaFragment_SuporteFragment"
+            app:destination="@id/suporteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/minhasReservasFragment"
+        android:name="com.example.teatropereira_mobile.view.MinhasReservasFragment"
+        android:label="fragment_minhas_reservas"
+        tools:layout="@layout/fragment_minhas_reservas" />
+    <fragment
+        android:id="@+id/suporteFragment"
+        android:name="com.example.teatropereira_mobile.view.SuporteFragment"
+        android:label="fragment_suporte"
+        tools:layout="@layout/fragment_suporte" />
 </navigation>
