@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import modelDominio.Evento;
+import modelDominio.Reserva;
 import modelDominio.Usuario;
 
 /**
@@ -180,6 +181,21 @@ public class ConexaoController {
             listaEventos = null;
         }
         return listaEventos;
+    }
+    
+    public ArrayList<Reserva> reservaLista() {
+        ArrayList<Reserva> listaReservas;
+        try {
+            out.writeObject("ReservaLista");
+            listaReservas = (ArrayList<Reserva>)in.readObject();
+        } catch(IOException ioe) {
+            System.out.println("Erro: " + ioe.getMessage());
+            listaReservas = null;
+        } catch(ClassNotFoundException classe) {
+            System.out.println("Erro: " + classe.getMessage());
+            listaReservas = null;
+        }
+        return listaReservas;
     }
     
     public void fim() {
