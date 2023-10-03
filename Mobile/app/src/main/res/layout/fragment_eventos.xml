@@ -13,4 +13,10 @@
         android:id="@+id/etEventosPesquisar"
         android:text="Pesquisar"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvVisualizacaoEventos"
+        android:scrollbars="vertical"/>
+
 </LinearLayout>

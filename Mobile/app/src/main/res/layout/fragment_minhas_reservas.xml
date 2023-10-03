@@ -7,6 +7,12 @@
     android:padding="8dp"
     tools:context=".view.MinhasReservasFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvVisualizacaoReservas"
+        android:scrollbars="vertical"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
