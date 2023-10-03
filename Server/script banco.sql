@@ -36,3 +36,7 @@ CREATE TABLE reserva (
   FOREIGN KEY (idevento) REFERENCES evento (idevento),
   FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
 );
+select login from usuario
+where login = "laurinha";
+
+insert into usuario (idusuario, nomeusuario, login, senha, cpf, email, telefone, tipo) values (1, 'laura ferreira', 'laurinha','123456', '03504614064', 'lauraferreira@gmail.com', '51996905617', 0);
