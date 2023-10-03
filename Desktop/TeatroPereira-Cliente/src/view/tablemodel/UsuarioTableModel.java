@@ -60,7 +60,7 @@ public class UsuarioTableModel extends AbstractTableModel{
         }
     }
     
-    public Usuario getBike(int row){
+    public Usuario getUsuario(int row){
         Usuario usuario = this.listaUsuarios.get(row);
         return usuario;
     } 

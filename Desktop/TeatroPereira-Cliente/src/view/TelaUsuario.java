@@ -4,14 +4,25 @@
  */
 package view;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import modelDominio.Administrador;
+import modelDominio.Usuario;
+import view.tablemodel.UsuarioTableModel;
 
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
  */
 public class TelaUsuario extends javax.swing.JFrame {
-
+    private UsuarioTableModel usuarioTableModel;
+    private Usuario nomeUsuario;
+    private Usuario login;
+    private Usuario senha;
+    private Usuario cpf;
+    private Usuario email;
+    private Usuario telefone;
+    
     /**
      * Creates new form TelaUsuario
      */
@@ -49,11 +60,21 @@ public class TelaUsuario extends javax.swing.JFrame {
         jBVoltar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBVoltar.setForeground(new java.awt.Color(255, 255, 255));
         jBVoltar.setText("VOLTAR");
+        jBVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBVoltarActionPerformed(evt);
+            }
+        });
 
         jBNovoUsuario.setBackground(new java.awt.Color(90, 90, 205));
         jBNovoUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBNovoUsuario.setForeground(new java.awt.Color(255, 255, 255));
         jBNovoUsuario.setText("NOVO");
+        jBNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoUsuarioActionPerformed(evt);
+            }
+        });
 
         jLLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/logo pereira.png"))); // NOI18N
 
@@ -77,26 +98,56 @@ public class TelaUsuario extends javax.swing.JFrame {
         jTFNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFNome.setForeground(new java.awt.Color(153, 153, 153));
         jTFNome.setText("Nome completo");
+        jTFNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFNomeMouseClicked(evt);
+            }
+        });
 
         jTFUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFUsuario.setForeground(new java.awt.Color(153, 153, 153));
         jTFUsuario.setText("Usuário");
+        jTFUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFUsuarioMouseClicked(evt);
+            }
+        });
 
         jTFCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFCpf.setForeground(new java.awt.Color(153, 153, 153));
         jTFCpf.setText("CPF");
+        jTFCpf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFCpfMouseClicked(evt);
+            }
+        });
 
         jTFEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFEmail.setForeground(new java.awt.Color(153, 153, 153));
         jTFEmail.setText("Email");
+        jTFEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFEmailMouseClicked(evt);
+            }
+        });
 
         jTFTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFTelefone.setForeground(new java.awt.Color(153, 153, 153));
         jTFTelefone.setText("Telefone");
+        jTFTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFTelefoneMouseClicked(evt);
+            }
+        });
 
         jPFSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPFSenha.setForeground(new java.awt.Color(153, 153, 153));
         jPFSenha.setText("Senhaasasas");
+        jPFSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPFSenhaMouseClicked(evt);
+            }
+        });
 
         jBSalvar.setBackground(new java.awt.Color(90, 90, 205));
         jBSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -112,6 +163,11 @@ public class TelaUsuario extends javax.swing.JFrame {
         jBExcluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jBExcluir.setText("EXCLUIR");
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,20 +234,57 @@ public class TelaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-       if (!jTFNome.getText().equals("")) {
-           String nome = jTFNome.getText();
+
+        String senha = new String(jPFSenha.getPassword());
+        if (!jTFNome.getText().equals("")) {
+           String nomeUsuario = jTFNome.getText();
            if(!jTFUsuario.getText().equals("")){
-               String usuario = jTFUsuario.getText();
-               if (!jPFSenha.getPassword().equals("")){
-                   char[] senhaChar = jPFSenha.getPassword();
-                   String senha = new String(senhaChar);
-                   
+               String login = jTFUsuario.getText();
+               if (!senha.equals("")){
                    if (!jTFCpf.getText().equals("")){
                        String cpf = jTFCpf.getText();
                        if (!jTFEmail.getText().equals("")){
                            String email = jTFEmail.getText();
                            if (!jTFTelefone.getText().equals("")){
                                String telefone = jTFTelefone.getText();
+
+                               if(this.login == null) {
+                                    Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 1);
+                                    boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
+                                   if (usuarioExiste == true){
+                                        JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
+                                        jTFUsuario.grabFocus();
+                                   }else {
+                                       boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
+                                        if (resultado == true){
+                                            JOptionPane.showMessageDialog(rootPane, "Usuário inserido com sucesso.");
+                                            atualizaTabela();
+                                            limpaCampos();
+                                        } else {
+                                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser cadastrado.");
+                                        }
+                                   }                                    
+                               } else {
+                                   this.nomeUsuario.setNomeUsuario(nomeUsuario);
+                                   this.login.setLogin(login);
+                                   this.senha.setSenha(senha);
+                                   this.cpf.setCpf(cpf);
+                                   this.email.setEmail(email);
+                                   this.telefone.setTelefone(telefone);
+                                   Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 0);
+                                   boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
+                                   if (usuarioExiste == true){
+                                        JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
+                                        jTFUsuario.grabFocus();
+                                   }else {
+                                       boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(administrador);
+                                        if(resultado == true) {
+                                            JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
+                                        } else {
+                                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
+                                        }
+                                   } 
+                               }
                            } else{
                                JOptionPane.showMessageDialog(rootPane, "Erro: informe o telefone.");
                            }
@@ -210,9 +303,82 @@ public class TelaUsuario extends javax.swing.JFrame {
        } else {
            JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome.");
        }
+        
     }//GEN-LAST:event_jBSalvarActionPerformed
 
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        // TODO add your handling code here:
+        if (jTUsuarios.getSelectedRow() > 0){
+            int resposta = JOptionPane.showConfirmDialog(rootPane,
+                    "Deseja realmente excluir o usuário?",
+                    "Excluir",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION){
+                Usuario usuario = usuarioTableModel.getUsuario(jTUsuarios.getSelectedRow());
+                
+                boolean resultado = TeatroPereiraCliente.ccont.usuarioExcluir(usuario);
+                
+                if (resultado == true){
+                    JOptionPane.showMessageDialog(rootPane, "Usuário excluído com sucesso.");
+                    atualizaTabela();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane,
+                            "Erro: usuário não pode ser excluído.",
+                            "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }    
+        }
+    }//GEN-LAST:event_jBExcluirActionPerformed
 
+    private void jBNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoUsuarioActionPerformed
+        // TODO add your handling code here:
+        limpaCampos();
+    }//GEN-LAST:event_jBNovoUsuarioActionPerformed
+
+    private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jBVoltarActionPerformed
+
+    private void jTFTelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFTelefoneMouseClicked
+        jTFTelefone.setText("");
+    }//GEN-LAST:event_jTFTelefoneMouseClicked
+
+    private void jTFEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFEmailMouseClicked
+        jTFEmail.setText("");
+    }//GEN-LAST:event_jTFEmailMouseClicked
+
+    private void jTFCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFCpfMouseClicked
+        jTFCpf.setText("");
+    }//GEN-LAST:event_jTFCpfMouseClicked
+
+    private void jPFSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPFSenhaMouseClicked
+        jPFSenha.setText("");
+    }//GEN-LAST:event_jPFSenhaMouseClicked
+
+    private void jTFUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFUsuarioMouseClicked
+        jTFUsuario.setText("");
+    }//GEN-LAST:event_jTFUsuarioMouseClicked
+
+    private void jTFNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNomeMouseClicked
+        jTFNome.setText("");
+    }//GEN-LAST:event_jTFNomeMouseClicked
+
+    private void atualizaTabela() {
+        ArrayList<Usuario> listaUsuarios = TeatroPereiraCliente.ccont.usuarioLista();
+
+        usuarioTableModel = new UsuarioTableModel(listaUsuarios);
+        jTUsuarios.setModel(usuarioTableModel);
+    }
+    private void limpaCampos(){
+        jTFNome.setText("Nome completo");
+        jTFUsuario.setText("Usuário");
+        jPFSenha.setText("senhasenha");
+        jTFCpf.setText("CPF");
+        jTFEmail.setText("Email");
+        jTFTelefone.setText("Telefone");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBExcluir;
@@ -230,3 +396,4 @@ public class TelaUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTUsuarios;
     // End of variables declaration//GEN-END:variables
 }
+

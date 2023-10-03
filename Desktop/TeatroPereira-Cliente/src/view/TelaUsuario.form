@@ -108,6 +108,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="VOLTAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBVoltarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBNovoUsuario">
       <Properties>
@@ -122,6 +125,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="NOVO"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBNovoUsuarioActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLLogo">
       <Properties>
@@ -161,6 +167,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Nome completo"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFNomeMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFUsuario">
       <Properties>
@@ -172,6 +181,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFUsuarioMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFCpf">
       <Properties>
@@ -183,6 +195,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="CPF"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFCpfMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFEmail">
       <Properties>
@@ -194,6 +209,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFEmailMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFTelefone">
       <Properties>
@@ -205,6 +223,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Telefone"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFTelefoneMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPFSenha">
       <Properties>
@@ -216,6 +237,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Senhaasasas"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPFSenhaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBSalvar">
       <Properties>
@@ -247,6 +271,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="EXCLUIR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBExcluirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

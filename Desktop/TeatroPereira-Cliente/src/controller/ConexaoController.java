@@ -45,6 +45,24 @@ public class ConexaoController {
         return usuarioLogado;
     }
     
+    public boolean usuarioExiste(Usuario usuario){
+        boolean resultado;
+        String mensagem;
+        try{
+            out.writeObject("UsuarioExiste");
+            mensagem = (String) in.readObject();
+            out.writeObject(usuario);
+            resultado = (Boolean) in.readObject();
+        } catch(IOException ioe){
+            System.out.println("Erro: " + ioe.getMessage());
+            resultado = false;
+        } catch(ClassNotFoundException classe){
+            System.out.println("Erro: " + classe.getMessage());
+            resultado = false;
+        }
+        return resultado;
+    }
+    
     public boolean usuarioInserir(Usuario usuario) {
         boolean resultado;
         String mensagem;

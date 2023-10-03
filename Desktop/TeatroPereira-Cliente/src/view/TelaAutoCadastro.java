@@ -4,6 +4,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import modelDominio.Administrador;
+
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
@@ -65,6 +68,11 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
         jBCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         jBCadastrar.setText("CADASTRAR");
+        jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCadastrarActionPerformed(evt);
+            }
+        });
 
         jPFSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPFSenha.setForeground(new java.awt.Color(153, 153, 153));
@@ -115,6 +123,64 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
+            String senha = new String(jPFSenha.getPassword());
+        if (!jTFNome.getText().equals("")){
+            String nomeUsuario = jTFNome.getText();          
+            if (!jTFUsuario.getText().equals("")){               
+                String login = jTFUsuario.getText();
+                if(!senha.equals("")) {
+                    if (!jTFCpf.getText().equals("")){
+                        String cpf = jTFCpf.getText();
+                        if (!jTFEmail.getText().equals("")){
+                            String email = jTFEmail.getText();
+                            if (!jTFTelefone.getText().equals("")){
+                                String telefone = jTFTelefone.getText();
+                                  
+                                Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 0);
+                                
+                                boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
+                                if (usuarioExiste == true){
+                                    JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
+                                    jTFUsuario.grabFocus();
+                                } else {
+                                    boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
+                                
+                                    if (resultado == true){
+                                        JOptionPane.showMessageDialog(rootPane, "Usuário inserido com sucesso.");
+                                        dispose();
+                                    } else {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser cadastrado.");
+                                    }
+                                }
+                                
+                            } else{
+                                JOptionPane.showMessageDialog(rootPane, "Informe o telefone.");
+                                jTFTelefone.grabFocus();
+                            }                                 
+                        } else{
+                                JOptionPane.showMessageDialog(rootPane, "Informe o email");
+                                jTFEmail.grabFocus();
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Informe o CPF.");
+                        jTFCpf.grabFocus();
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(rootPane, "Informe a senha.");
+                    jPFSenha.grabFocus();
+                }
+            } else{
+                JOptionPane.showMessageDialog(rootPane, "Informe o usuário.");
+                jTFUsuario.grabFocus();
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome.");
+            jTFNome.grabFocus();
+        }   
+        
+    }//GEN-LAST:event_jBCadastrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

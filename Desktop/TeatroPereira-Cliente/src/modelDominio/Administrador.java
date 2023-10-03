@@ -24,7 +24,11 @@ public class Administrador extends Usuario implements Serializable{
     public Administrador(String login, String senha) {
         super(login, senha);
     }
-
+    
+    public Administrador(String login) {
+        super(login);
+    }
+    
     @Override
     public String toString() {
         return "Administrador{" + '}' + super.toString();

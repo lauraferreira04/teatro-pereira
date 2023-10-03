@@ -49,6 +49,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 jTFUsuarioMouseClicked(evt);
             }
         });
+        jTFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFUsuarioKeyReleased(evt);
+            }
+        });
 
         jBEntrar.setBackground(new java.awt.Color(90, 90, 205));
         jBEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -89,6 +94,16 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPFSenha.setForeground(new java.awt.Color(153, 153, 153));
         jPFSenha.setText("jPasswordField1");
+        jPFSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPFSenhaMouseClicked(evt);
+            }
+        });
+        jPFSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPFSenhaKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,6 +188,19 @@ public class TelaLogin extends javax.swing.JFrame {
     private void jTFUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFUsuarioMouseClicked
         jTFUsuario.setText("");
     }//GEN-LAST:event_jTFUsuarioMouseClicked
+
+    private void jTFUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFUsuarioKeyReleased
+        jLAvisoErro.setVisible(false);
+    }//GEN-LAST:event_jTFUsuarioKeyReleased
+
+    private void jPFSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSenhaKeyReleased
+        jLAvisoErro.setVisible(false);
+    }//GEN-LAST:event_jPFSenhaKeyReleased
+
+    private void jPFSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPFSenhaMouseClicked
+        jPFSenha.setText("");
+    }//GEN-LAST:event_jPFSenhaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastro;
     private javax.swing.JButton jBEntrar;
