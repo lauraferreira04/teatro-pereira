@@ -109,8 +109,8 @@ public class TelaHome extends javax.swing.JFrame {
     }//GEN-LAST:event_jBEventosActionPerformed
 
     private void jBSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSairActionPerformed
-        /*TeatroPereiraCliente.ccont.fim();
-        dispose();*/
+        TeatroPereiraCliente.ccont.fim();
+        dispose();
     }//GEN-LAST:event_jBSairActionPerformed
 
 

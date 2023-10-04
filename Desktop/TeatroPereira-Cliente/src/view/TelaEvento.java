@@ -5,9 +5,11 @@
 package view;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelDominio.Evento;
+import view.tablemodel.EventoTableModel;
 import view.util.Imagem;
 
 /**
@@ -16,6 +18,7 @@ import view.util.Imagem;
  */
 public class TelaEvento extends javax.swing.JFrame {
     Imagem imagem = null;
+    private EventoTableModel eventoTableModel;
     /**
      * Creates new form TelaEvento
      */
@@ -55,6 +58,11 @@ public class TelaEvento extends javax.swing.JFrame {
         jBVoltar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBVoltar.setForeground(new java.awt.Color(255, 255, 255));
         jBVoltar.setText("VOLTAR");
+        jBVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBVoltarActionPerformed(evt);
+            }
+        });
 
         jBNovo.setBackground(new java.awt.Color(90, 90, 205));
         jBNovo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -65,6 +73,11 @@ public class TelaEvento extends javax.swing.JFrame {
         jBExcluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jBExcluir.setText("EXCLUIR");
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
 
         jBSalvar.setBackground(new java.awt.Color(90, 90, 205));
         jBSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -244,6 +257,39 @@ public class TelaEvento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBSalvarActionPerformed
 
+    private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBVoltarActionPerformed
+
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        if (jTEventos.getSelectedRow() > 0){
+            int resposta = JOptionPane.showConfirmDialog(rootPane,
+                    "Deseja realmente excluir o evento?",
+                    "Excluir",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION){
+                Evento evento = eventoTableModel.getEvento(jTEventos.getSelectedRow());
+                
+                boolean resultado = TeatroPereiraCliente.ccont.eventoExcluir(evento);
+                
+                if (resultado == true){
+                    JOptionPane.showMessageDialog(rootPane, "Evento excluído com sucesso.");
+                    atualizaTabela();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane,
+                            "Erro: evento não pode ser excluído.",
+                            "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }    
+        }
+    }//GEN-LAST:event_jBExcluirActionPerformed
+    private void atualizaTabela() {
+        ArrayList<Evento> listaEventos = TeatroPereiraCliente.ccont.eventoLista();
+
+        eventoTableModel = new EventoTableModel(listaEventos);
+        jTEventos.setModel(eventoTableModel);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBExcluir;

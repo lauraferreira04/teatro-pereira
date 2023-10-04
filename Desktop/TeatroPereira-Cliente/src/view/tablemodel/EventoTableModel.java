@@ -55,7 +55,7 @@ public class EventoTableModel extends AbstractTableModel{
         }
     }
     
-    public Evento getBike(int row){
+    public Evento getEvento(int row){
         Evento evento = this.listaEventos.get(row);
         return evento;
     } 
