@@ -8,6 +8,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import model.EventoDao;
+import model.ReservaDao;
+import model.UsuarioDao;
+import modelDominio.Evento;
+import modelDominio.Usuario;
+import modelDominio.Reserva;
 
 /**
  *  trabalho interdisciplinar
@@ -29,6 +36,107 @@ public class TrataClienteController extends Thread{
         } catch(IOException ioe) {
             System.out.println("Erro: " + ioe.getMessage());
         }
+    }
+
+    @Override
+    public void run() {
+        String comando;
+        System.out.println("Esperando comandos do cliente: " + idUnico);
+        
+        try {
+           comando = (String)in.readObject();
+           while(!comando.equalsIgnoreCase("fim")) {
+               System.out.println("Cliente " + idUnico + " enviou o comando: " + comando);
+               if (comando.equalsIgnoreCase("UsuarioEfetuarLogin")) {
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    Usuario usuarioLogado = usuarioDao.efetuarLogin(usuario);
+                    out.writeObject(usuarioLogado);
+                    
+                } else if (comando.equalsIgnoreCase("UsuarioLista")){
+                    //
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    ArrayList<Usuario> listaUsuarios = usuarioDao.getListaUsuarios();            
+                    out.writeObject(listaUsuarios);
+                } else if (comando.equalsIgnoreCase("UsuarioExiste")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    boolean resultado = usuarioDao.usuarioExiste(usuario);
+                    out.writeObject(resultado);
+                } else if (comando.equalsIgnoreCase("UsuarioInserir")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    boolean resultado = usuarioDao.inserirUsuario(usuario);
+                    out.writeObject(resultado);
+                } else if (comando.equalsIgnoreCase("UsuarioAlterar")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    boolean resultado = usuarioDao.alterarUsuario(usuario);
+                    out.writeObject(resultado);
+                } else if (comando.equalsIgnoreCase("UsuarioExcluir")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    boolean resultado = usuarioDao.excluirUsuario(usuario);
+                    out.writeObject(resultado);                 
+                } else if (comando.equalsIgnoreCase("EventoLista")){
+                    //
+                    EventoDao eventoDao = new EventoDao();
+                    ArrayList<Evento> listaEventos = eventoDao.getListaEventos();            
+                    out.writeObject(listaEventos);
+                }    else if (comando.equalsIgnoreCase("EventoInserir")){
+                    out.writeObject("ok");
+                    Evento evento = (Evento) in.readObject();
+                    EventoDao eventoDao = new EventoDao();
+                    boolean resultado = eventoDao.inserirEvento(evento);
+                    out.writeObject(resultado);
+                } else if (comando.equalsIgnoreCase("EventoAlterar")){
+                    out.writeObject("ok");
+                    Evento evento = (Evento) in.readObject();
+                    EventoDao eventoDao = new EventoDao();
+                    boolean resultado = eventoDao.alterarEvento(evento);
+                    out.writeObject(resultado);
+                } else if (comando.equalsIgnoreCase("EventoExcluir")){
+                    out.writeObject("ok");
+                    Evento evento = (Evento) in.readObject();
+                    EventoDao eventoDao = new EventoDao();
+                    boolean resultado = eventoDao.excluirEvento(evento);
+                    out.writeObject(resultado);
+                    
+                } else if (comando.equalsIgnoreCase("EfetuarReserva")){
+                    out.writeObject("ok");
+                    Reserva reserva = (Reserva) in.readObject();
+                    ReservaDao reservaDao = new ReservaDao();
+                    Reserva reservaEfetuada = reservaDao.efetuarReserva(reserva);
+                    out.writeObject(reservaEfetuada);
+                } else if (comando.equalsIgnoreCase("ReservaLista")){
+                    //
+                    ReservaDao reservaDao = new ReservaDao();
+                    ArrayList<Reserva> listaReservas = reservaDao.getListaReservas();            
+                    out.writeObject(listaReservas);
+                }
+
+           }      
+           
+        } catch(IOException ioe) {
+            System.out.println("Erro: " + ioe.getMessage());
+        } catch(ClassNotFoundException classe) {
+            System.out.println("Erro: " + classe.getMessage());
+        }
+        
+         try {
+            System.out.println("Cliente " + idUnico + " finalizou a conexão.");
+            in.close();
+            out.close();
+            socket.close();
+        } catch(IOException ioe) {
+            System.out.println("Erro: " + ioe.getMessage());
+        }
+         
     }
     
     

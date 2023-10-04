@@ -10,6 +10,7 @@ import modelDominio.Reserva;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import modelDominio.Evento;
 import modelDominio.Usuario;
 
@@ -60,5 +61,35 @@ public class ReservaDao {
             reservaEfetuada = null;
         }
         return reservaEfetuada;
+    }
+    
+    public ArrayList<Reserva> getListaReservas() {
+        ArrayList<Reserva> listaReservas = new ArrayList<>();
+        PreparedStatement stmt = null;
+        try {
+            String sql = "select * from reserva ";
+            stmt = con.prepareStatement(sql);
+            ResultSet res = stmt.executeQuery();
+            
+            while(res.next()){
+                int idReserva = res.getInt("idreserva");
+                String usuario = res.getString("nomeusuario");
+                String evento = res.getString("nomeevento");
+                int qtdCadeiras = res.getInt("qtdcadeiras");
+                float valorTotal = res.getFloat("valor");
+                
+                //Reserva reserva = new Reserva(idReserva, usuario, evento, qtdCadeiras, valorTotal);
+                
+                //listaReservas.add(reserva);
+            }
+            res.close();
+            con.close();            
+            stmt.close();
+            
+        } catch (SQLException exc){
+            System.out.println("Erro: " + exc.getMessage());
+            listaReservas = null;
+        }
+        return listaReservas;
     }
 }

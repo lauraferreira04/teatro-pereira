@@ -107,7 +107,7 @@ public class EventoDao {
         }
         return resultado;
     }
-    public boolean exclirEvento (Evento evento){
+    public boolean excluirEvento (Evento evento){
         boolean resultado;
         PreparedStatement stmt = null;
         try {
@@ -152,12 +152,12 @@ public class EventoDao {
                 int idEvento = res.getInt("idevento");
                 String nomeArtista = res.getString("nomeartista");
                 String nomeEvento = res.getString("nomeevento");
-                Date datahora = res.getDate("datahora");
+                Date data = res.getDate("datahora");
                 float valor = res.getFloat("valor");
                 int qtdCadeiras = res.getInt("qtdcadeiras");
                 byte[] banner = res.getBytes("banner");
                 
-                Evento evento = new Evento(idEvento, nomeEvento, nomeArtista, datahora, valor, qtdCadeiras, banner);
+                Evento evento = new Evento(idEvento, nomeEvento, nomeArtista, data, valor, qtdCadeiras, banner);
                 
                 listaEventos.add(evento);
             }

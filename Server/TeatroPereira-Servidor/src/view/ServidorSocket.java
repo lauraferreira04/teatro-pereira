@@ -4,17 +4,31 @@
  */
 package view;
 
+import controller.TrataClienteController;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
  */
 public class ServidorSocket {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            ServerSocket servidor = new ServerSocket(12345);
+            System.out.println("Servidor inicializado. Aguardando conexão...");
+            int idUnico = 0;
+            while(true) {
+                Socket cliente = servidor.accept();
+                System.out.println("Um novo cliente se conectou: " + cliente);
+                idUnico++;
+                System.out.println("Iniciando nova thread para o cliente: " + idUnico);
+                TrataClienteController trataCliente = new TrataClienteController(cliente, idUnico);
+            }
+        } catch(IOException ioe) {
+            System.out.println("Erro: " + ioe.getMessage());
+        }
     }
     
 }

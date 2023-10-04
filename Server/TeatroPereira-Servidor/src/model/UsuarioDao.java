@@ -209,8 +209,7 @@ public class UsuarioDao {
             String sql = "select * from usuario";
             stmt = con.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
-            
-            
+                        
             while(res.next()){
                 int idUsuario = res.getInt("idusuario");
                 String nomeusuario = res.getString("nomeusuario");
