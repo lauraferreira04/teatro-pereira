@@ -45,7 +45,7 @@ public class TrataClienteController extends Thread{
         
         try {
            comando = (String)in.readObject();
-           while(!comando.equalsIgnoreCase("fim")) {
+            while(!comando.equalsIgnoreCase("fim")) {
                System.out.println("Cliente " + idUnico + " enviou o comando: " + comando);
                if (comando.equalsIgnoreCase("UsuarioEfetuarLogin")) {
                     out.writeObject("ok");
@@ -119,7 +119,7 @@ public class TrataClienteController extends Thread{
                     ArrayList<Reserva> listaReservas = reservaDao.getListaReservas();            
                     out.writeObject(listaReservas);
                 }
-
+                comando = (String)in.readObject();
            }      
            
         } catch(IOException ioe) {
@@ -136,8 +136,5 @@ public class TrataClienteController extends Thread{
         } catch(IOException ioe) {
             System.out.println("Erro: " + ioe.getMessage());
         }
-         
     }
-    
-    
 }
