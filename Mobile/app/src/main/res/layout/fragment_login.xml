@@ -4,38 +4,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="15dp"
+    android:gravity="center"
     tools:context=".view.LoginFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvLoginUsuario"
-        android:text="Usuário: "/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etLoginUsuario"/>
+    <ImageView
+        android:layout_width="672px"
+        android:layout_height="240px"
+        android:src="@drawable/logo_pereira"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvLoginSenha"
-        android:text="Senha: "/>
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etLoginSenha"/>
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="20dp">
 
-    <Button
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/tvLoginUsuario"
+            android:text="Usuário: " />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/etLoginUsuario" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bLoginEntrar"
-        android:text="Entrar"/>
-    <Button
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/tvLoginSenha"
+            android:text="Senha: "/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/etLoginSenha"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bLoginCadastro"
-        android:text="Cadastro"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginRight="7dp"
+            android:id="@+id/bLoginEntrar"
+            android:text="Entrar"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginLeft="7dp"
+            android:id="@+id/bLoginCadastro"
+            android:text="Cadastro"/>
+    </LinearLayout>
 
 </LinearLayout>
