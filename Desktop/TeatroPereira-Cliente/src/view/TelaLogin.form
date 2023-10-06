@@ -36,7 +36,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jBCadastro" min="-2" pref="99" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jTFUsuario" pref="211" max="32767" attributes="0"/>
+                          <Component id="jTFUsuario" min="-2" pref="211" max="-2" attributes="0"/>
                           <Component id="jPFSenha" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -59,8 +59,8 @@
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="jTFUsuario" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jPFSenha" pref="30" max="32767" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jPFSenha" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jLRecuperarSenha" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
