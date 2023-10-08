@@ -168,7 +168,8 @@
         <Property name="text" type="java.lang.String" value="Nome completo"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFNomeMouseClicked"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFNomeFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFNomeFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFUsuario">
@@ -182,7 +183,8 @@
         <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFUsuarioMouseClicked"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFUsuarioFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFUsuarioFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFCpf">
@@ -196,7 +198,8 @@
         <Property name="text" type="java.lang.String" value="CPF"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFCpfMouseClicked"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFCpfFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFCpfFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFEmail">
@@ -210,7 +213,8 @@
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFEmailMouseClicked"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFEmailFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFEmailFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFTelefone">
@@ -224,7 +228,8 @@
         <Property name="text" type="java.lang.String" value="Telefone"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTFTelefoneMouseClicked"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFTelefoneFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFTelefoneFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPFSenha">
@@ -235,10 +240,11 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="99" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Senhaasasas"/>
+        <Property name="text" type="java.lang.String" value="senhasenha"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPFSenhaMouseClicked"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jPFSenhaFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jPFSenhaFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBSalvar">

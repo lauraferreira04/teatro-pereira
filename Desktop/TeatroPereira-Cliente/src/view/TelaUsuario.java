@@ -28,6 +28,7 @@ public class TelaUsuario extends javax.swing.JFrame {
      */
     public TelaUsuario() {
         initComponents();
+        jLLogo.requestFocus();
     }
 
     /**
@@ -98,54 +99,72 @@ public class TelaUsuario extends javax.swing.JFrame {
         jTFNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFNome.setForeground(new java.awt.Color(153, 153, 153));
         jTFNome.setText("Nome completo");
-        jTFNome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFNomeMouseClicked(evt);
+        jTFNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFNomeFocusLost(evt);
             }
         });
 
         jTFUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFUsuario.setForeground(new java.awt.Color(153, 153, 153));
         jTFUsuario.setText("Usuário");
-        jTFUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFUsuarioMouseClicked(evt);
+        jTFUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFUsuarioFocusLost(evt);
             }
         });
 
         jTFCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFCpf.setForeground(new java.awt.Color(153, 153, 153));
         jTFCpf.setText("CPF");
-        jTFCpf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFCpfMouseClicked(evt);
+        jTFCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFCpfFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFCpfFocusLost(evt);
             }
         });
 
         jTFEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFEmail.setForeground(new java.awt.Color(153, 153, 153));
         jTFEmail.setText("Email");
-        jTFEmail.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFEmailMouseClicked(evt);
+        jTFEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFEmailFocusLost(evt);
             }
         });
 
         jTFTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFTelefone.setForeground(new java.awt.Color(153, 153, 153));
         jTFTelefone.setText("Telefone");
-        jTFTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFTelefoneMouseClicked(evt);
+        jTFTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFTelefoneFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFTelefoneFocusLost(evt);
             }
         });
 
         jPFSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPFSenha.setForeground(new java.awt.Color(153, 153, 153));
-        jPFSenha.setText("Senhaasasas");
-        jPFSenha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPFSenhaMouseClicked(evt);
+        jPFSenha.setText("senhasenha");
+        jPFSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPFSenhaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPFSenhaFocusLost(evt);
             }
         });
 
@@ -341,29 +360,77 @@ public class TelaUsuario extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jBVoltarActionPerformed
 
-    private void jTFTelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFTelefoneMouseClicked
-        jTFTelefone.setText("");
-    }//GEN-LAST:event_jTFTelefoneMouseClicked
+    private void jTFNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNomeFocusLost
+        if (jTFNome.getText().isEmpty()) {
+            jTFNome.setText("Nome completo");
+        }
+    }//GEN-LAST:event_jTFNomeFocusLost
 
-    private void jTFEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFEmailMouseClicked
-        jTFEmail.setText("");
-    }//GEN-LAST:event_jTFEmailMouseClicked
+    private void jTFNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNomeFocusGained
+        if (jTFNome.getText().equals("Nome completo")) {
+            jTFNome.setText("");
+        }
+    }//GEN-LAST:event_jTFNomeFocusGained
 
-    private void jTFCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFCpfMouseClicked
-        jTFCpf.setText("");
-    }//GEN-LAST:event_jTFCpfMouseClicked
+    private void jTFUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusGained
+        if (jTFUsuario.getText().equals("Usuário")) {
+            jTFUsuario.setText("");
+        }
+    }//GEN-LAST:event_jTFUsuarioFocusGained
 
-    private void jPFSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPFSenhaMouseClicked
-        jPFSenha.setText("");
-    }//GEN-LAST:event_jPFSenhaMouseClicked
+    private void jTFUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusLost
+        if (jTFUsuario.getText().equals("Usuário")) {
+            jTFUsuario.setText("");
+        }
+    }//GEN-LAST:event_jTFUsuarioFocusLost
 
-    private void jTFUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFUsuarioMouseClicked
-        jTFUsuario.setText("");
-    }//GEN-LAST:event_jTFUsuarioMouseClicked
+    private void jPFSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPFSenhaFocusGained
+        if (new String(jPFSenha.getPassword()).equals("senhasenha")) {
+            jPFSenha.setText("");
+        }
+    }//GEN-LAST:event_jPFSenhaFocusGained
 
-    private void jTFNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNomeMouseClicked
-        jTFNome.setText("");
-    }//GEN-LAST:event_jTFNomeMouseClicked
+    private void jPFSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPFSenhaFocusLost
+        if (new String(jPFSenha.getPassword()).isEmpty()) {
+            jPFSenha.setText("senhasenha");
+        }
+    }//GEN-LAST:event_jPFSenhaFocusLost
+
+    private void jTFCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCpfFocusLost
+        if (jTFCpf.getText().isEmpty()) {
+            jTFCpf.setText("CPF");
+        }
+    }//GEN-LAST:event_jTFCpfFocusLost
+
+    private void jTFCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCpfFocusGained
+        if (jTFCpf.getText().equals("CPF")) {
+            jTFCpf.setText("");
+        }
+    }//GEN-LAST:event_jTFCpfFocusGained
+
+    private void jTFEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusLost
+        if (jTFEmail.getText().isEmpty()) {
+            jTFEmail.setText("Email");
+        }
+    }//GEN-LAST:event_jTFEmailFocusLost
+
+    private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained
+        if (jTFEmail.getText().equals("Email")) {
+            jTFEmail.setText("");
+        }
+    }//GEN-LAST:event_jTFEmailFocusGained
+
+    private void jTFTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFTelefoneFocusGained
+        if (jTFTelefone.getText().equals("Telefone")) {
+            jTFTelefone.setText("");
+        }
+    }//GEN-LAST:event_jTFTelefoneFocusGained
+
+    private void jTFTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFTelefoneFocusLost
+        if (jTFTelefone.getText().isEmpty()) {
+            jTFTelefone.setText("Telefone");
+        }
+    }//GEN-LAST:event_jTFTelefoneFocusLost
 
     private void atualizaTabela() {
         ArrayList<Usuario> listaUsuarios = TeatroPereiraCliente.ccont.usuarioLista();

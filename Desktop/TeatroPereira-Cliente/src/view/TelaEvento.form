@@ -191,6 +191,10 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Nome evento"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFNomeEventoFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFNomeEventoFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFArtista">
       <Properties>
@@ -202,6 +206,10 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Artista"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFArtistaFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFArtistaFocusLost"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -251,6 +259,10 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFDataFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFDataFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="jCBQtdCadeiras">
       <Properties>
@@ -286,6 +298,10 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFValorFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFValorFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFTFHora">
       <Properties>
@@ -297,6 +313,10 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFHoraFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFHoraFocusLost"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

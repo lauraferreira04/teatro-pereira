@@ -78,6 +78,10 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFEmailFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFEmailFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBAlterar">
       <Properties>
@@ -106,6 +110,10 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFUsuarioFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFUsuarioFocusLost"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

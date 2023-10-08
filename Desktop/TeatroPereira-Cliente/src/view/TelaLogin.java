@@ -21,6 +21,7 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
         
         jLAvisoErro.setVisible(false);
+        jLLogo.requestFocus();
     }
 
     /**
@@ -45,9 +46,12 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jTFUsuario.setForeground(new java.awt.Color(153, 153, 153));
         jTFUsuario.setText("Usuário");
-        jTFUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTFUsuarioMouseClicked(evt);
+        jTFUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFUsuarioFocusLost(evt);
             }
         });
         jTFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -100,10 +104,13 @@ public class TelaLogin extends javax.swing.JFrame {
         jLAvisoErro.setText("Usuário e/ou senha inválida");
 
         jPFSenha.setForeground(new java.awt.Color(153, 153, 153));
-        jPFSenha.setText("jPasswordField1");
-        jPFSenha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPFSenhaMouseClicked(evt);
+        jPFSenha.setText("senhasenha");
+        jPFSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPFSenhaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPFSenhaFocusLost(evt);
             }
         });
         jPFSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +187,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     telaHome.setVisible(true);
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Erro: usuário e/ou senha inválidos.");
+                    //JOptionPane.showMessageDialog(rootPane, "Erro: usuário e/ou senha inválidos.");
                     jLAvisoErro.setVisible(true);
                 }
             } else {
@@ -201,10 +208,6 @@ public class TelaLogin extends javax.swing.JFrame {
         telaRecuperarSenha.setVisible(true);
     }//GEN-LAST:event_jLRecuperarSenhaMouseClicked
 
-    private void jTFUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFUsuarioMouseClicked
-        jTFUsuario.setText("");
-    }//GEN-LAST:event_jTFUsuarioMouseClicked
-
     private void jTFUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFUsuarioKeyReleased
         jLAvisoErro.setVisible(false);
     }//GEN-LAST:event_jTFUsuarioKeyReleased
@@ -212,10 +215,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private void jPFSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSenhaKeyReleased
         jLAvisoErro.setVisible(false);
     }//GEN-LAST:event_jPFSenhaKeyReleased
-
-    private void jPFSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPFSenhaMouseClicked
-        jPFSenha.setText("");
-    }//GEN-LAST:event_jPFSenhaMouseClicked
 
     private void jPFSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPFSenhaActionPerformed
         jPFSenha.setText("");
@@ -228,6 +227,30 @@ public class TelaLogin extends javax.swing.JFrame {
     private void jLRecuperarSenhaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLRecuperarSenhaMouseEntered
         jLRecuperarSenha.setForeground(Color.BLACK);
     }//GEN-LAST:event_jLRecuperarSenhaMouseEntered
+
+    private void jTFUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusGained
+        if (jTFUsuario.getText().equals("Usuário")) {
+            jTFUsuario.setText("");
+        }
+    }//GEN-LAST:event_jTFUsuarioFocusGained
+
+    private void jTFUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusLost
+        if (jTFUsuario.getText().isEmpty()) {
+            jTFUsuario.setText("Usuário");
+        }
+    }//GEN-LAST:event_jTFUsuarioFocusLost
+
+    private void jPFSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPFSenhaFocusGained
+        if (new String(jPFSenha.getPassword()).equals("senhasenha")) {
+            jPFSenha.setText("");
+        }
+    }//GEN-LAST:event_jPFSenhaFocusGained
+
+    private void jPFSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPFSenhaFocusLost
+        if (new String(jPFSenha.getPassword()).isEmpty()) {
+            jPFSenha.setText("senhasenha");
+        }   
+    }//GEN-LAST:event_jPFSenhaFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastro;

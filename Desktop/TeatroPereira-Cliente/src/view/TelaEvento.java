@@ -24,6 +24,7 @@ public class TelaEvento extends javax.swing.JFrame {
      */
     public TelaEvento() {
         initComponents();
+        jLLogo.requestFocus();
     }
 
     /**
@@ -94,10 +95,26 @@ public class TelaEvento extends javax.swing.JFrame {
         jTFNomeEvento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFNomeEvento.setForeground(new java.awt.Color(153, 153, 153));
         jTFNomeEvento.setText("Nome evento");
+        jTFNomeEvento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFNomeEventoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFNomeEventoFocusLost(evt);
+            }
+        });
 
         jTFArtista.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFArtista.setForeground(new java.awt.Color(153, 153, 153));
         jTFArtista.setText("Artista");
+        jTFArtista.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFArtistaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFArtistaFocusLost(evt);
+            }
+        });
 
         jTEventos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTEventos.setModel(new javax.swing.table.DefaultTableModel(
@@ -124,6 +141,14 @@ public class TelaEvento extends javax.swing.JFrame {
         jFTFData.setForeground(new java.awt.Color(153, 153, 153));
         jFTFData.setText("Data");
         jFTFData.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jFTFData.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jFTFDataFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFTFDataFocusLost(evt);
+            }
+        });
 
         jCBQtdCadeiras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jCBQtdCadeiras.setForeground(new java.awt.Color(153, 153, 153));
@@ -132,10 +157,26 @@ public class TelaEvento extends javax.swing.JFrame {
         jFTFValor.setForeground(new java.awt.Color(153, 153, 153));
         jFTFValor.setText("R$");
         jFTFValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jFTFValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jFTFValorFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFTFValorFocusLost(evt);
+            }
+        });
 
         jFTFHora.setForeground(new java.awt.Color(153, 153, 153));
         jFTFHora.setText("Hora");
         jFTFHora.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jFTFHora.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jFTFHoraFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFTFHoraFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,6 +325,66 @@ public class TelaEvento extends javax.swing.JFrame {
             }    
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
+
+    private void jTFNomeEventoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNomeEventoFocusLost
+        if (jTFNomeEvento.getText().isEmpty()) {
+            jTFNomeEvento.setText("Nome evento");
+        }
+    }//GEN-LAST:event_jTFNomeEventoFocusLost
+
+    private void jTFNomeEventoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFNomeEventoFocusGained
+        if (jTFNomeEvento.getText().equals("Nome evento")) {
+        jTFNomeEvento.setText("");
+    }
+    }//GEN-LAST:event_jTFNomeEventoFocusGained
+
+    private void jTFArtistaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFArtistaFocusGained
+        if (jTFArtista.getText().equals("Artista")) {
+            jTFArtista.setText("");
+        }
+    }//GEN-LAST:event_jTFArtistaFocusGained
+
+    private void jTFArtistaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFArtistaFocusLost
+        if (jTFArtista.getText().isEmpty()) {
+            jTFArtista.setText("Artista");
+        }
+    }//GEN-LAST:event_jTFArtistaFocusLost
+
+    private void jFTFDataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFDataFocusGained
+        if (jFTFData.getText().equals("Data")) {
+            jFTFData.setText("");
+        }
+    }//GEN-LAST:event_jFTFDataFocusGained
+
+    private void jFTFDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFDataFocusLost
+        if (jFTFData.getText().isEmpty()) {
+            jFTFData.setText("Data");
+        }
+    }//GEN-LAST:event_jFTFDataFocusLost
+
+    private void jFTFHoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFHoraFocusGained
+        if (jFTFHora.getText().equals("Hora")) {
+            jFTFHora.setText("");
+        }
+    }//GEN-LAST:event_jFTFHoraFocusGained
+
+    private void jFTFHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFHoraFocusLost
+        if (jFTFHora.getText().isEmpty()) {
+            jFTFHora.setText("Hora");
+        }
+    }//GEN-LAST:event_jFTFHoraFocusLost
+
+    private void jFTFValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFValorFocusGained
+        if (jFTFValor.getText().equals("Valor")) {
+            jFTFValor.setText("");
+        }
+    }//GEN-LAST:event_jFTFValorFocusGained
+
+    private void jFTFValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFValorFocusLost
+        if (jFTFValor.getText().isEmpty()) {
+            jFTFValor.setText("Valor");
+        }
+    }//GEN-LAST:event_jFTFValorFocusLost
     private void atualizaTabela() {
         ArrayList<Evento> listaEventos = TeatroPereiraCliente.ccont.eventoLista();
 

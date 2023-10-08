@@ -17,6 +17,7 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
      */
     public TelaRecuperarSenha() {
         initComponents();
+        jLLogo.requestFocus();
     }
 
     /**
@@ -42,6 +43,14 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         jTFEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFEmail.setForeground(new java.awt.Color(153, 153, 153));
         jTFEmail.setText("Email");
+        jTFEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFEmailFocusLost(evt);
+            }
+        });
 
         jBAlterar.setBackground(new java.awt.Color(90, 90, 205));
         jBAlterar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -56,6 +65,14 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         jTFUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTFUsuario.setForeground(new java.awt.Color(153, 153, 153));
         jTFUsuario.setText("Usuário");
+        jTFUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFUsuarioFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,6 +116,30 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Senha alterada", "Foi enviado um email com sua nova senha,"
         + " troque-a assim que fizer login novamente", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jBAlterarActionPerformed
+
+    private void jTFUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusGained
+        if (jTFUsuario.getText().equals("Usuário")) {
+            jTFUsuario.setText("");
+        }
+    }//GEN-LAST:event_jTFUsuarioFocusGained
+
+    private void jTFUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusLost
+        if (jTFUsuario.getText().isEmpty()) {
+            jTFUsuario.setText("Usuário");
+        }
+    }//GEN-LAST:event_jTFUsuarioFocusLost
+
+    private void jTFEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusLost
+        if (jTFEmail.getText().isEmpty()) {
+            jTFEmail.setText("Email");
+        }
+    }//GEN-LAST:event_jTFEmailFocusLost
+
+    private void jTFEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFEmailFocusGained
+        if (jTFEmail.getText().equals("Email")) {
+            jTFEmail.setText("");
+        }
+    }//GEN-LAST:event_jTFEmailFocusGained
 
 
 
