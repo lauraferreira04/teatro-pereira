@@ -379,8 +379,8 @@ public class TelaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFUsuarioFocusGained
 
     private void jTFUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusLost
-        if (jTFUsuario.getText().equals("Usuário")) {
-            jTFUsuario.setText("");
+        if (jTFUsuario.getText().isEmpty()) {
+            jTFUsuario.setText("Usuário");
         }
     }//GEN-LAST:event_jTFUsuarioFocusLost
 

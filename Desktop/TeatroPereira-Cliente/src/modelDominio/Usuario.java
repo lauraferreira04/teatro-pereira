@@ -51,7 +51,20 @@ public class Usuario implements Serializable{
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
     }
+
+    public Usuario(String login, String cpf, String email) {
+        this.login = login;
+        this.cpf = cpf;
+        this.email = email;
+    }
     
+    public Usuario(String login, String cpf, String email, String senha) {
+        this.login = login;
+        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
+    }
+           
     public Usuario(String login){
         this.login = login;
     }
@@ -124,4 +137,6 @@ public class Usuario implements Serializable{
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", nomeUsuario=" + nomeUsuario + ", login=" + login + ", senha=" + senha + ", cpf=" + cpf + ", email=" + email + ", telefone=" + telefone + ", tipoUsuario=" + tipo + '}';
     }
+    
+    
 }

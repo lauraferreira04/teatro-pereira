@@ -19,6 +19,13 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
     public TelaAutoCadastro() {
         initComponents();
         jLLogo.requestFocus();
+        
+        jTFNome.addActionListener(e -> jTFUsuario.requestFocus());
+        jTFUsuario.addActionListener(e -> jPFSenha.requestFocus());
+        jPFSenha.addActionListener(e -> jTFCpf.requestFocus());
+        jTFCpf.addActionListener(e -> jTFEmail.requestFocus());
+        jTFEmail.addActionListener(e -> jTFTelefone.requestFocus());
+        jTFTelefone.addActionListener(e -> jBCadastrar.doClick());
     }
 
     /**
@@ -175,16 +182,16 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
             String senha = new String(jPFSenha.getPassword());
-        if (!jTFNome.getText().equals("")){
+        if (!jTFNome.getText().equals("") && !jTFNome.getText().equals("Nome completo")){
             String nomeUsuario = jTFNome.getText();          
-            if (!jTFUsuario.getText().equals("")){               
+            if (!jTFUsuario.getText().equals("") && !jTFUsuario.getText().equals("Usuário")){               
                 String login = jTFUsuario.getText();
-                if(!senha.equals("")) {
-                    if (!jTFCpf.getText().equals("")){
+                if(!senha.equals("") || !senha.equals("senhasenha")) {
+                    if (!jTFCpf.getText().equals("") && !jTFCpf.getText().equals("CPF")){
                         String cpf = jTFCpf.getText();
-                        if (!jTFEmail.getText().equals("")){
+                        if (!jTFEmail.getText().equals("") && !jTFEmail.getText().equals("Email")){
                             String email = jTFEmail.getText();
-                            if (!jTFTelefone.getText().equals("")){
+                            if (!jTFTelefone.getText().equals("") && !jTFTelefone.getText().equals("Telefone")){
                                 String telefone = jTFTelefone.getText();
                                   
                                 Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 0);
@@ -205,27 +212,27 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
                                 }
                                 
                             } else{
-                                JOptionPane.showMessageDialog(rootPane, "Informe o telefone.");
+                                JOptionPane.showMessageDialog(rootPane, "Erro: informe o telefone.");
                                 jTFTelefone.grabFocus();
                             }                                 
                         } else{
-                                JOptionPane.showMessageDialog(rootPane, "Informe o email");
+                                JOptionPane.showMessageDialog(rootPane, "\"Erro: informe o email");
                                 jTFEmail.grabFocus();
                         }
                     }else{
-                        JOptionPane.showMessageDialog(rootPane, "Informe o CPF.");
+                        JOptionPane.showMessageDialog(rootPane, "\"Erro: informe o CPF.");
                         jTFCpf.grabFocus();
                     }
                 } else{
-                    JOptionPane.showMessageDialog(rootPane, "Informe a senha.");
+                    JOptionPane.showMessageDialog(rootPane, "Erro: informe a senha.");
                     jPFSenha.grabFocus();
                 }
             } else{
-                JOptionPane.showMessageDialog(rootPane, "Informe o usuário.");
+                JOptionPane.showMessageDialog(rootPane, "Erro: informe o usuário.");
                 jTFUsuario.grabFocus();
             }
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome.");
+            JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome.");
             jTFNome.grabFocus();
         }   
         

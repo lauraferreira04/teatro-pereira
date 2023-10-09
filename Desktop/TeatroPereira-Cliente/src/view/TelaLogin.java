@@ -20,8 +20,10 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         initComponents();
         
-        jLAvisoErro.setVisible(false);
         jLLogo.requestFocus();
+        
+        jTFUsuario.addActionListener(e -> jPFSenha.requestFocus());
+        jPFSenha.addActionListener(e -> jBEntrar.doClick());
     }
 
     /**
@@ -38,7 +40,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jBCadastro = new javax.swing.JButton();
         jLRecuperarSenha = new javax.swing.JLabel();
         jLLogo = new javax.swing.JLabel();
-        jLAvisoErro = new javax.swing.JLabel();
         jPFSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,11 +53,6 @@ public class TelaLogin extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTFUsuarioFocusLost(evt);
-            }
-        });
-        jTFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTFUsuarioKeyReleased(evt);
             }
         });
 
@@ -99,10 +95,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/logo pereira.png"))); // NOI18N
 
-        jLAvisoErro.setForeground(new java.awt.Color(90, 90, 205));
-        jLAvisoErro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLAvisoErro.setText("Usuário e/ou senha inválida");
-
         jPFSenha.setForeground(new java.awt.Color(153, 153, 153));
         jPFSenha.setText("senhasenha");
         jPFSenha.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -118,18 +110,12 @@ public class TelaLogin extends javax.swing.JFrame {
                 jPFSenhaActionPerformed(evt);
             }
         });
-        jPFSenha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jPFSenhaKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLAvisoErro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -151,9 +137,7 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jLAvisoErro)
-                .addGap(15, 15, 15)
+                .addGap(46, 46, 46)
                 .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,8 +171,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     telaHome.setVisible(true);
                     dispose();
                 } else {
-                    //JOptionPane.showMessageDialog(rootPane, "Erro: usuário e/ou senha inválidos.");
-                    jLAvisoErro.setVisible(true);
+                    JOptionPane.showMessageDialog(rootPane, "Erro: usuário e/ou senha inválidos.");
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro: informe a senha.");
@@ -207,14 +190,6 @@ public class TelaLogin extends javax.swing.JFrame {
         TelaRecuperarSenha telaRecuperarSenha = new TelaRecuperarSenha();
         telaRecuperarSenha.setVisible(true);
     }//GEN-LAST:event_jLRecuperarSenhaMouseClicked
-
-    private void jTFUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFUsuarioKeyReleased
-        jLAvisoErro.setVisible(false);
-    }//GEN-LAST:event_jTFUsuarioKeyReleased
-
-    private void jPFSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPFSenhaKeyReleased
-        jLAvisoErro.setVisible(false);
-    }//GEN-LAST:event_jPFSenhaKeyReleased
 
     private void jPFSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPFSenhaActionPerformed
         jPFSenha.setText("");
@@ -255,7 +230,6 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastro;
     private javax.swing.JButton jBEntrar;
-    private javax.swing.JLabel jLAvisoErro;
     private javax.swing.JLabel jLLogo;
     private javax.swing.JLabel jLRecuperarSenha;
     private javax.swing.JPasswordField jPFSenha;

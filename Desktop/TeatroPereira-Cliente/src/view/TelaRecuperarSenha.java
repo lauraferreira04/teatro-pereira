@@ -5,19 +5,19 @@
 package view;
 
 import javax.swing.JOptionPane;
+import modelDominio.Administrador;
+import modelDominio.Usuario;
 
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
  */
 public class TelaRecuperarSenha extends javax.swing.JFrame {
-
-    /**
-     * Creates new form TelaEsqueceuSenha
-     */
+        
     public TelaRecuperarSenha() {
         initComponents();
         jLLogo.requestFocus();
+        
     }
 
     /**
@@ -33,6 +33,7 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         jTFEmail = new javax.swing.JTextField();
         jBAlterar = new javax.swing.JButton();
         jTFUsuario = new javax.swing.JTextField();
+        jTFCpf = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Recuperar senha");
@@ -74,6 +75,18 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
             }
         });
 
+        jTFCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTFCpf.setForeground(new java.awt.Color(153, 153, 153));
+        jTFCpf.setText("CPF");
+        jTFCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFCpfFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFCpfFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,7 +101,8 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTFCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53))))
         );
         layout.setVerticalGroup(
@@ -96,9 +110,11 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jTFCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(jTFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -110,11 +126,47 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
-    
-        
-        
-        JOptionPane.showMessageDialog(null, "Senha alterada", "Foi enviado um email com sua nova senha,"
-        + " troque-a assim que fizer login novamente", JOptionPane.INFORMATION_MESSAGE);
+        if(!jTFUsuario.getText().equals("") && !jTFUsuario.getText().equals("Usuário")) {
+            String login = jTFUsuario.getText();
+            if (!jTFCpf.getText().equals("") && !jTFCpf.getText().equals("CPF")){
+                String cpf = jTFCpf.getText();
+                if (!jTFEmail.getText().equals("") && !jTFEmail.getText().equals("Email")){
+                    String email = jTFEmail.getText();
+                    
+                    
+                    
+                    Usuario usuario = new Usuario(login, cpf, email);
+                    
+                    boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(usuario);
+                    if (usuarioExiste == true){
+                        String senha = "123456";
+                        
+                        Usuario usuario1 = new Usuario(login, cpf, email, senha);
+
+                        boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
+                        
+                        if(resultado == true) {
+                            JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
+                        }
+                        
+                        JOptionPane.showMessageDialog(null, "Foi enviado um email com sua nova senha,"
+                            + " troque-a assim que fizer login novamente", "Senha alterada", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "O usuário, cpf e/ou email informado não existe,"
+                            + " confira se as informações estão corretas", "Usuário não encontrado", JOptionPane.WARNING_MESSAGE);
+                    }    
+                    
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Erro: informe o email.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro: informe o CPF.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Erro: informe o usuário.");
+        }        
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     private void jTFUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFUsuarioFocusGained
@@ -141,11 +193,24 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTFEmailFocusGained
 
+    private void jTFCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCpfFocusGained
+        if (jTFCpf.getText().equals("CPF")) {
+            jTFCpf.setText("");
+        }
+    }//GEN-LAST:event_jTFCpfFocusGained
+
+    private void jTFCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCpfFocusLost
+        if (jTFCpf.getText().isEmpty()) {
+            jTFCpf.setText("CPF");
+        }
+    }//GEN-LAST:event_jTFCpfFocusLost
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
     private javax.swing.JLabel jLLogo;
+    private javax.swing.JTextField jTFCpf;
     private javax.swing.JTextField jTFEmail;
     private javax.swing.JTextField jTFUsuario;
     // End of variables declaration//GEN-END:variables

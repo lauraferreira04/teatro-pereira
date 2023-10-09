@@ -25,7 +25,6 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLLogo" alignment="1" max="32767" attributes="0"/>
-          <Component id="jLAvisoErro" alignment="1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -54,9 +53,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="jLLogo" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-              <Component id="jLAvisoErro" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Component id="jTFUsuario" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPFSenha" min="-2" pref="30" max="-2" attributes="0"/>
@@ -83,7 +80,6 @@
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFUsuarioFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFUsuarioFocusLost"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTFUsuarioKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBEntrar">
@@ -143,15 +139,6 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLAvisoErro">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cd" green="5a" red="5a" type="rgb"/>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Usu&#xe1;rio e/ou senha inv&#xe1;lida"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JPasswordField" name="jPFSenha">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -163,7 +150,6 @@
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jPFSenhaFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jPFSenhaFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPFSenhaActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jPFSenhaKeyReleased"/>
       </Events>
     </Component>
   </SubComponents>
