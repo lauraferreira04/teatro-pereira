@@ -95,17 +95,17 @@ public class UsuarioDao {
         PreparedStatement stmt = null;
         try {
             con.setAutoCommit(false);
-            String sql = "insert into usuario (idusuario, nomeusuario, login, senha, cpf, email, telefone) " +
+            String sql = "insert into usuario (nomeusuario, login, senha, cpf, email, telefone, tipo) " +
                             " values (?,?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             
-            stmt.setInt(1, usuario.getIdUsuario());
-            stmt.setString(2, usuario.getNomeUsuario());
-            stmt.setString(3, usuario.getLogin());
-            stmt.setString(4, usuario.getSenha());
-            stmt.setString(5, usuario.getCpf());
-            stmt.setString(6, usuario.getEmail());
-            stmt.setString(7, usuario.getTelefone());            
+            stmt.setString(1, usuario.getNomeUsuario());
+            stmt.setString(2, usuario.getLogin());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setString(4, usuario.getCpf());
+            stmt.setString(5, usuario.getEmail());
+            stmt.setString(6, usuario.getTelefone());            
+            stmt.setInt(7, 0);  
             
             stmt.execute();
             con.commit();
@@ -218,8 +218,9 @@ public class UsuarioDao {
                 String cpf = res.getString("cpf");
                 String email = res.getString("email");
                 String telefone = res.getString("telefone");
+                int tipo = res.getInt("tipo");
                 
-                Usuario usuario = new Usuario(idUsuario, nomeusuario, login, senha, cpf, email, telefone, idUsuario);
+                Usuario usuario = new Usuario(idUsuario, nomeusuario, login, senha, cpf, email, telefone, tipo);
                                 
                 listaUsuarios.add(usuario);
             }
