@@ -65,10 +65,19 @@ public class UsuarioDao {
         boolean resultado;
         PreparedStatement stmt = null;
         try {
-            con.setAutoCommit(false);
-            String sql = "select login from usuario where login = '?'" ;
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, usuario.getLogin());
+            con.setAutoCommit(false);            
+            String sql = "select login from usuario where login = ?" ;
+            // verificando se a chamada é em modo recuperar senha
+            if (usuario.getCpf().equals("") && usuario.getEmail().equals("")) {
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, usuario.getLogin());
+            } else {
+                sql = sql + " and cpf = ? and email = ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, usuario.getLogin());
+                stmt.setString(2, usuario.getCpf());
+                stmt.setString(3, usuario.getEmail());
+            }           
             
             stmt.execute();
             con.commit();
