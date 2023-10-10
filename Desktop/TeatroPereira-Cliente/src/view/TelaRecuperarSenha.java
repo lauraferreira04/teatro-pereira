@@ -143,13 +143,13 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
                         
                         Usuario usuario1 = new Usuario(login, cpf, email, senha);
 
-                        boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
+                        /*boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
                         
                         if(resultado == true) {
                             JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
                         } else {
                             JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
-                        }
+                        }*/
                         
                         JOptionPane.showMessageDialog(null, "Foi enviado um email com sua nova senha,"
                             + " troque-a assim que fizer login novamente", "Senha alterada", JOptionPane.INFORMATION_MESSAGE);
