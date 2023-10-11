@@ -4,28 +4,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="15dp"
+    android:gravity="center"
     tools:context=".view.HomeFragment">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bHomeEventos"
-        android:text="Eventos"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bHomeReserva"
-        android:text="Reserva"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bHomeSuporte"
-        android:text="Suporte"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bHomeSair"
-        android:text="Sair"/>
+    <ImageView
+        android:layout_width="672px"
+        android:layout_height="240px"
+        android:src="@drawable/logo_pereira"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/bHomeEventos"
+            android:text="Eventos"/>
+        <Button
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/bHomeReserva"
+            android:text="Reserva"/>
+        <Button
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/bHomeSuporte"
+            android:text="Suporte"/>
+        <Button
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/bHomeSair"
+            android:text="Sair"/>
+    </LinearLayout>
 </LinearLayout>

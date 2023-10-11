@@ -4,40 +4,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="15dp"
+    android:gravity="center|top"
     tools:context=".view.SuporteFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvSuporteTituloQuemSomos"
-        android:text="Quem somos?"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvSuporteTextoQuemSomos"
-        android:text="Lorem Ipsum"/>
+    <ImageView
+        android:layout_width="672px"
+        android:layout_height="240px"
+        android:src="@drawable/logo_pereira"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvSuporteTituloComoNosContatar"
-        android:text="Como nos contatar?"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvSuporteTextoComoNosContatar"
-        android:text="Lorem Ipsum"/>
+        android:orientation="vertical"
+        android:padding="5dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvSuporteTituloContatos"
-        android:text="Contatos"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvSuporteTextoContatos"
-        android:text="Lorem Ipsum"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="27dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvSuporteTituloQuemSomos"
+            android:text="Quem somos?"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tvSuporteTextoQuemSomos"
+            android:text="Lorem Ipsum"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="27dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvSuporteTituloComoNosContatar"
+            android:text="Como nos contatar?"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tvSuporteTextoComoNosContatar"
+            android:text="Lorem Ipsum"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="27dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvSuporteTituloContatos"
+            android:text="Contatos"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tvSuporteTextoContatos"
+            android:text="Lorem Ipsum"/>
+    </LinearLayout>
 </LinearLayout>

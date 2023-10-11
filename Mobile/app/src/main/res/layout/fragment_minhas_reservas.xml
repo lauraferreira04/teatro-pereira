@@ -4,34 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="15dp"
     tools:context=".view.MinhasReservasFragment">
+
+    <ImageView
+        android:layout_width="448px"
+        android:layout_height="160px"
+        android:src="@drawable/logo_pereira"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:id="@+id/rvVisualizacaoReservas"
         android:scrollbars="vertical"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvMinhasReservasTitulo"
-        android:text="Título"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvMinhasReservasArtista"
-        android:text="Artista"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvMinhasReservasData"
-        android:text="XX/XX/XXXX - XX:XX"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvMinhasReservasQtdCadeiras"
-        android:text="Quantidade cadeiras"/>
 
 </LinearLayout>

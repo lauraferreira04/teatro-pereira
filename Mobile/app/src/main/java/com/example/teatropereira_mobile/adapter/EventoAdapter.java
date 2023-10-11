@@ -1,5 +1,7 @@
 package com.example.teatropereira_mobile.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teatropereira_mobile.databinding.EventoListRowBinding;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import modelDominio.Evento;
@@ -30,6 +33,8 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final EventoAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Evento meuEvento = listaEventos.get(position);
+        Bitmap banner = ByteArrayToBitmap(meuEvento.getBanner());
+        holder.eventoListRowBinding.ivEventoBanner.setImageBitmap(banner);
         holder.eventoListRowBinding.tvEventoNome.setText(meuEvento.getNomeEvento());
 
         if(eventoOnClickListener != null) {
@@ -57,5 +62,11 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.MyViewHold
 
     public interface EventoOnClickListener {
         public void onClickListener(View view, int position, Evento evento);
+    }
+
+    public Bitmap ByteArrayToBitmap(byte[] byteArray) {
+        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(byteArray);
+        Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
+        return bitmap;
     }
 }

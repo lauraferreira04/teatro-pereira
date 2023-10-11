@@ -15,11 +15,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivMinhasReservasBanner"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvReservaNome"/>
+                android:textSize="19dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvMinhasReservasTitulo"
+                android:text="Título"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvMinhasReservasArtista"
+                android:text="Artista"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvMinhasReservasData"
+                android:text="XX/XX/XXXX - XX:XX"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvMinhasReservasQtdCadeiras"
+                android:text="Quantidade cadeiras"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

@@ -4,43 +4,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="15dp"
     tools:context=".view.ReservaFragment">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bReservaCancelar"
-        android:text="Cancelar"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvReservaTitulo"
-        android:text="Título"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvReservaArtista"
-        android:text="Artista"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvReservaData"
-        android:text="XX/XX/XXXX - XX:XX"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvReservaPreco"
-        android:text="R$"/>
-    <Spinner
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spReservaQtdCadeiras"/>
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="448px"
+            android:layout_height="160px"
+            android:src="@drawable/logo_pereira"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:textSize="19dp"
+            android:id="@+id/bReservaCancelar"
+            android:text="Cancelar"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/ivReservaBanner"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvReservaTitulo"
+            android:text="Título"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvReservaArtista"
+            android:text="Artista"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvReservaData"
+            android:text="XX/XX/XXXX - XX:XX"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvReservaPreco"
+            android:text="R$"/>
+        <Spinner
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/spReservaQtdCadeiras"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/ivReservaPix"/>
+    </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:textSize="19dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/bReservaSuporte"
         android:text="Suporte"/>
 
