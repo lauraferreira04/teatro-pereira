@@ -68,21 +68,21 @@ public class UsuarioDao {
             con.setAutoCommit(false);            
             String sql = "select login from usuario where login = ?" ;
             // verificando se a chamada é em modo recuperar senha
-            if (usuario.getCpf().equals("") && usuario.getEmail().equals("")) {
-                stmt = con.prepareStatement(sql);
-                stmt.setString(1, usuario.getLogin());
-            } else {
+            if (usuario.getTelefone() == null) {
                 sql = sql + " and cpf = ? and email = ?";
                 stmt = con.prepareStatement(sql);
                 stmt.setString(1, usuario.getLogin());
                 stmt.setString(2, usuario.getCpf());
                 stmt.setString(3, usuario.getEmail());
-            }           
-            
-            stmt.execute();
+            } else {
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, usuario.getLogin());
+            }
+            ResultSet rs = stmt.executeQuery();
+            resultado = rs.next();
+            //stmt.execute();
             con.commit();
-            
-            resultado = true;
+
         } catch(SQLException exc){
             System.out.println("Erro: " + exc.getMessage());
             resultado = false;
@@ -139,22 +139,42 @@ public class UsuarioDao {
     public boolean alterarUsuario (Usuario usuario){
         boolean resultado;
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+
         try {
             con.setAutoCommit(false);
-            String sql = "update usuario set nomeusuario = ?, login = ?, " +
-                            "senha = ?, cpf = ?, email = ?, telefone = ?" +
-                            "where idusuario = ?";
-            
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, usuario.getNomeUsuario());
-            stmt.setString(2, usuario.getLogin());
-            stmt.setString(3, usuario.getSenha());
-            stmt.setString(4, usuario.getCpf());
-            stmt.setString(5, usuario.getEmail());
-            stmt.setString(6, usuario.getTelefone());  
-            stmt.setInt(7, usuario.getIdUsuario());
-             
-            stmt.execute();
+
+            if (usuario.getTelefone() == null) {
+                String select = "select idusuario from usuario where login = ?";
+                stmt = con.prepareStatement(select);
+                stmt.setString(1, usuario.getLogin());
+                rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    int idUsuario = rs.getInt("idusuario");
+
+                    String sql = "update usuario set senha = ? where idusuario = ?";
+                    stmt = con.prepareStatement(sql);
+                    stmt.setString(1, usuario.getSenha());
+                    stmt.setInt(2, idUsuario);
+                    stmt.execute();
+                } else {
+                    // Usuário não encontrado, retorna false
+                    return false;
+                }
+            } else {
+                String sql = "update usuario set nomeusuario = ?, login = ?, senha = ?, cpf = ?, email = ?, telefone = ? where idusuario = ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, usuario.getNomeUsuario());
+                stmt.setString(2, usuario.getLogin());
+                stmt.setString(3, usuario.getSenha());
+                stmt.setString(4, usuario.getCpf());
+                stmt.setString(5, usuario.getEmail());
+                stmt.setString(6, usuario.getTelefone());
+                stmt.setInt(7, usuario.getIdUsuario());
+                stmt.execute();
+            }
+
             con.commit();
             resultado = true;
             
