@@ -7,6 +7,15 @@ package view;
 import javax.swing.JOptionPane;
 import modelDominio.Administrador;
 import modelDominio.Usuario;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *  trabalho interdisciplinar
@@ -35,7 +44,7 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         jTFUsuario = new javax.swing.JTextField();
         jTFCpf = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Recuperar senha");
 
         jLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -113,7 +122,7 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jTFCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jTFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -132,28 +141,41 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
                 String cpf = jTFCpf.getText();
                 if (!jTFEmail.getText().equals("") && !jTFEmail.getText().equals("Email")){
                     String email = jTFEmail.getText();
-                    
-                    
-                    
+                    //pega os dados e cria o objeto
                     Usuario usuario = new Usuario(login, cpf, email);
-                    
+                    //manda o objeto com login, cpf e email para o usuarioExiste
                     boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(usuario);
-                    if (usuarioExiste == true){
+                   
+                    if (usuarioExiste == true){ // se usuario existe
+                        //senha recebe senha padrão de recuperação 123456
                         String senha = "123456";
-                        
+                        //cria o objeto com login, cpf, email e senha
                         Usuario usuario1 = new Usuario(login, cpf, email, senha);
-
-                        /*boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
                         
-                        if(resultado == true) {
-                            JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
-                        }*/
                         
-                        JOptionPane.showMessageDialog(null, "Foi enviado um email com sua nova senha,"
+                        
+                        boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
+                        if(resultado == true) { //se alterou sem erro
+                                                      
+                            //espaço dedicado para os requesitos necessários para enviar email (JavaMail)
+                            //...
+                            try {
+                                enviarEmailRecuperacao(email, senha);
+                            } catch(MessagingException e){
+                                e.printStackTrace();
+                                JOptionPane.showMessageDialog(rootPane, "Erro ao enviar e-mail de recuperação: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        
+                            }
+                            
+                            
+                            JOptionPane.showMessageDialog(null, "Foi enviado um email com sua nova senha,"
                             + " troque-a assim que fizer login novamente", "Senha alterada", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
+                            dispose();
+                        } else { //deu erro para alterar
+                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
+                        }
+                        
+                    } else { //usuario não existe, método usuarioExiste == false
                         JOptionPane.showMessageDialog(null, "O usuário, cpf e/ou email informado não existe,"
                             + " confira se as informações estão corretas", "Usuário não encontrado", JOptionPane.WARNING_MESSAGE);
                     }    
@@ -205,7 +227,33 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTFCpfFocusLost
 
+    private void enviarEmailRecuperacao(String destinatario, String novaSenha) throws MessagingException {
+    // Configurações do servidor SMTP (no caso, Gmail)
+    Properties props = new Properties();
+    props.put("mail.smtp.host", "smtp.gmail.com");
+    props.put("mail.smtp.socketFactory.port", "465");
+    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    props.put("mail.smtp.auth", "true");
+    props.put("mail.smtp.port", "465");
 
+    // Sessão de e-mail
+    Session session = Session.getDefaultInstance(props, new Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication("laurinhagameplayzin@gmail.com", "eumoronumacasa");
+        }
+    });
+
+    // Criação da mensagem
+    Message message = new MimeMessage(session);
+    message.setFrom(new InternetAddress("laurinhagameplayzin@gmail.com"));
+    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+    message.setSubject("Recuperação de Senha");
+    message.setText("Você solicitou a recuperação de senha. Sua nova senha temporária é: " + novaSenha);
+
+    // Envio da mensagem
+    Transport.send(message);
+    System.out.println("E-mail de recuperação enviado para: " + destinatario);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
