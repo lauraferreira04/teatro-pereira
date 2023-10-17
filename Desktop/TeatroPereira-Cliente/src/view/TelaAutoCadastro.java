@@ -186,7 +186,7 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
             String nomeUsuario = jTFNome.getText();          
             if (!jTFUsuario.getText().equals("") && !jTFUsuario.getText().equals("Usuário")){               
                 String login = jTFUsuario.getText();
-                if(!senha.equals("") || !senha.equals("senhasenha")) {
+                if(!senha.equals("") && !senha.equals("senhasenha")) {
                     if (!jTFCpf.getText().equals("") && !jTFCpf.getText().equals("CPF")){
                         String cpf = jTFCpf.getText();
                         if (!jTFEmail.getText().equals("") && !jTFEmail.getText().equals("Email")){

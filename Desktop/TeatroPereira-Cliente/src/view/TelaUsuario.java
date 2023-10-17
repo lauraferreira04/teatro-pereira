@@ -22,6 +22,7 @@ public class TelaUsuario extends javax.swing.JFrame {
     private Usuario cpf;
     private Usuario email;
     private Usuario telefone;
+    private boolean editando = false;
     
     /**
      * Creates new form TelaUsuario
@@ -29,6 +30,12 @@ public class TelaUsuario extends javax.swing.JFrame {
     public TelaUsuario() {
         initComponents();
         jLLogo.requestFocus();
+        atualizaTabela();
+        jTUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTUsuariosMouseClicked(evt);
+        }
+    });
     }
 
     /**
@@ -53,6 +60,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         jPFSenha = new javax.swing.JPasswordField();
         jBSalvar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
+        jBEditarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Usuário");
@@ -94,6 +102,11 @@ public class TelaUsuario extends javax.swing.JFrame {
                 "Usuários"
             }
         ));
+        jTUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTUsuarios);
 
         jTFNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -188,6 +201,14 @@ public class TelaUsuario extends javax.swing.JFrame {
             }
         });
 
+        jBEditarUsuario.setBackground(new java.awt.Color(90, 90, 205));
+        jBEditarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/editar.png"))); // NOI18N
+        jBEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,7 +226,6 @@ public class TelaUsuario extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTFUsuario)
                             .addComponent(jTFCpf)
                             .addComponent(jTFEmail)
                             .addComponent(jPFSenha)
@@ -214,24 +234,30 @@ public class TelaUsuario extends javax.swing.JFrame {
                                 .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTFNome))))
+                            .addComponent(jTFNome)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -255,26 +281,59 @@ public class TelaUsuario extends javax.swing.JFrame {
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
 
         String senha = new String(jPFSenha.getPassword());
-        if (!jTFNome.getText().equals("")) {
+        if (!jTFNome.getText().equals("") && !jTFNome.getText().equals("Nome completo")) {
            String nomeUsuario = jTFNome.getText();
-           if(!jTFUsuario.getText().equals("")){
+           if(!jTFUsuario.getText().equals("") && !jTFUsuario.getText().equals("Usuário")){
                String login = jTFUsuario.getText();
-               if (!senha.equals("")){
-                   if (!jTFCpf.getText().equals("")){
+               if (!senha.equals("") && !senha.equals("senhasenha")){
+                   if (!jTFCpf.getText().equals("") && !jTFCpf.getText().equals("CPF")){
                        String cpf = jTFCpf.getText();
-                       if (!jTFEmail.getText().equals("")){
+                       if (!jTFEmail.getText().equals("") && !jTFEmail.getText().equals("Email")){
                            String email = jTFEmail.getText();
-                           if (!jTFTelefone.getText().equals("")){
+                           if (!jTFTelefone.getText().equals("") && !jTFTelefone.getText().equals("Telefone")){
                                String telefone = jTFTelefone.getText();
 
-                               if(this.login == null) {
+                                if(editando) {
+                                    if (jTUsuarios.getSelectedRow() >= 0) {
+                                        int selectedRow = jTUsuarios.getSelectedRow();
+                                        Usuario usuario = usuarioTableModel.getUsuario(selectedRow);
+
+                                        jTFNome.setText(usuario.getNomeUsuario());
+                                        jTFUsuario.setText(usuario.getLogin());
+                                        jPFSenha.setText(usuario.getSenha());
+                                        jTFCpf.setText(usuario.getCpf());
+                                        jTFEmail.setText(usuario.getEmail());
+                                        jTFTelefone.setText(usuario.getTelefone());
+
+                                        // Desabilita o campo de usuário se estiver editando
+                                        jTFUsuario.setEnabled(false);
+                                        } else {
+                                            limpaCampos();
+                                    }
+                                    this.nomeUsuario.setNomeUsuario(nomeUsuario);
+                                    this.login.setLogin(login);
+                                    this.senha.setSenha(senha);
+                                    this.cpf.setCpf(cpf);
+                                    this.email.setEmail(email);
+                                    this.telefone.setTelefone(telefone);
+                                    Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 0);
+                                    boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
+                                    if (usuarioExiste == true){
+                                         boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(administrador);
+                                         if(resultado == true) {
+                                             JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
+                                         } else {
+                                             JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
+                                         }
+                                    }
+                                } else {
                                     Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 1);
                                     boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
-                                   if (usuarioExiste == true){
-                                        JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
-                                        jTFUsuario.grabFocus();
-                                   }else {
-                                       boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
+                                    if (usuarioExiste == true){
+                                         JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
+                                         jTFUsuario.grabFocus();
+                                    }else {
+                                        boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
                                         if (resultado == true){
                                             JOptionPane.showMessageDialog(rootPane, "Usuário inserido com sucesso.");
                                             atualizaTabela();
@@ -282,28 +341,8 @@ public class TelaUsuario extends javax.swing.JFrame {
                                         } else {
                                             JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser cadastrado.");
                                         }
-                                   }                                    
-                               } else {
-                                   this.nomeUsuario.setNomeUsuario(nomeUsuario);
-                                   this.login.setLogin(login);
-                                   this.senha.setSenha(senha);
-                                   this.cpf.setCpf(cpf);
-                                   this.email.setEmail(email);
-                                   this.telefone.setTelefone(telefone);
-                                   Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 0);
-                                   boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
-                                   if (usuarioExiste == true){
-                                        JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
-                                        jTFUsuario.grabFocus();
-                                   }else {
-                                       boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(administrador);
-                                        if(resultado == true) {
-                                            JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
-                                        } else {
-                                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
-                                        }
-                                   } 
-                               }
+                                    }
+                                }
                            } else{
                                JOptionPane.showMessageDialog(rootPane, "Erro: informe o telefone.");
                            }
@@ -353,6 +392,8 @@ public class TelaUsuario extends javax.swing.JFrame {
     private void jBNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoUsuarioActionPerformed
         // TODO add your handling code here:
         limpaCampos();
+        editando = false;
+        
     }//GEN-LAST:event_jBNovoUsuarioActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
@@ -432,6 +473,36 @@ public class TelaUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTFTelefoneFocusLost
 
+    private void jTUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTUsuariosMouseClicked
+    // Obtém a linha selecionada na tabela
+        int selectedRow = jTUsuarios.getSelectedRow();
+
+        // Verifica se há uma linha selecionada
+        if (selectedRow >= 0) {
+            // Obtém o usuário da linha selecionada
+            Usuario usuario = usuarioTableModel.getUsuario(selectedRow);
+
+            // Preenche os campos de texto com as informações do usuário
+            jTFNome.setText(usuario.getNomeUsuario());
+            jTFUsuario.setText(usuario.getLogin());
+            jPFSenha.setText(usuario.getSenha());
+            jTFCpf.setText(usuario.getCpf());
+            jTFEmail.setText(usuario.getEmail());
+            jTFTelefone.setText(usuario.getTelefone());
+
+            // Desabilita o campo de usuário se estiver editando
+            jTFUsuario.setEnabled(false);
+            editando = true;
+        }
+    }//GEN-LAST:event_jTUsuariosMouseClicked
+
+    private void jBEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarUsuarioActionPerformed
+        TelaAlterarUsuario telaAlterarUsuario = new TelaAlterarUsuario();
+        telaAlterarUsuario.setVisible(true);
+        
+        atualizaTabela();
+    }//GEN-LAST:event_jBEditarUsuarioActionPerformed
+
     private void atualizaTabela() {
         ArrayList<Usuario> listaUsuarios = TeatroPereiraCliente.ccont.usuarioLista();
 
@@ -445,9 +516,12 @@ public class TelaUsuario extends javax.swing.JFrame {
         jTFCpf.setText("CPF");
         jTFEmail.setText("Email");
         jTFTelefone.setText("Telefone");
+        
+        jTFUsuario.setEnabled(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBEditarUsuario;
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBNovoUsuario;
     private javax.swing.JButton jBSalvar;

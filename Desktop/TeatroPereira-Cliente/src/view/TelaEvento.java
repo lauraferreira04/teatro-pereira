@@ -25,6 +25,7 @@ public class TelaEvento extends javax.swing.JFrame {
     public TelaEvento() {
         initComponents();
         jLLogo.requestFocus();
+        atualizaTabela();
     }
 
     /**
