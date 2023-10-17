@@ -25,62 +25,70 @@ public class ReservaDao {
         this.con = Conector.getConnection();
     }
     
-    public Reserva efetuarReserva (Reserva reserva){
-        Reserva reservaEfetuada = null;
+    public boolean efetuarReserva (Reserva reserva){
+        boolean resultado;
         PreparedStatement stmt = null;
         try {
-            String sql = "select reserva.*, evento.nomeevento, usuario.nomeusuario from reserva " +
-                    "inner join evento on (evento.idevento = reserva.idevento) " +
-                    "inner join marca on (usuario.idusuario = reserva.idusuario) ";
+            String sql = "insert into reserva (idreserva,idusuario,idevento,qtdcadeiras,valortotal) " +
+                         "values (?,?,?,?,?)";
             
             stmt = con.prepareStatement(sql);
-            ResultSet res = stmt.executeQuery();
+            stmt.setInt(1, reserva.getIdReserva());
+            stmt.setInt(2, reserva.getUsuario().getIdUsuario());
+            stmt.setInt(3, reserva.getEvento().getIdEvento());
+            stmt.setInt(4, reserva.getQtdCadeiras());
+            stmt.setFloat(5, reserva.getValorTotal());
             
-            while (res.next()){
-                int idEvento = res.getInt("idevento");
-                String nomeEvento = res.getString("nomeevento");
-                float valor = res.getFloat("valor");
-                
-                Evento evento = new Evento(idEvento, nomeEvento, valor);
-                
-                int idUsuario = res.getInt("idusuario");
-                String nomeUsuario = res.getString("nomeusuario");
-                
-                Usuario usuario = new Usuario(idUsuario, nomeUsuario);
-                
-                int idReserva = res.getInt("idreserva");
-                int qtdCadeiras = res.getInt("qtdcadeiras");
-                float valorTotal = res.getFloat("valortotal");
-                //Reserva reserva = new Reserva(idReserva, usuario, evento, qtdCadeiras, valorTotal);
-            }
-            res.close();
-            con.close();            
-            stmt.close();
+            stmt.execute();
+            con.commit();
+            resultado = true;
         } catch (SQLException exc){
             System.out.println("Erro: " + exc.getMessage());
-            reservaEfetuada = null;
+            resultado = false;
+            try {
+                con.rollback();
+            } catch (SQLException exc2) {
+                System.err.println("Erro: " + exc2.getMessage());
+            }
+        } finally {
+            try {
+                stmt.close();
+                con.setAutoCommit(true);
+                con.close();
+            } catch (SQLException exc) {
+                System.out.println("Erro: " + exc.getMessage());
+                resultado = false;
+            }
         }
-        return reservaEfetuada;
+        return resultado;
     }
     
     public ArrayList<Reserva> getListaReservas() {
         ArrayList<Reserva> listaReservas = new ArrayList<>();
         PreparedStatement stmt = null;
         try {
-            String sql = "select * from reserva ";
+            String sql = "select reserva.*, usuario.*, evento.* from reserva " +
+                         "inner join usuario on (usuario.idusuario = reserva.idusuario) " +
+                         "inner join evento on (evento.idevento = reserva.idevento) " +
+                         "order by reserva.idreserva ";
             stmt = con.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
             
             while(res.next()){
                 int idReserva = res.getInt("idreserva");
-                String usuario = res.getString("nomeusuario");
-                String evento = res.getString("nomeevento");
+                int idUsuario = res.getInt("idusuario");
+                String nomeUsuario = res.getString("nomeusuario");
+                Usuario usuario = new Usuario(idUsuario, nomeUsuario);
+                int idEvento = res.getInt("idevento");
+                String nomeEvento = res.getString("nomeevento");
+                float valor = res.getFloat("valor");
+                Evento evento = new Evento(idEvento, nomeEvento, valor);
                 int qtdCadeiras = res.getInt("qtdcadeiras");
-                float valorTotal = res.getFloat("valor");
+                float valorTotal = res.getFloat("valortotal");
                 
-                //Reserva reserva = new Reserva(idReserva, usuario, evento, qtdCadeiras, valorTotal);
+                Reserva reserva = new Reserva(idReserva, usuario, evento, qtdCadeiras, valorTotal);
                 
-                //listaReservas.add(reserva);
+                listaReservas.add(reserva);
             }
             res.close();
             con.close();            
