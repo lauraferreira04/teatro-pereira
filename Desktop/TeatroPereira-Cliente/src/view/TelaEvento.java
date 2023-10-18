@@ -53,7 +53,7 @@ public class TelaEvento extends javax.swing.JFrame {
         jFTFValor = new javax.swing.JFormattedTextField();
         jFTFHora = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Evento");
 
         jBVoltar.setBackground(new java.awt.Color(90, 90, 205));

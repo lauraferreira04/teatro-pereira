@@ -16,6 +16,8 @@ import view.tablemodel.UsuarioTableModel;
  */
 public class TelaUsuario extends javax.swing.JFrame {
     private UsuarioTableModel usuarioTableModel;
+    private Usuario usuario;
+    private Usuario idUsuario;
     private Usuario nomeUsuario;
     private Usuario login;
     private Usuario senha;
@@ -62,7 +64,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         jBExcluir = new javax.swing.JButton();
         jBEditarUsuario = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuário");
 
         jBVoltar.setBackground(new java.awt.Color(90, 90, 205));
@@ -297,35 +299,33 @@ public class TelaUsuario extends javax.swing.JFrame {
                                     if (jTUsuarios.getSelectedRow() >= 0) {
                                         int selectedRow = jTUsuarios.getSelectedRow();
                                         Usuario usuario = usuarioTableModel.getUsuario(selectedRow);
-
-                                        jTFNome.setText(usuario.getNomeUsuario());
-                                        jTFUsuario.setText(usuario.getLogin());
-                                        jPFSenha.setText(usuario.getSenha());
-                                        jTFCpf.setText(usuario.getCpf());
-                                        jTFEmail.setText(usuario.getEmail());
-                                        jTFTelefone.setText(usuario.getTelefone());
+                                        int idUsuario = usuario.getIdUsuario();
+                                        
+                                        usuario.setIdUsuario(idUsuario);
+                                        usuario.setNomeUsuario(nomeUsuario);
+                                        usuario.setSenha(senha);
+                                        usuario.setCpf(cpf);
+                                        usuario.setEmail(email);
+                                        usuario.setTelefone(telefone);
 
                                         // Desabilita o campo de usuário se estiver editando
                                         jTFUsuario.setEnabled(false);
-                                        } else {
-                                            limpaCampos();
-                                    }
-                                    this.nomeUsuario.setNomeUsuario(nomeUsuario);
-                                    this.login.setLogin(login);
-                                    this.senha.setSenha(senha);
-                                    this.cpf.setCpf(cpf);
-                                    this.email.setEmail(email);
-                                    this.telefone.setTelefone(telefone);
-                                    Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 0);
-                                    boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
-                                    if (usuarioExiste == true){
-                                         boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(administrador);
-                                         if(resultado == true) {
-                                             JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
-                                         } else {
-                                             JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
-                                         }
-                                    }
+
+                                        boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(usuario);
+                                        if (usuarioExiste == true){
+                                                 
+                                            boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario);
+                                            if(resultado == true) {
+                                                JOptionPane.showMessageDialog(rootPane, "Usuário alterado com sucesso.");
+                                                atualizaTabela();
+
+                                             } else {
+                                                 JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
+                                             }
+                                        }
+                                    } else {
+                                        limpaCampos();
+                                    }              
                                 } else {
                                     Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 1);
                                     boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
@@ -366,7 +366,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
         // TODO add your handling code here:
-        if (jTUsuarios.getSelectedRow() > 0){
+        if (jTUsuarios.getSelectedRow() >= 0){
             int resposta = JOptionPane.showConfirmDialog(rootPane,
                     "Deseja realmente excluir o usuário?",
                     "Excluir",
@@ -379,6 +379,7 @@ public class TelaUsuario extends javax.swing.JFrame {
                 if (resultado == true){
                     JOptionPane.showMessageDialog(rootPane, "Usuário excluído com sucesso.");
                     atualizaTabela();
+                    jBNovoUsuario.doClick();
                 } else {
                     JOptionPane.showMessageDialog(rootPane,
                             "Erro: usuário não pode ser excluído.",
@@ -497,10 +498,14 @@ public class TelaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTUsuariosMouseClicked
 
     private void jBEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarUsuarioActionPerformed
-        TelaAlterarUsuario telaAlterarUsuario = new TelaAlterarUsuario();
-        telaAlterarUsuario.setVisible(true);
-        
+        int indice = jTUsuarios.getSelectedRow();
+        Usuario usuario = usuarioTableModel.getUsuario(indice);
+        TelaAlterarUsuario telaAlterarUsuario = new TelaAlterarUsuario(usuario);
+        telaAlterarUsuario.setModal(true);
+        telaAlterarUsuario.setVisible(true);    
+            
         atualizaTabela();
+        jTFUsuario.setText(usuario.getLogin());
     }//GEN-LAST:event_jBEditarUsuarioActionPerformed
 
     private void atualizaTabela() {

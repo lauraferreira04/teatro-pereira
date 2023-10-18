@@ -46,7 +46,7 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
         jBCadastrar = new javax.swing.JButton();
         jPFSenha = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro");
 
         jLLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

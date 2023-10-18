@@ -31,7 +31,7 @@ public class TelaHome extends javax.swing.JFrame {
         jBSair = new javax.swing.JButton();
         jLogo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Home");
 
         jBUsuarios.setBackground(new java.awt.Color(90, 90, 205));
