@@ -143,36 +143,25 @@ public class UsuarioDao {
 
         try {
             con.setAutoCommit(false);
-
+                      
             if (usuario.getTelefone() == null) {
-                String select = "select idusuario from usuario where login = ?";
-                stmt = con.prepareStatement(select);
-                stmt.setString(1, usuario.getLogin());
-                rs = stmt.executeQuery();
-
-                if (rs.next()) {
-                    int idUsuario = rs.getInt("idusuario");
-
                     String sql = "update usuario set senha = ? where idusuario = ?";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, usuario.getSenha());
-                    stmt.setInt(2, idUsuario);
+                    stmt.setInt(2, usuario.getIdUsuario());
                     stmt.execute();
-                } else {
-                    // Usuário não encontrado, retorna false
-                    return false;
-                }
+                
             } else {
-                String sql = "update usuario set nomeusuario = ?, login = ?, senha = ?, cpf = ?, email = ?, telefone = ? where idusuario = ?";
-                stmt = con.prepareStatement(sql);
-                stmt.setString(1, usuario.getNomeUsuario());
-                stmt.setString(2, usuario.getLogin());
-                stmt.setString(3, usuario.getSenha());
-                stmt.setString(4, usuario.getCpf());
-                stmt.setString(5, usuario.getEmail());
-                stmt.setString(6, usuario.getTelefone());
-                stmt.setInt(7, usuario.getIdUsuario());
-                stmt.execute();
+                    String sql = "update usuario set nomeusuario = ?, login = ?, senha = ?, cpf = ?, email = ?, telefone = ? where idusuario = ?";
+                    stmt = con.prepareStatement(sql);
+                    stmt.setString(1, usuario.getNomeUsuario());
+                    stmt.setString(2, usuario.getLogin());
+                    stmt.setString(3, usuario.getSenha());
+                    stmt.setString(4, usuario.getCpf());
+                    stmt.setString(5, usuario.getEmail());
+                    stmt.setString(6, usuario.getTelefone());
+                    stmt.setInt(7, usuario.getIdUsuario());
+                    stmt.execute();
             }
 
             con.commit();
