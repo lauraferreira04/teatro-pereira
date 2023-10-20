@@ -34,10 +34,18 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLLogo.requestFocus();
         atualizaTabela();
         jTUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jTUsuariosMouseClicked(evt);
-        }
-    });
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTUsuariosMouseClicked(evt);
+            }
+        });
+        
+        jTFNome.addActionListener(e -> jTFUsuario.requestFocus());
+        jTFUsuario.addActionListener(e -> jPFSenha.requestFocus());
+        jPFSenha.addActionListener(e -> jTFCpf.requestFocus());
+        jTFCpf.addActionListener(e -> jTFEmail.requestFocus());
+        jTFEmail.addActionListener(e -> jTFTelefone.requestFocus());
+        jTFTelefone.addActionListener(e -> jBSalvar.doClick());
+        
     }
 
     /**

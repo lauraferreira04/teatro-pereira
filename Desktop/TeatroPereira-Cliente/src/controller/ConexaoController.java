@@ -189,7 +189,7 @@ public class ConexaoController {
     public ArrayList<Evento> eventoLista() {
         ArrayList<Evento> listaEventos;
         try {
-            out.writeObject("UsuarioLista");
+            out.writeObject("EventoLista");
             listaEventos = (ArrayList<Evento>)in.readObject();
         } catch(IOException ioe) {
             System.out.println("Erro: " + ioe.getMessage());

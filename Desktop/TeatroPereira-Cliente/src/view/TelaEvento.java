@@ -26,6 +26,13 @@ public class TelaEvento extends javax.swing.JFrame {
         initComponents();
         jLLogo.requestFocus();
         atualizaTabela();
+        
+        jTFNomeEvento.addActionListener(e -> jTFArtista.requestFocus());
+        jTFArtista.addActionListener(e -> jFTFData.requestFocus());
+        jFTFData.addActionListener(e -> jFTFHora.requestFocus());
+        jFTFHora.addActionListener(e -> jFTFValor.requestFocus());
+        jFTFValor.addActionListener(e -> jCBQtdCadeiras.requestFocus());
+        jCBQtdCadeiras.addActionListener(e -> jBSalvar.doClick());
     }
 
     /**
