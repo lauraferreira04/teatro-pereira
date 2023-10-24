@@ -60,16 +60,27 @@ public class CadastroFragment extends Fragment {
                                             @Override
                                             public void run() {
                                                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                                                resultado = conexaoController.usuarioInserir(usuario);
-                                                //criar classe usuario existe
+                                                //criar metodo usuario existe
+                                                resultado = conexaoController.usuarioExiste(usuario);
                                                 getActivity().runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
                                                         if (resultado == true) {
-                                                            Toast.makeText(getContext(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-                                                            limpaCampos();
+                                                            Toast.makeText(getContext(), "Nome de usuário já existente, tente novamente.", Toast.LENGTH_SHORT).show();
+                                                            binding.etCadastroUsuario.requestFocus();
                                                         } else {
-                                                            Toast.makeText(getContext(), "Erro: usuário não cadastrado.", Toast.LENGTH_SHORT).show();
+                                                            resultado = conexaoController.usuarioInserir(usuario);
+                                                            getActivity().runOnUiThread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    if (resultado == true) {
+                                                                        Toast.makeText(getContext(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+                                                                        limpaCampos();
+                                                                    } else {
+                                                                        Toast.makeText(getContext(), "Erro: usuário não cadastrado.", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
                                                         }
                                                     }
                                                 });
