@@ -4,12 +4,17 @@
  */
 package view;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JOptionPane;
-import modelDominio.Evento;
-import view.tablemodel.EventoTableModel;
+import javax.imageio.ImageIO; 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser; 
+import javax.swing.JOptionPane; 
+import javax.swing.filechooser.FileNameExtensionFilter; 
+import modelDominio.Evento; 
+import view.tablemodel.EventoTableModel; 
 import view.util.Imagem;
 
 /**
@@ -19,6 +24,7 @@ import view.util.Imagem;
 public class TelaEvento extends javax.swing.JFrame {
     Imagem imagem = null;
     private EventoTableModel eventoTableModel;
+    private boolean editando = false;
     /**
      * Creates new form TelaEvento
      */
@@ -26,6 +32,11 @@ public class TelaEvento extends javax.swing.JFrame {
         initComponents();
         jLLogo.requestFocus();
         atualizaTabela();
+        jTEventos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTEventosMouseClicked(evt);
+            }
+        });
         
         jTFNomeEvento.addActionListener(e -> jTFArtista.requestFocus());
         jTFArtista.addActionListener(e -> jFTFData.requestFocus());
@@ -44,6 +55,7 @@ public class TelaEvento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFCImagemEvento = new javax.swing.JFileChooser();
         jBVoltar = new javax.swing.JButton();
         jBNovo = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
@@ -77,6 +89,11 @@ public class TelaEvento extends javax.swing.JFrame {
         jBNovo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBNovo.setForeground(new java.awt.Color(255, 255, 255));
         jBNovo.setText("NOVO");
+        jBNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoActionPerformed(evt);
+            }
+        });
 
         jBExcluir.setBackground(new java.awt.Color(90, 90, 205));
         jBExcluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -139,14 +156,23 @@ public class TelaEvento extends javax.swing.JFrame {
                 "Eventos"
             }
         ));
+        jTEventos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTEventosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTEventos);
-
-        jLBanner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/banner.png"))); // NOI18N
 
         jBUpload.setBackground(new java.awt.Color(90, 90, 205));
         jBUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/upload.png"))); // NOI18N
+        jBUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBUploadActionPerformed(evt);
+            }
+        });
 
         jFTFData.setForeground(new java.awt.Color(153, 153, 153));
+        jFTFData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         jFTFData.setText("Data");
         jFTFData.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jFTFData.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -163,6 +189,7 @@ public class TelaEvento extends javax.swing.JFrame {
         jCBQtdCadeiras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quantidade cadeiras", "5", "50", "100", "200", "300", "500" }));
 
         jFTFValor.setForeground(new java.awt.Color(153, 153, 153));
+        jFTFValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFTFValor.setText("R$");
         jFTFValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jFTFValor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -175,6 +202,7 @@ public class TelaEvento extends javax.swing.JFrame {
         });
 
         jFTFHora.setForeground(new java.awt.Color(153, 153, 153));
+        jFTFHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         jFTFHora.setText("Hora");
         jFTFHora.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jFTFHora.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -253,7 +281,7 @@ public class TelaEvento extends javax.swing.JFrame {
                             .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -262,48 +290,88 @@ public class TelaEvento extends javax.swing.JFrame {
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
         Date data;
-        float valor;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            data = sdf.parse(jFTFData.getText());
-        } catch (Exception e){
-            data = null;
-            System.out.println("Erro: " + e.getMessage());
-        }
-        try{
-            valor = ((Number) jFTFValor.getValue()).floatValue();
-        } catch (Exception e){
-            valor = 0;
-            System.out.println("Erro: " + e.getMessage());
-        }
+    float valor;
 
-        if (!jTFNomeEvento.getText().equals("")){
-            if (!jTFArtista.getText().equals("")){
-                if (valor > 0){
-                    if (data != null){
-                        String nomeEvento = jTFNomeEvento.getText();
-                        String artista = jTFArtista.getText();
+    try {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        data = sdf.parse(jFTFData.getText());
+    } catch (Exception e) {
+        data = null;
+        System.out.println("Erro: " + e.getMessage());
+    }
 
-                        byte[] banner;
-                        if (this.imagem != null){
-                            banner = this.imagem.getImagem();
-                        } else {
-                            banner = null;
+    try {
+        valor = ((Number) jFTFValor.getValue()).floatValue();
+    } catch (Exception e) {
+        valor = 0;
+        System.out.println("Erro: " + e.getMessage());
+    }
+
+    if (!jTFNomeEvento.getText().equals("")) {
+        String nomeEvento = jTFNomeEvento.getText();
+        if (!jTFArtista.getText().equals("")) {
+            String artista = jTFArtista.getText();
+            if (valor > 0) {
+                if (data != null) {
+                    byte[] banner;
+                    if (this.imagem != null) {
+                        banner = this.imagem.getImagem();
+                    } else {
+                        banner = null;
+                    }
+
+                    // Aqui você verifica se está editando ou inserindo
+                    if (editando) {
+                        // Edição do evento
+                        if (jTEventos.getSelectedRow() >= 0) {
+                            int selectedRow = jTEventos.getSelectedRow();
+                            Evento evento = eventoTableModel.getEvento(selectedRow);
+                            evento.setBanner(banner);
+                            evento.setNomeEvento(nomeEvento);
+                            evento.setArtista(artista);
+                            evento.setData(data);
+                            evento.setValor(valor);
+                            evento.setQtdCadeiras(Integer.parseInt(jCBQtdCadeiras.getSelectedItem().toString()));
+                            evento.setBanner(banner);
+
+                            // Aqui você faz a chamada para o método de atualização no servidor
+                            boolean resultado = TeatroPereiraCliente.ccont.eventoAlterar(evento);
+
+                            if (resultado) {
+                                JOptionPane.showMessageDialog(rootPane, "Evento alterado com sucesso.");
+                                atualizaTabela();
+                                limpaCampos();
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Erro: evento não pode ser atualizado.");
+                            }
                         }
-                        
-                        
-                    } else{
-                        JOptionPane.showMessageDialog(rootPane, "Erro: informe a data.");
+                    } else {
+                        // Inserção de um novo evento
+                        Evento evento = new Evento(nomeEvento, artista, data, valor, Integer.parseInt(jCBQtdCadeiras.getSelectedItem().toString()), banner);
+
+                        // Aqui você faz a chamada para o método de inserção no servidor
+                        boolean resultado = TeatroPereiraCliente.ccont.eventoInserir(evento);
+
+                        if (resultado) {
+                            JOptionPane.showMessageDialog(rootPane, "Evento inserido com sucesso.");
+                            atualizaTabela();
+                            limpaCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Erro: evento não pode ser cadastrado.");
+                        }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Erro: informe o valor.");
+                    JOptionPane.showMessageDialog(rootPane, "Erro: informe a data.");
                 }
-            } else{
-                JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do artista");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro: informe o valor.");
             }
-        } else{
-            JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do evento.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do artista");
         }
+    } else {
+        JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do evento.");
+    }
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
@@ -383,16 +451,55 @@ public class TelaEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_jFTFHoraFocusLost
 
     private void jFTFValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFValorFocusGained
-        if (jFTFValor.getText().equals("Valor")) {
+        if (jFTFValor.getText().equals("R$")) {
             jFTFValor.setText("");
         }
     }//GEN-LAST:event_jFTFValorFocusGained
 
     private void jFTFValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFTFValorFocusLost
         if (jFTFValor.getText().isEmpty()) {
-            jFTFValor.setText("Valor");
+            jFTFValor.setText("R$");
         }
     }//GEN-LAST:event_jFTFValorFocusLost
+
+    private void jTEventosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEventosMouseClicked
+        // Obtém a linha selecionada na tabela
+        int selectedRow = jTEventos.getSelectedRow();
+
+        // Verifica se há uma linha selecionada
+        if (selectedRow >= 0) {
+            // Obtém o usuário da linha selecionada
+            Evento evento = eventoTableModel.getEvento(selectedRow);
+
+            // Preenche os campos de texto com as informações do usuário
+            if (evento.getBanner() != null){
+                Imagem imagem = new Imagem(evento.getBanner());
+                jLBanner.setIcon(imagem.getImageIcon());
+            }
+            jTFNomeEvento.setText(evento.getNomeEvento());
+            jTFArtista.setText(evento.getArtista());
+            jFTFData.setValue(evento.getData());
+            jFTFHora.setValue(evento.getData());
+            jFTFValor.setValue(evento.getValor());
+            jCBQtdCadeiras.setSelectedItem(String.valueOf(evento.getQtdCadeiras()));
+
+            editando = true;
+        }
+    }//GEN-LAST:event_jTEventosMouseClicked
+
+    private void jBUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUploadActionPerformed
+        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+        jFCImagemEvento.addChoosableFileFilter(imageFilter); 
+        if (jFCImagemEvento.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            imagem = new Imagem(jFCImagemEvento.getSelectedFile());
+            jLBanner.setIcon(imagem.getImageIcon());
+        }
+    }//GEN-LAST:event_jBUploadActionPerformed
+
+    private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
+        limpaCampos();
+        editando = false;
+    }//GEN-LAST:event_jBNovoActionPerformed
     private void atualizaTabela() {
         ArrayList<Evento> listaEventos = TeatroPereiraCliente.ccont.eventoLista();
 
@@ -407,6 +514,7 @@ public class TelaEvento extends javax.swing.JFrame {
     private javax.swing.JButton jBUpload;
     private javax.swing.JButton jBVoltar;
     private javax.swing.JComboBox<String> jCBQtdCadeiras;
+    private javax.swing.JFileChooser jFCImagemEvento;
     private javax.swing.JFormattedTextField jFTFData;
     private javax.swing.JFormattedTextField jFTFHora;
     private javax.swing.JFormattedTextField jFTFValor;
@@ -417,4 +525,23 @@ public class TelaEvento extends javax.swing.JFrame {
     private javax.swing.JTextField jTFArtista;
     private javax.swing.JTextField jTFNomeEvento;
     // End of variables declaration//GEN-END:variables
+
+    private void limpaCampos() {
+        
+        /*String caminhoIconePadrao = "C:\\Users\\user2\\Documents\\git\\teatro-pereira\\Desktop\\TeatroPereira-Cliente\\src\\view\\imagens\\banner.png";
+        URL urlIconePadrao = getClass().getResource(caminhoIconePadrao);
+
+        if (urlIconePadrao != null) {
+            ImageIcon iconePadrao = new ImageIcon(urlIconePadrao);
+            jLBanner.setIcon(iconePadrao);
+        }*/
+        
+        jLBanner.setIcon(null);
+        jTFNomeEvento.setText("Nome evento");
+        jTFArtista.setText("Artista");
+        jFTFData.setText("Data");
+        jFTFHora.setText("Hora");
+        jFTFValor.setText("R$");
+        jCBQtdCadeiras.setSelectedIndex(0);
+    }
 }
