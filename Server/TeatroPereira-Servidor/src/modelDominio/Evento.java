@@ -5,7 +5,7 @@
 package modelDominio;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *  trabalho interdisciplinar
@@ -16,28 +16,25 @@ public class Evento implements Serializable{
     private int idEvento;
     private String nomeEvento;
     private String artista;
-    private Date data;
+    private LocalDateTime dataHora;
     private float valor;
     private int qtdCadeiras;
-    private byte[] banner;
 
-    public Evento(int idEvento, String nomeEvento, String artista, Date data, float valor, int qtdCadeiras, byte[] banner) {
+    public Evento(int idEvento, String nomeEvento, String artista, LocalDateTime dataHora, float valor, int qtdCadeiras) {
         this.idEvento = idEvento;
         this.nomeEvento = nomeEvento;
         this.artista = artista;
-        this.data = data;
+        this.dataHora = dataHora;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
-        this.banner = banner;
     }
 
-    public Evento(String nomeEvento, String artista, Date data, float valor, int qtdCadeiras, byte[] banner) {
+    public Evento(String nomeEvento, String artista, LocalDateTime dataHora, float valor, int qtdCadeiras) {
         this.nomeEvento = nomeEvento;
         this.artista = artista;
-        this.data = data;
+        this.dataHora = dataHora;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
-        this.banner = banner;
     }
 
     public Evento(int idEvento, String nomeEvento, float valor) {
@@ -70,12 +67,12 @@ public class Evento implements Serializable{
         this.artista = artista;
     }
 
-    public Date getData() {
-        return data;
+    public LocalDateTime getDataHora() {
+        return dataHora;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
     public float getValor() {
@@ -93,13 +90,4 @@ public class Evento implements Serializable{
     public void setQtdCadeiras(int qtdCadeiras) {
         this.qtdCadeiras = qtdCadeiras;
     }
-
-    public byte[] getBanner() {
-        return banner;
-    }
-
-    public void setBanner(byte[] banner) {
-        this.banner = banner;
-    } 
-    
 }

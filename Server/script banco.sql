@@ -22,7 +22,6 @@ CREATE TABLE evento (
   datahora datetime NOT NULL,
   valor decimal(10,2) NOT NULL,
   qtdcadeiras int NOT NULL,
-  banner longblob NOT NULL,
   PRIMARY KEY (idevento)
 );
 

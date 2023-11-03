@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import modelDominio.Evento;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,17 +30,16 @@ public class EventoDao {
         PreparedStatement stmt = null;
         try {
             con.setAutoCommit(false);
-            String sql = "insert into evento (idevento, nomeartista, nomeevento, datahora, valor, qtdcadeiras, banner) " +
-                            " values (?,?,?,?,?,?,?)";
+            String sql = "insert into evento (idevento, nomeartista, nomeevento, datahora, valor, qtdcadeiras) " +
+                            " values (?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             
             stmt.setInt(1, evento.getIdEvento());
             stmt.setString(2, evento.getArtista());
             stmt.setString(3, evento.getNomeEvento());
-            stmt.setDate(4, new java.sql.Date(evento.getData().getTime()));
+            stmt.setObject(4, java.sql.Timestamp.valueOf(evento.getDataHora()));
             stmt.setFloat(5, evento.getValor());
-            stmt.setInt(6, evento.getQtdCadeiras());
-            stmt.setBytes(7, evento.getBanner());            
+            stmt.setInt(6, evento.getQtdCadeiras());          
             
             stmt.execute();
             con.commit();
@@ -72,17 +72,16 @@ public class EventoDao {
         try{
             con.setAutoCommit(false);
             String sql = "update evento set nomeartista = ?, nomeevento = ?, " +
-                            "datahora = ?, valor = ?, qtdcadeiras = ?, banner = ?" +
+                            "datahora = ?, valor = ?, qtdcadeiras = ? " +
                             "where idevento = ?";
             stmt = con.prepareStatement(sql);
                   
             stmt.setString(1, evento.getArtista());
             stmt.setString(2, evento.getNomeEvento());
-            stmt.setDate(3, new java.sql.Date(evento.getData().getTime()));
+            stmt.setObject(3, java.sql.Timestamp.valueOf(evento.getDataHora()));
             stmt.setFloat(4, evento.getValor());
-            stmt.setInt(5, evento.getQtdCadeiras());
-            stmt.setBytes(6, evento.getBanner());    
-            stmt.setInt(7, evento.getIdEvento());
+            stmt.setInt(5, evento.getQtdCadeiras());  
+            stmt.setInt(6, evento.getIdEvento());
             
             stmt.execute();
             con.commit();
@@ -152,12 +151,11 @@ public class EventoDao {
                 int idEvento = res.getInt("idevento");
                 String nomeArtista = res.getString("nomeartista");
                 String nomeEvento = res.getString("nomeevento");
-                Date data = res.getDate("datahora");
+                LocalDateTime dataHora = res.getTimestamp("datahora").toLocalDateTime();
                 float valor = res.getFloat("valor");
                 int qtdCadeiras = res.getInt("qtdcadeiras");
-                byte[] banner = res.getBytes("banner");
                 
-                Evento evento = new Evento(idEvento, nomeEvento, nomeArtista, data, valor, qtdCadeiras, banner);
+                Evento evento = new Evento(idEvento, nomeEvento, nomeArtista, dataHora, valor, qtdCadeiras);
                 
                 listaEventos.add(evento);
             }
