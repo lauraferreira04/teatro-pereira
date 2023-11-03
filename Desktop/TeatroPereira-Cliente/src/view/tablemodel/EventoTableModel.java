@@ -37,7 +37,7 @@ public class EventoTableModel extends AbstractTableModel{
             case 1: return ev.getNomeEvento();
             case 2: return ev.getArtista();
             case 3: return ev.getValor();
-            case 4: return ev.getData();
+            case 4: return ev.getDataHora();
             case 5: return ev.getQtdCadeiras();
             default: return "";
         }

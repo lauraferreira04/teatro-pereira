@@ -4,26 +4,28 @@
  */
 package view;
 
-import java.net.URL;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.imageio.ImageIO; 
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser; 
-import javax.swing.JOptionPane; 
-import javax.swing.filechooser.FileNameExtensionFilter; 
+import javax.swing.JOptionPane;
 import modelDominio.Evento; 
 import view.tablemodel.EventoTableModel; 
-import view.util.Imagem;
 
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
  */
 public class TelaEvento extends javax.swing.JFrame {
-    Imagem imagem = null;
     private EventoTableModel eventoTableModel;
+    private Evento nomeEvento;
+    private Evento nomeArtista;
+    private Evento idEvento;
+    private Evento dataHora;
+    private Evento valor;
+    private Evento qtdCadeiras;
+
     private boolean editando = false;
     /**
      * Creates new form TelaEvento
@@ -43,7 +45,7 @@ public class TelaEvento extends javax.swing.JFrame {
         jFTFData.addActionListener(e -> jFTFHora.requestFocus());
         jFTFHora.addActionListener(e -> jFTFValor.requestFocus());
         jFTFValor.addActionListener(e -> jCBQtdCadeiras.requestFocus());
-        jCBQtdCadeiras.addActionListener(e -> jBSalvar.doClick());
+        //jCBQtdCadeiras.addActionListener(e -> jBSalvar.doClick());
     }
 
     /**
@@ -55,7 +57,6 @@ public class TelaEvento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFCImagemEvento = new javax.swing.JFileChooser();
         jBVoltar = new javax.swing.JButton();
         jBNovo = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
@@ -289,89 +290,83 @@ public class TelaEvento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
-        Date data;
-    float valor;
+        LocalDateTime dataHora;
+        float valor;
 
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        data = sdf.parse(jFTFData.getText());
-    } catch (Exception e) {
-        data = null;
-        System.out.println("Erro: " + e.getMessage());
-    }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            dataHora = LocalDateTime.parse(jFTFData.getText() + " " + jFTFHora.getText(), formatter);
+        } catch (Exception e) {
+            dataHora = null;
+            System.out.println("Erro: " + e.getMessage());
+        }
 
-    try {
-        valor = ((Number) jFTFValor.getValue()).floatValue();
-    } catch (Exception e) {
-        valor = 0;
-        System.out.println("Erro: " + e.getMessage());
-    }
+        try {
+            valor = ((Number) jFTFValor.getValue()).floatValue();
+        } catch (Exception e) {
+            valor = 0;
+            System.out.println("Erro: " + e.getMessage());
+        }
 
-    if (!jTFNomeEvento.getText().equals("")) {
-        String nomeEvento = jTFNomeEvento.getText();
-        if (!jTFArtista.getText().equals("")) {
-            String artista = jTFArtista.getText();
-            if (valor > 0) {
-                if (data != null) {
-                    byte[] banner;
-                    if (this.imagem != null) {
-                        banner = this.imagem.getImagem();
-                    } else {
-                        banner = null;
-                    }
+        if (!jTFNomeEvento.getText().equals("")) {
+            String nomeEvento = jTFNomeEvento.getText();
+            if (!jTFArtista.getText().equals("")) {
+                String artista = jTFArtista.getText();
+                if (valor > 0) {
+                    if (dataHora != null) {
+                        if (jCBQtdCadeiras.getSelectedIndex() > 0){
+                            if (editando) {
+                                // Edição do evento
+                                if (jTEventos.getSelectedRow() >= 0) {
+                                    int selectedRow = jTEventos.getSelectedRow();
+                                    Evento evento = eventoTableModel.getEvento(selectedRow);
+                                    evento.setNomeEvento(nomeEvento);
+                                    evento.setArtista(artista);
+                                    evento.setDataHora(dataHora);
+                                    evento.setValor(valor);
+                                    evento.setQtdCadeiras(jCBQtdCadeiras.getSelectedIndex());
 
-                    // Aqui você verifica se está editando ou inserindo
-                    if (editando) {
-                        // Edição do evento
-                        if (jTEventos.getSelectedRow() >= 0) {
-                            int selectedRow = jTEventos.getSelectedRow();
-                            Evento evento = eventoTableModel.getEvento(selectedRow);
-                            evento.setBanner(banner);
-                            evento.setNomeEvento(nomeEvento);
-                            evento.setArtista(artista);
-                            evento.setData(data);
-                            evento.setValor(valor);
-                            evento.setQtdCadeiras(Integer.parseInt(jCBQtdCadeiras.getSelectedItem().toString()));
-                            evento.setBanner(banner);
+                                    // método de atualização no servidor
+                                    boolean resultado = TeatroPereiraCliente.ccont.eventoAlterar(evento);
 
-                            // Aqui você faz a chamada para o método de atualização no servidor
-                            boolean resultado = TeatroPereiraCliente.ccont.eventoAlterar(evento);
-
-                            if (resultado) {
-                                JOptionPane.showMessageDialog(rootPane, "Evento alterado com sucesso.");
-                                atualizaTabela();
-                                limpaCampos();
+                                    if (resultado) {
+                                        JOptionPane.showMessageDialog(rootPane, "Evento alterado com sucesso.");
+                                        atualizaTabela();
+                                        limpaCampos();
+                                    } else {
+                                        JOptionPane.showMessageDialog(rootPane, "Erro: evento não pode ser atualizado.");
+                                    }
+                                }
                             } else {
-                                JOptionPane.showMessageDialog(rootPane, "Erro: evento não pode ser atualizado.");
+                                // Inserção de um novo evento
+                                Evento evento = new Evento(nomeEvento, artista, dataHora, valor, jCBQtdCadeiras.getSelectedIndex());
+
+                                // método de inserção no servidor
+                                boolean resultado = TeatroPereiraCliente.ccont.eventoInserir(evento);
+
+                                if (resultado) {
+                                    JOptionPane.showMessageDialog(rootPane, "Evento inserido com sucesso.");
+                                    atualizaTabela();
+                                    limpaCampos();
+                                } else {
+                                    JOptionPane.showMessageDialog(rootPane, "Erro: evento não pode ser cadastrado.");
+                                }
                             }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Erro: informe a quantidade de cadeiras.");
                         }
                     } else {
-                        // Inserção de um novo evento
-                        Evento evento = new Evento(nomeEvento, artista, data, valor, Integer.parseInt(jCBQtdCadeiras.getSelectedItem().toString()), banner);
-
-                        // Aqui você faz a chamada para o método de inserção no servidor
-                        boolean resultado = TeatroPereiraCliente.ccont.eventoInserir(evento);
-
-                        if (resultado) {
-                            JOptionPane.showMessageDialog(rootPane, "Evento inserido com sucesso.");
-                            atualizaTabela();
-                            limpaCampos();
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "Erro: evento não pode ser cadastrado.");
-                        }
+                        JOptionPane.showMessageDialog(rootPane, "Erro: informe a data.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Erro: informe a data.");
+                    JOptionPane.showMessageDialog(rootPane, "Erro: informe o valor.");
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Erro: informe o valor.");
+                JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do artista");
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do artista");
+            JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do evento.");
         }
-    } else {
-        JOptionPane.showMessageDialog(rootPane, "Erro: informe o nome do evento.");
-    }
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
@@ -392,6 +387,7 @@ public class TelaEvento extends javax.swing.JFrame {
                 if (resultado == true){
                     JOptionPane.showMessageDialog(rootPane, "Evento excluído com sucesso.");
                     atualizaTabela();
+                    jBNovo.doClick();
                 } else {
                     JOptionPane.showMessageDialog(rootPane,
                             "Erro: evento não pode ser excluído.",
@@ -471,29 +467,31 @@ public class TelaEvento extends javax.swing.JFrame {
             // Obtém o usuário da linha selecionada
             Evento evento = eventoTableModel.getEvento(selectedRow);
 
-            // Preenche os campos de texto com as informações do usuário
-            if (evento.getBanner() != null){
-                Imagem imagem = new Imagem(evento.getBanner());
-                jLBanner.setIcon(imagem.getImageIcon());
-            }
+            //Date dataHoraDate = Date.from(evento.getDataHora().atZone(ZoneId.systemDefault()).toInstant());
+            
+            LocalDateTime dataHora = evento.getDataHora();
+            jFTFData.setValue(java.sql.Date.valueOf(dataHora.toLocalDate()));
+            jFTFHora.setValue(java.sql.Time.valueOf(dataHora.toLocalTime()));
             jTFNomeEvento.setText(evento.getNomeEvento());
             jTFArtista.setText(evento.getArtista());
-            jFTFData.setValue(evento.getData());
-            jFTFHora.setValue(evento.getData());
             jFTFValor.setValue(evento.getValor());
-            jCBQtdCadeiras.setSelectedItem(String.valueOf(evento.getQtdCadeiras()));
+            if (jCBQtdCadeiras.getSelectedIndex() != evento.getQtdCadeiras()) {
+            // Define a quantidade de cadeiras selecionando o índice correto na ComboBox
+                jCBQtdCadeiras.setSelectedIndex(evento.getQtdCadeiras());
+            }
+            //jCBQtdCadeiras.setSelectedItem(String.valueOf(evento.getQtdCadeiras()));
 
             editando = true;
         }
     }//GEN-LAST:event_jTEventosMouseClicked
 
     private void jBUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUploadActionPerformed
-        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+        /*FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         jFCImagemEvento.addChoosableFileFilter(imageFilter); 
         if (jFCImagemEvento.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             imagem = new Imagem(jFCImagemEvento.getSelectedFile());
             jLBanner.setIcon(imagem.getImageIcon());
-        }
+        }*/
     }//GEN-LAST:event_jBUploadActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
@@ -514,7 +512,6 @@ public class TelaEvento extends javax.swing.JFrame {
     private javax.swing.JButton jBUpload;
     private javax.swing.JButton jBVoltar;
     private javax.swing.JComboBox<String> jCBQtdCadeiras;
-    private javax.swing.JFileChooser jFCImagemEvento;
     private javax.swing.JFormattedTextField jFTFData;
     private javax.swing.JFormattedTextField jFTFHora;
     private javax.swing.JFormattedTextField jFTFValor;
@@ -527,16 +524,6 @@ public class TelaEvento extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpaCampos() {
-        
-        /*String caminhoIconePadrao = "C:\\Users\\user2\\Documents\\git\\teatro-pereira\\Desktop\\TeatroPereira-Cliente\\src\\view\\imagens\\banner.png";
-        URL urlIconePadrao = getClass().getResource(caminhoIconePadrao);
-
-        if (urlIconePadrao != null) {
-            ImageIcon iconePadrao = new ImageIcon(urlIconePadrao);
-            jLBanner.setIcon(iconePadrao);
-        }*/
-        
-        jLBanner.setIcon(null);
         jTFNomeEvento.setText("Nome evento");
         jTFArtista.setText("Artista");
         jFTFData.setText("Data");
