@@ -69,7 +69,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jBCadastro.setBackground(new java.awt.Color(90, 90, 205));
         jBCadastro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jBCadastro.setForeground(new java.awt.Color(255, 255, 255));
-        jBCadastro.setText("Cadastro");
+        jBCadastro.setText("Cadastrar");
         jBCadastro.setAlignmentX(0.5F);
         jBCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

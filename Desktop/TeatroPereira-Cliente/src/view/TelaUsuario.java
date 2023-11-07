@@ -395,6 +395,8 @@ public class TelaUsuario extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
                 }
             }    
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Nenhum usuário foi selecionado.");
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
 
@@ -505,6 +507,7 @@ public class TelaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTUsuariosMouseClicked
 
     private void jBEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarUsuarioActionPerformed
+        if (jTUsuarios.getSelectedRow() >= 0){
         int indice = jTUsuarios.getSelectedRow();
         Usuario usuario = usuarioTableModel.getUsuario(indice);
         TelaAlterarUsuario telaAlterarUsuario = new TelaAlterarUsuario(usuario);
@@ -512,7 +515,11 @@ public class TelaUsuario extends javax.swing.JFrame {
         telaAlterarUsuario.setVisible(true);    
             
         atualizaTabela();
-        jTFUsuario.setText(usuario.getLogin());
+        jBNovoUsuario.doClick();
+        
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Nenhum usuário foi selecionado.");
+        }
     }//GEN-LAST:event_jBEditarUsuarioActionPerformed
 
     private void atualizaTabela() {

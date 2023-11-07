@@ -239,7 +239,7 @@ public class TelaEvento extends javax.swing.JFrame {
                             .addComponent(jCBQtdCadeiras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jFTFValor)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jFTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jFTFData)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jFTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -395,6 +395,8 @@ public class TelaEvento extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
                 }
             }    
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Nenhum evento foi selecionado.");
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
 
