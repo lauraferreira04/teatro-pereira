@@ -139,29 +139,35 @@ public class UsuarioDao {
     public boolean alterarUsuario (Usuario usuario){
         boolean resultado;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
 
-        try {
-            con.setAutoCommit(false);
-                      
+        try {         
             if (usuario.getTelefone() == null) {
+                con.setAutoCommit(false);
+                String sqlId = "select idusuario from usuario where login = ?";
+                stmt = con.prepareStatement(sqlId);
+                stmt.setString(1, usuario.getLogin());
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    // Obtém o valor do idusuario
+                    int id = rs.getInt("idusuario");
                     String sql = "update usuario set senha = ? where idusuario = ?";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, usuario.getSenha());
-                    stmt.setInt(2, usuario.getIdUsuario());
+                    stmt.setInt(2, id);
                     stmt.execute();
-                
+                }
             } else {
-                    String sql = "update usuario set nomeusuario = ?, login = ?, senha = ?, cpf = ?, email = ?, telefone = ? where idusuario = ?";
-                    stmt = con.prepareStatement(sql);
-                    stmt.setString(1, usuario.getNomeUsuario());
-                    stmt.setString(2, usuario.getLogin());
-                    stmt.setString(3, usuario.getSenha());
-                    stmt.setString(4, usuario.getCpf());
-                    stmt.setString(5, usuario.getEmail());
-                    stmt.setString(6, usuario.getTelefone());
-                    stmt.setInt(7, usuario.getIdUsuario());
-                    stmt.execute();
+                con.setAutoCommit(false);
+                String sql = "update usuario set nomeusuario = ?, login = ?, senha = ?, cpf = ?, email = ?, telefone = ? where idusuario = ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, usuario.getNomeUsuario());
+                stmt.setString(2, usuario.getLogin());
+                stmt.setString(3, usuario.getSenha());
+                stmt.setString(4, usuario.getCpf());
+                stmt.setString(5, usuario.getEmail());
+                stmt.setString(6, usuario.getTelefone());
+                stmt.setInt(7, usuario.getIdUsuario());
+                stmt.execute();
             }
 
             con.commit();
