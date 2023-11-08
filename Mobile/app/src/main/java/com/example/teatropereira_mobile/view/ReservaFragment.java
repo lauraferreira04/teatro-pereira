@@ -11,11 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.teatropereira_mobile.R;
+import com.example.teatropereira_mobile.adapter.ReservaAdapter;
+import com.example.teatropereira_mobile.controller.ConexaoController;
 import com.example.teatropereira_mobile.databinding.FragmentReservaBinding;
+import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
+
+import modelDominio.Evento;
 
 public class ReservaFragment extends Fragment {
 
     FragmentReservaBinding binding;
+    ReservaAdapter reservaAdapter;
+    InformacoesViewModel informacoesViewModel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +37,16 @@ public class ReservaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ReservaFragmentArgs argumentos = ReservaFragmentArgs.fromBundle(getArguments());
+        Evento evento = argumentos.getEvento();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
+
+            }
+        }); thread.start();
     }
 
     @Override

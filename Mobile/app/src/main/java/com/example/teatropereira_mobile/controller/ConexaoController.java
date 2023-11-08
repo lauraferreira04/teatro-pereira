@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
+import modelDominio.Evento;
 import modelDominio.Usuario;
 
 public class ConexaoController {
@@ -85,5 +87,24 @@ public class ConexaoController {
             resultado = false;
         }
         return resultado;
+    }
+
+    public ArrayList<Evento> eventoLista() {
+        ArrayList<Evento> listaEventos;
+        try {
+            this.informacoesViewModel.getOutputStream().writeObject("EventoLista");
+            listaEventos = (ArrayList<Evento>) this.informacoesViewModel.getInputStream().readObject();
+        } catch (IOException ioe) {
+            Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
+            listaEventos = null;
+        } catch (ClassNotFoundException classe) {
+            Log.e("TeatroPereira", "Erro: " + classe.getMessage());
+            listaEventos = null;
+        }
+        return listaEventos;
+    }
+
+    public void efetuarReserva() {
+
     }
 }

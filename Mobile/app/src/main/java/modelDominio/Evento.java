@@ -11,25 +11,25 @@ public class Evento implements Serializable {
     private Date data;
     private float valor;
     private int qtdCadeiras;
-    private byte[] banner;
+    //private byte[] banner;
 
-    public Evento(int idEvento, String nomeEvento, String artista, Date data, float valor, int qtdCadeiras, byte[] banner) {
+    public Evento(int idEvento, String nomeEvento, String artista, Date data, float valor, int qtdCadeiras/*, byte[] banner*/) {
         this.idEvento = idEvento;
         this.nomeEvento = nomeEvento;
         this.artista = artista;
         this.data = data;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
-        this.banner = banner;
+        //this.banner = banner;
     }
 
-    public Evento(String nomeEvento, String artista, Date data, float valor, int qtdCadeiras, byte[] banner) {
+    public Evento(String nomeEvento, String artista, Date data, float valor, int qtdCadeiras/*, byte[] banner*/) {
         this.nomeEvento = nomeEvento;
         this.artista = artista;
         this.data = data;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
-        this.banner = banner;
+        //this.banner = banner;
     }
 
     public Evento(int idEvento, String nomeEvento, float valor) {
@@ -86,12 +86,12 @@ public class Evento implements Serializable {
         this.qtdCadeiras = qtdCadeiras;
     }
 
-    public byte[] getBanner() {
+    /*public byte[] getBanner() {
         return banner;
     }
 
     public void setBanner(byte[] banner) {
         this.banner = banner;
-    }
+    }*/
 
 }

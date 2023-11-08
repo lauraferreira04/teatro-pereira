@@ -56,6 +56,9 @@
         <action
             android:id="@+id/acao_ReservaFragment_SuporteFragment"
             app:destination="@id/suporteFragment" />
+        <argument
+            android:name="evento"
+            app:argType="modelDominio.Evento" />
     </fragment>
     <fragment
         android:id="@+id/minhasReservasFragment"
