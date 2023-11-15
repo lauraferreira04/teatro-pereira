@@ -143,7 +143,7 @@ public class EventoDao {
         ArrayList<Evento> listaEventos = new ArrayList<>();
         PreparedStatement stmt = null;
         try {
-            String sql = "select * from evento ";
+            String sql = "select * from evento";
             stmt = con.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
             
@@ -168,5 +168,30 @@ public class EventoDao {
             listaEventos = null;
         }
         return listaEventos;
+    }
+    
+    public int getCadeirasDisponiveis(Evento evento) {
+        int cadeirasDisponiveis;
+        PreparedStatement stmt = null;
+        try {
+            String sql = "select qtdcadeiras from evento where idevento = ?";
+            
+            if (evento.getQtdCadeiras() != 0) {
+                stmt = con.prepareStatement(sql);
+                stmt.setInt(1, evento.getIdEvento());
+            } else {
+                //ESGOTADO -> ver com fabinho
+            }
+            ResultSet res = stmt.executeQuery();
+            cadeirasDisponiveis = res.getInt("qtdcadeiras");
+            
+            res.close();
+            con.close();            
+            stmt.close();
+        } catch (SQLException exc) {
+            System.out.println("Erro: " + exc.getMessage());
+            cadeirasDisponiveis = 0;
+        }
+        return cadeirasDisponiveis;
     }
 }

@@ -17,11 +17,9 @@ import modelDominio.Reserva;
 
 public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.MyViewHolder> {
     private List<Reserva> listaReservas;
-    private ReservaOnClickListener reservaOnClickListener;
 
-    public ReservaAdapter(List<Reserva> listaReservas, ReservaOnClickListener reservaOnClickListener) {
+    public ReservaAdapter(List<Reserva> listaReservas) {
         this.listaReservas = listaReservas;
-        this.reservaOnClickListener = reservaOnClickListener;
     }
 
     @Override
@@ -33,21 +31,12 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final ReservaAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Reserva minhaReserva = listaReservas.get(position);
-        Bitmap banner = ByteArrayToBitmap(minhaReserva.getEvento().getBanner());
-        holder.reservaListRowBinding.ivMinhasReservasBanner.setImageBitmap(banner);
+        //Bitmap banner = ByteArrayToBitmap(minhaReserva.getEvento().getBanner());
+        //holder.reservaListRowBinding.ivMinhasReservasBanner.setImageBitmap(banner);
         holder.reservaListRowBinding.tvMinhasReservasTitulo.setText(String.valueOf(minhaReserva.getEvento().getNomeEvento()));
         holder.reservaListRowBinding.tvMinhasReservasArtista.setText(String.valueOf(minhaReserva.getEvento().getArtista()));
         holder.reservaListRowBinding.tvMinhasReservasData.setText(String.valueOf(minhaReserva.getEvento().getData()));
         holder.reservaListRowBinding.tvMinhasReservasQtdCadeiras.setText(String.valueOf(minhaReserva.getQtdCadeiras()));
-
-        if(reservaOnClickListener != null) {
-            holder.reservaListRowBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    reservaOnClickListener.onClickListener(holder.itemView, position, minhaReserva);
-                }
-            });
-        }
     }
 
     @Override
@@ -61,10 +50,6 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.MyViewHo
             super(reservaListRowBinding.getRoot());
             this.reservaListRowBinding = reservaListRowBinding;
         }
-    }
-
-    public interface ReservaOnClickListener {
-        public void onClickListener(View view, int position, Reserva reserva);
     }
 
     public Bitmap ByteArrayToBitmap(byte[] byteArray) {

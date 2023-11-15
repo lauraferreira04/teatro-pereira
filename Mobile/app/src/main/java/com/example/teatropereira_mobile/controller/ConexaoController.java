@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import modelDominio.Evento;
+import modelDominio.Reserva;
 import modelDominio.Usuario;
 
 public class ConexaoController {
@@ -104,7 +105,53 @@ public class ConexaoController {
         return listaEventos;
     }
 
-    public void efetuarReserva() {
+    public int listaCadeiras() {
+        int cadeirasDisponiveis;
+        try {
+            this.informacoesViewModel.getOutputStream().writeObject("CadeiraLista");
+            mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
+            this.informacoesViewModel.getOutputStream().writeObject(evento);
+            cadeirasDisponiveis = (int)this.informacoesViewModel.getInputStream().readObject();
+        } catch (IOException ioe) {
+            Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
+            cadeirasDisponiveis = 0;
+        } catch (ClassNotFoundException classe) {
+            Log.e("TeatroPereira", "Erro: " + classe.getMessage());
+            cadeirasDisponiveis = 0;
+        }
+        return cadeirasDisponiveis;
+    }
 
+    public boolean efetuarReserva(Reserva reserva) {
+        boolean resultado;
+        String mensagem;
+        try {
+            this.informacoesViewModel.getOutputStream().writeObject("EfetuarReserva");
+            mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
+            this.informacoesViewModel.getOutputStream().writeObject(reserva);
+            resultado = (Boolean)this.informacoesViewModel.getInputStream().readObject();
+        } catch (IOException ioe) {
+            Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
+            resultado = false;
+        } catch (ClassNotFoundException classe) {
+            Log.e("TeatroPereira", "Erro: " + classe.getMessage());
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    public ArrayList<Reserva> reservaLista() {
+        ArrayList<Reserva> listaReservas;
+        try {
+            this.informacoesViewModel.getOutputStream().writeObject("ReservaLista");
+            listaReservas = (ArrayList<Reserva>) this.informacoesViewModel.getInputStream().readObject();
+        } catch (IOException ioe) {
+            Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
+            listaReservas = null;
+        } catch (ClassNotFoundException classe) {
+            Log.e("TeatroPereira", "Erro: " + classe.getMessage());
+            listaReservas = null;
+        }
+        return listaReservas;
     }
 }
