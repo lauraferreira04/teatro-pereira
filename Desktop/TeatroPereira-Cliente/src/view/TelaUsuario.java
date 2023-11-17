@@ -71,6 +71,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         jBSalvar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
         jBEditarUsuario = new javax.swing.JButton();
+        jBEditarSenha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuário");
@@ -219,6 +220,14 @@ public class TelaUsuario extends javax.swing.JFrame {
             }
         });
 
+        jBEditarSenha.setBackground(new java.awt.Color(90, 90, 205));
+        jBEditarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/editar.png"))); // NOI18N
+        jBEditarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,30 +240,35 @@ public class TelaUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLLogo))
+                        .addComponent(jLLogo)
+                        .addGap(36, 36, 36))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTFCpf)
-                            .addComponent(jTFEmail)
-                            .addComponent(jPFSenha)
-                            .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTFCpf)
+                                .addComponent(jTFEmail)
+                                .addComponent(jTFTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTFNome))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTFNome)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPFSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTFUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jBEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBEditarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -269,7 +283,9 @@ public class TelaUsuario extends javax.swing.JFrame {
                             .addComponent(jTFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jPFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBEditarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTFCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -318,6 +334,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
                                         // Desabilita o campo de usuário se estiver editando
                                         jTFUsuario.setEnabled(false);
+                                        jPFSenha.setEnabled(false);
 
                                         boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(usuario);
                                         if (usuarioExiste == true){
@@ -502,6 +519,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
             // Desabilita o campo de usuário se estiver editando
             jTFUsuario.setEnabled(false);
+            jPFSenha.setEnabled(false);
             editando = true;
         }
     }//GEN-LAST:event_jTUsuariosMouseClicked
@@ -522,6 +540,22 @@ public class TelaUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBEditarUsuarioActionPerformed
 
+    private void jBEditarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarSenhaActionPerformed
+        if (jTUsuarios.getSelectedRow() >= 0){
+        int indice = jTUsuarios.getSelectedRow();
+        Usuario usuario = usuarioTableModel.getUsuario(indice);
+        TelaAlterarSenha telaAlterarSenha = new TelaAlterarSenha(usuario);
+        telaAlterarSenha.setModal(true);
+        telaAlterarSenha.setVisible(true);    
+            
+        atualizaTabela();
+        jBNovoUsuario.doClick();
+        
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Nenhum usuário foi selecionado.");
+        }
+    }//GEN-LAST:event_jBEditarSenhaActionPerformed
+
     private void atualizaTabela() {
         ArrayList<Usuario> listaUsuarios = TeatroPereiraCliente.ccont.usuarioLista();
 
@@ -537,9 +571,11 @@ public class TelaUsuario extends javax.swing.JFrame {
         jTFTelefone.setText("Telefone");
         
         jTFUsuario.setEnabled(true);
+        jPFSenha.setEnabled(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBEditarSenha;
     private javax.swing.JButton jBEditarUsuario;
     private javax.swing.JButton jBExcluir;
     private javax.swing.JButton jBNovoUsuario;
