@@ -99,6 +99,36 @@ public class UsuarioDao {
         return resultado;
     }
     
+    public boolean senhaUsuarioExiste (Usuario usuario){
+        boolean resultado;
+        PreparedStatement stmt = null;
+        try {
+            con.setAutoCommit(false);            
+            String sql = "select senha from usuario where login = ?" ;          
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, usuario.getLogin());
+            
+            ResultSet rs = stmt.executeQuery();
+            resultado = rs.next();
+            //stmt.execute();
+            con.commit();
+
+        } catch(SQLException exc){
+            System.out.println("Erro: " + exc.getMessage());
+            resultado = false;
+        } finally{
+            try {
+                stmt.close();
+                con.setAutoCommit(true);
+                con.close();
+            } catch(SQLException exc) {
+                System.out.println("Erro: " + exc.getMessage());
+                resultado = false;
+            }
+        }
+        return resultado;
+    }
+    
     public boolean inserirUsuario (Usuario usuario){
         boolean resultado;
         PreparedStatement stmt = null;
