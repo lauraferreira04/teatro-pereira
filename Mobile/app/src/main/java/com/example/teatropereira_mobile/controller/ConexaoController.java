@@ -105,8 +105,9 @@ public class ConexaoController {
         return listaEventos;
     }
 
-    public int listaCadeiras() {
+    public int listaCadeiras(Evento evento) {
         int cadeirasDisponiveis;
+        String mensagem;
         try {
             this.informacoesViewModel.getOutputStream().writeObject("CadeiraLista");
             mensagem = (String)this.informacoesViewModel.getInputStream().readObject();

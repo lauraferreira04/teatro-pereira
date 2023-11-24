@@ -44,7 +44,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                resultado = conexaoController.criaConexaoServidor("127.0.0.1",12345);
+                resultado = conexaoController.criaConexaoServidor("10.0.2.2",12345);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

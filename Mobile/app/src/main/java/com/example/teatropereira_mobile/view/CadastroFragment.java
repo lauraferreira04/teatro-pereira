@@ -70,17 +70,12 @@ public class CadastroFragment extends Fragment {
                                                             binding.etCadastroUsuario.requestFocus();
                                                         } else {
                                                             resultado = conexaoController.usuarioInserir(usuario);
-                                                            getActivity().runOnUiThread(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    if (resultado == true) {
-                                                                        Toast.makeText(getContext(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-                                                                        limpaCampos();
-                                                                    } else {
-                                                                        Toast.makeText(getContext(), "Erro: usuário não cadastrado.", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                }
-                                                            });
+                                                            if (resultado == true) {
+                                                                Toast.makeText(getContext(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+                                                                limpaCampos();
+                                                            } else {
+                                                                Toast.makeText(getContext(), "Erro: usuário não cadastrado.", Toast.LENGTH_SHORT).show();
+                                                            }
                                                         }
                                                     }
                                                 });
