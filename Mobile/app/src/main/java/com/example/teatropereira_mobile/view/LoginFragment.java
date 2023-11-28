@@ -16,7 +16,11 @@ import android.widget.Toast;
 import com.example.teatropereira_mobile.R;
 import com.example.teatropereira_mobile.controller.ConexaoController;
 import com.example.teatropereira_mobile.databinding.FragmentLoginBinding;
+import com.example.teatropereira_mobile.view.util.Hash;
 import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import modelDominio.Usuario;
 
@@ -64,28 +68,42 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 if (!binding.etLoginUsuario.getText().toString().equals("")) {
                     if (!binding.etLoginSenha.getText().toString().equals("")) {
-                        String usuario = binding.etLoginUsuario.getText().toString();
-                        String senha = binding.etLoginSenha.getText().toString();
+                        if (binding.etLoginSenha.getText().toString().trim().isEmpty()) {
+                            binding.etLoginSenha.setError("Erro: informe uma senha válida.");
+                            binding.etLoginSenha.requestFocus();
+                        } else {
+                            try {
+                                String senha = Hash.encripar(binding.etLoginSenha.getText().toString(), "SHA-256");
+                                String usuario = binding.etLoginUsuario.getText().toString();
+                                //String senha = binding.etLoginSenha.getText().toString();
 
-                        usuarioLogado = new Usuario(usuario, senha);
-                        Thread thread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                                usuarioLogado = conexaoController.efetuarLogin(usuarioLogado);
-                                getActivity().runOnUiThread(new Runnable() {
+                                usuarioLogado = new Usuario(usuario, senha);
+                                Thread thread = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (usuarioLogado != null) {
-                                            informacoesViewModel.inicializaUsuarioLogado(usuarioLogado);
-                                            Navigation.findNavController(view).navigate(R.id.acao_LoginFragment_HomeFragment);
-                                        } else {
-                                            Toast.makeText(getContext(), "Erro: usuário e/ou senha inválidos.", Toast.LENGTH_SHORT).show();
-                                        }
+                                        ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
+                                        usuarioLogado = conexaoController.efetuarLogin(usuarioLogado);
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (usuarioLogado != null) {
+                                                    informacoesViewModel.inicializaUsuarioLogado(usuarioLogado);
+                                                    Navigation.findNavController(view).navigate(R.id.acao_LoginFragment_HomeFragment);
+                                                } else {
+                                                    Toast.makeText(getContext(), "Erro: usuário e/ou senha inválidos.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                                     }
-                                });
+                                }); thread.start();
+                            } catch (NoSuchAlgorithmException ex) {
+                                binding.etLoginSenha.setError("Erro ao tentar gerar o código hash.");
+                                binding.etLoginSenha.requestFocus();
+                            } catch (UnsupportedEncodingException ex) {
+                                binding.etLoginSenha.setError("Erro ao tentar gerar o código hash.");
+                                binding.etLoginSenha.requestFocus();
                             }
-                        }); thread.start();
+                        }
                     } else {
                         binding.etLoginSenha.setError("Erro: informe a senha.");
                         binding.etLoginSenha.requestFocus();
