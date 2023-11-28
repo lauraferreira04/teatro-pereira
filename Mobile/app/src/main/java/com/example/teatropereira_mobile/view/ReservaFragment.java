@@ -55,11 +55,17 @@ public class ReservaFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         informacoesViewModel = new ViewModelProvider(getActivity()).get(InformacoesViewModel.class);
+        ReservaFragmentArgs argumentos = ReservaFragmentArgs.fromBundle(getArguments());
+        Evento evento = argumentos.getEvento();
+        binding.tvReservaTitulo.setText(evento.getNomeEvento());
+        binding.tvReservaArtista.setText(evento.getArtista());
+        binding.tvReservaData.setText(evento.getData().toString());
+        binding.tvReservaPreco.setText(String.valueOf(evento.getValor()));
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                cadeirasDisponiveis = conexaoController.listaCadeiras();
+                cadeirasDisponiveis = conexaoController.listaCadeiras(evento);
                 if (cadeirasDisponiveis > 0) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -74,13 +80,7 @@ public class ReservaFragment extends Fragment {
                 }
             }
         }); thread.start();
-        
-        ReservaFragmentArgs argumentos = ReservaFragmentArgs.fromBundle(getArguments());
-        Evento evento = argumentos.getEvento();
-        binding.tvReservaTitulo.setText(evento.getNomeEvento());
-        binding.tvReservaArtista.setText(evento.getArtista());
-        binding.tvReservaData.setText(evento.getData().toString());
-        binding.tvReservaPreco.setText(String.valueOf(evento.getValor()));
+
         //fazer o metódo nos dois lugares do servidor
 
         /*confirmar compra

@@ -15,7 +15,11 @@ import android.widget.Toast;
 import com.example.teatropereira_mobile.R;
 import com.example.teatropereira_mobile.controller.ConexaoController;
 import com.example.teatropereira_mobile.databinding.FragmentCadastroBinding;
+import com.example.teatropereira_mobile.view.util.Hash;
 import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import modelDominio.Usuario;
 
@@ -45,34 +49,37 @@ public class CadastroFragment extends Fragment {
                 if (!binding.etCadastroNome.getText().toString().equals("")) {
                     if (!binding.etCadastroUsuario.getText().toString().equals("")) {
                         if (!binding.etCadastroSenha.getText().toString().equals("")) {
-                            if (!binding.etCadastroCpf.getText().toString().equals("")) {
-                                if (!binding.etCadastroEmail.getText().toString().equals("")) {
-                                    if (!binding.etCadastroTelefone.getText().toString().equals("")) {
-                                        String nome = binding.etCadastroNome.getText().toString();
-                                        String login = binding.etCadastroUsuario.getText().toString();
-                                        String senha = binding.etCadastroSenha.getText().toString();
-                                        String cpf = binding.etCadastroCpf.getText().toString();
-                                        String email = binding.etCadastroEmail.getText().toString();
-                                        String telefone = binding.etCadastroTelefone.getText().toString();
-                                        
-                                        usuario = new Usuario(nome, login, senha, cpf, email, telefone, 1);
-                                        Thread thread = new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                                                //criar metodo usuario existe
-                                                resultado = conexaoController.usuarioExiste(usuario);
-                                                getActivity().runOnUiThread(new Runnable() {
+                            if (binding.etCadastroSenha.getText().toString().trim().isEmpty()) {
+                                binding.etCadastroSenha.setError("Erro: informe uma senha válida.");
+                                binding.etCadastroSenha.requestFocus();
+                            } else {
+                                try {
+                                    String senha = Hash.encripar(binding.etCadastroSenha.getText().toString(), "SHA-256");
+                                    if (!binding.etCadastroCpf.getText().toString().equals("")) {
+                                        if (!binding.etCadastroEmail.getText().toString().equals("")) {
+                                            if (!binding.etCadastroTelefone.getText().toString().equals("")) {
+                                                String nome = binding.etCadastroNome.getText().toString();
+                                                String login = binding.etCadastroUsuario.getText().toString();
+                                                //String senha = binding.etCadastroSenha.getText().toString();
+                                                String cpf = binding.etCadastroCpf.getText().toString();
+                                                String email = binding.etCadastroEmail.getText().toString();
+                                                String telefone = binding.etCadastroTelefone.getText().toString();
+
+                                                usuario = new Usuario(nome, login, senha, cpf, email, telefone, 1);
+                                                Thread thread = new Thread(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        if (resultado == true) {
-                                                            Toast.makeText(getContext(), "Nome de usuário já existente, tente novamente.", Toast.LENGTH_SHORT).show();
-                                                            binding.etCadastroUsuario.requestFocus();
-                                                        } else {
-                                                            resultado = conexaoController.usuarioInserir(usuario);
-                                                            getActivity().runOnUiThread(new Runnable() {
-                                                                @Override
-                                                                public void run() {
+                                                        ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
+                                                        //criar metodo usuario existe
+                                                        resultado = conexaoController.usuarioExiste(usuario);
+                                                        getActivity().runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                if (resultado == true) {
+                                                                    Toast.makeText(getContext(), "Nome de usuário já existente, tente novamente.", Toast.LENGTH_SHORT).show();
+                                                                    binding.etCadastroUsuario.requestFocus();
+                                                                } else {
+                                                                    resultado = conexaoController.usuarioInserir(usuario);
                                                                     if (resultado == true) {
                                                                         Toast.makeText(getContext(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                                                                         limpaCampos();
@@ -80,23 +87,29 @@ public class CadastroFragment extends Fragment {
                                                                         Toast.makeText(getContext(), "Erro: usuário não cadastrado.", Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
-                                                            });
-                                                        }
+                                                            }
+                                                        });
                                                     }
-                                                });
+                                                }); thread.start();
+                                            } else {
+                                                binding.etCadastroTelefone.setError("Erro: informe o telefone.");
+                                                binding.etCadastroTelefone.requestFocus();
                                             }
-                                        }); thread.start();
+                                        } else {
+                                            binding.etCadastroEmail.setError("Erro: informe o e-mail.");
+                                            binding.etCadastroEmail.requestFocus();
+                                        }
                                     } else {
-                                        binding.etCadastroTelefone.setError("Erro: informe o telefone.");
-                                        binding.etCadastroTelefone.requestFocus();
+                                        binding.etCadastroCpf.setError("Erro: informe o CPF.");
+                                        binding.etCadastroCpf.requestFocus();
                                     }
-                                } else {
-                                    binding.etCadastroEmail.setError("Erro: informe o e-mail.");
-                                    binding.etCadastroEmail.requestFocus();
+                                } catch (NoSuchAlgorithmException ex) {
+                                    binding.etCadastroSenha.setError("Erro ao tentar gerar o código hash.");
+                                    binding.etCadastroSenha.requestFocus();
+                                } catch (UnsupportedEncodingException ex) {
+                                    binding.etCadastroSenha.setError("Erro ao tentar gerar o código hash.");
+                                    binding.etCadastroSenha.requestFocus();
                                 }
-                            } else {
-                                binding.etCadastroCpf.setError("Erro: informe o CPF.");
-                                binding.etCadastroCpf.requestFocus();
                             }
                         } else {
                             binding.etCadastroSenha.setError("Erro: informe a senha.");
