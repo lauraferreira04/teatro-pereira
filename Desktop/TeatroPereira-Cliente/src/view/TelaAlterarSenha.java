@@ -42,6 +42,8 @@ public class TelaAlterarSenha extends javax.swing.JDialog {
         jPFSenhaNova = new javax.swing.JPasswordField();
         jLSenhaAtual = new javax.swing.JLabel();
         jLSenhaNova = new javax.swing.JLabel();
+        jLConfirmaSenha = new javax.swing.JLabel();
+        jPFConfirmaSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela Alterar Senha");
@@ -63,39 +65,48 @@ public class TelaAlterarSenha extends javax.swing.JDialog {
 
         jPFSenhaNova.setForeground(new java.awt.Color(153, 153, 153));
 
+        jLSenhaAtual.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLSenhaAtual.setText("Senha atual:");
 
+        jLSenhaNova.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLSenhaNova.setText("Nova senha:");
+
+        jLConfirmaSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLConfirmaSenha.setText("Confirme senha nova:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLSenhaNova)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPFSenhaNova, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(36, Short.MAX_VALUE)
-                        .addComponent(jLSenhaAtual)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPFSenhaVelha, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36))
             .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLSenhaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPFSenhaVelha, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLConfirmaSenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLSenhaNova, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPFSenhaNova, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                                    .addComponent(jPFConfirmaSenha))))))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLLogo)
-                .addGap(33, 33, 33)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPFSenhaVelha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLSenhaAtual))
@@ -103,9 +114,13 @@ public class TelaAlterarSenha extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPFSenhaNova, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLSenhaNova))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPFConfirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLConfirmaSenha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jBAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -116,44 +131,60 @@ public class TelaAlterarSenha extends javax.swing.JDialog {
         
         String senhaVelha = new String(jPFSenhaVelha.getPassword());
         String senhaNova = new String(jPFSenhaNova.getPassword());
+        String ConfirmaSenha = new String(jPFConfirmaSenha.getPassword());
         if (!senhaVelha.equals("")){
-            if (!senhaNova.equals("")){   
-                try {
-                    String senhaCriptografadaVelha = Hash.encriptar(senhaVelha, "SHA-256");
-                    this.usuario.setSenha(senhaCriptografadaVelha);
-                    System.out.println("Senha: " + this.usuario.getSenha());
-                    String senhaCriptografadaNova = Hash.encriptar(senhaNova, "SHA-256");
-                        
-                    boolean senhaExiste = TeatroPereiraCliente.ccont.senhaUsuarioExiste(usuario, senhaCriptografadaNova);
-                   
-                    if (senhaExiste == true){
-                        
-                        this.usuario.setSenha(senhaCriptografadaNova);
-                        JOptionPane.showMessageDialog(rootPane, "Senha alterada com sucesso.");
-                        dispose();    
-                        
+            if (!senhaNova.equals("")){ 
+                if (!ConfirmaSenha.equals("")){
+                    if (senhaNova.equals(ConfirmaSenha)){
+                        try {
+                            String senhaCriptografadaVelha = Hash.encriptar(senhaVelha, "SHA-256");
+                            this.usuario.setSenha(senhaCriptografadaVelha);
+                            System.out.println("Senha: " + this.usuario.getSenha());
+                            String senhaCriptografadaNova = Hash.encriptar(senhaNova, "SHA-256");
+
+                            boolean senhaExiste = TeatroPereiraCliente.ccont.senhaUsuarioExiste(usuario, senhaCriptografadaNova);
+
+                            if (senhaExiste == true){
+
+                                this.usuario.setSenha(senhaCriptografadaNova);
+                                JOptionPane.showMessageDialog(rootPane, "Senha alterada com sucesso.");
+                                dispose();    
+
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Erro ao alterar senha.");
+                            }
+                        } catch (NoSuchAlgorithmException ex) {
+                            Logger.getLogger(TelaAlterarSenha.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (UnsupportedEncodingException ex) {
+                            Logger.getLogger(TelaAlterarSenha.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao alterar senha.");
-                    }
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(TelaAlterarSenha.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (UnsupportedEncodingException ex) {
-                    Logger.getLogger(TelaAlterarSenha.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(rootPane, "Erro: as senhas não coincidem.");
+                        jPFConfirmaSenha.grabFocus();
+                        
+                    }    
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Erro: confirme a senha nova.");
+                    jPFConfirmaSenha.grabFocus();
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro: informe a nova senha.");
+                jPFSenhaNova.grabFocus();
             }                
         } else {
             JOptionPane.showMessageDialog(rootPane, "Erro: informe a senha atual.");
+            jPFSenhaVelha.grabFocus();
         }
         
     }//GEN-LAST:event_jBAlterarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
+    private javax.swing.JLabel jLConfirmaSenha;
     private javax.swing.JLabel jLLogo;
     private javax.swing.JLabel jLSenhaAtual;
     private javax.swing.JLabel jLSenhaNova;
+    private javax.swing.JPasswordField jPFConfirmaSenha;
     private javax.swing.JPasswordField jPFSenhaNova;
     private javax.swing.JPasswordField jPFSenhaVelha;
     // End of variables declaration//GEN-END:variables
