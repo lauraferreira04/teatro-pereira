@@ -121,22 +121,19 @@ public class TelaAlterarSenha extends javax.swing.JDialog {
                 try {
                     String senhaCriptografadaVelha = Hash.encriptar(senhaVelha, "SHA-256");
                     this.usuario.setSenha(senhaCriptografadaVelha);
-                    boolean senhaExiste = TeatroPereiraCliente.ccont.senhaUsuarioExiste(usuario);
+                    System.out.println("Senha: " + this.usuario.getSenha());
+                    String senhaCriptografadaNova = Hash.encriptar(senhaNova, "SHA-256");
+                        
+                    boolean senhaExiste = TeatroPereiraCliente.ccont.senhaUsuarioExiste(usuario, senhaCriptografadaNova);
                    
                     if (senhaExiste == true){
-                        String senhaCriptografadaNova = Hash.encriptar(senhaNova, "SHA-256");
                         
                         this.usuario.setSenha(senhaCriptografadaNova);
+                        JOptionPane.showMessageDialog(rootPane, "Senha alterada com sucesso.");
+                        dispose();    
                         
-                        boolean usuarioAlterar = TeatroPereiraCliente.ccont.usuarioAlterar(usuario);
-                        if (usuarioAlterar == true){
-                            JOptionPane.showMessageDialog(rootPane, "Senha alterada com sucesso.");
-                            dispose();    
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "Erro: senha não pode ser alterada");
-                        }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Senha antiga está incorreta");
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao alterar senha.");
                     }
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(TelaAlterarSenha.class.getName()).log(Level.SEVERE, null, ex);
