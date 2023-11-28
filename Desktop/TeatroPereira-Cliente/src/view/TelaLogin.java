@@ -5,7 +5,12 @@
 package view;
 
 import java.awt.Color;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelDominio.Hash;
 import modelDominio.Usuario;
 
 /**
@@ -158,20 +163,27 @@ public class TelaLogin extends javax.swing.JFrame {
         String senha = new String(jPFSenha.getPassword());
         if(!jTFUsuario.getText().equals("")) {
             if(!senha.equals("")) {
-                String login = jTFUsuario.getText();
-                
-                Usuario usuario = new Usuario(login, senha);
-                
-                Usuario usuarioLogado = TeatroPereiraCliente.ccont.efetuarlogin(usuario);
-                
-                if (usuarioLogado != null) {
-                    //JOptionPane.showMessageDialog(rootPane, "Autenticação efetuada com sucesso.");
-                    TeatroPereiraCliente.ccont.usuarioLogado = usuarioLogado;
-                    TelaHome telaHome = new TelaHome();
-                    telaHome.setVisible(true);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Erro: usuário e/ou senha inválidos.");
+                try {
+                    String login = jTFUsuario.getText();
+                    String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
+                    
+                    Usuario usuario = new Usuario(login, senhaCriptografada);
+                    
+                    Usuario usuarioLogado = TeatroPereiraCliente.ccont.efetuarlogin(usuario);
+                    
+                    if (usuarioLogado != null) {
+                        //JOptionPane.showMessageDialog(rootPane, "Autenticação efetuada com sucesso.");
+                        TeatroPereiraCliente.ccont.usuarioLogado = usuarioLogado;
+                        TelaHome telaHome = new TelaHome();
+                        telaHome.setVisible(true);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Erro: usuário e/ou senha inválidos.");
+                    }
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro: informe a senha.");

@@ -4,8 +4,13 @@
  */
 package view;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelDominio.Administrador;
+import modelDominio.Hash;
 
 /**
  *  trabalho interdisciplinar
@@ -192,23 +197,32 @@ public class TelaAutoCadastro extends javax.swing.JFrame {
                         if (!jTFEmail.getText().equals("") && !jTFEmail.getText().equals("Email")){
                             String email = jTFEmail.getText();
                             if (!jTFTelefone.getText().equals("") && !jTFTelefone.getText().equals("Telefone")){
-                                String telefone = jTFTelefone.getText();
-                                  
-                                Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 0);
-                                
-                                boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
-                                if (usuarioExiste == true){
-                                    JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
-                                    jTFUsuario.grabFocus();
-                                } else {
-                                    boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
-                                
-                                    if (resultado == true){
-                                        JOptionPane.showMessageDialog(rootPane, "Usuário inserido com sucesso.");
-                                        dispose();
+                                try {
+                                    String telefone = jTFTelefone.getText();
+                                    
+                                    String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
+                                    
+                                    
+                                    Administrador administrador = new Administrador(nomeUsuario, login, senhaCriptografada, cpf, email, telefone, 0);
+                                    
+                                    boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
+                                    if (usuarioExiste == true){
+                                        JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
+                                        jTFUsuario.grabFocus();
                                     } else {
-                                        JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser cadastrado.");
+                                        boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
+                                        
+                                        if (resultado == true){
+                                            JOptionPane.showMessageDialog(rootPane, "Usuário inserido com sucesso.");
+                                            dispose();
+                                        } else {
+                                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser cadastrado.");
+                                        }
                                     }
+                                } catch (NoSuchAlgorithmException ex) {
+                                    Logger.getLogger(TelaAutoCadastro.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (UnsupportedEncodingException ex) {
+                                    Logger.getLogger(TelaAutoCadastro.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 
                             } else{
