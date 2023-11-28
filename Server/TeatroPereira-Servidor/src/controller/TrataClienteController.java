@@ -123,6 +123,12 @@ public class TrataClienteController extends Thread{
                     ReservaDao reservaDao = new ReservaDao();
                     boolean resultado = reservaDao.efetuarReserva(reserva);
                     out.writeObject(resultado);
+                } else if (comando.equalsIgnoreCase("SenhaUsuarioExiste")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    boolean resultado = usuarioDao.senhaUsuarioExiste(usuario);
+                    out.writeObject(resultado);
                 }
                 comando = (String)in.readObject();
            }      

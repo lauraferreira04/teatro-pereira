@@ -109,7 +109,12 @@ public class UsuarioDao {
                 stmt.setString(1, usuario.getLogin());
             
             ResultSet rs = stmt.executeQuery();
-            resultado = rs.next();
+            if (rs.next()){
+                resultado = rs.getString("senha").equals(usuario.getSenha());
+            } else {
+                resultado = false;
+            }
+       
             //stmt.execute();
             con.commit();
 
