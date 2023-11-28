@@ -49,10 +49,7 @@ public class CadastroFragment extends Fragment {
                 if (!binding.etCadastroNome.getText().toString().equals("")) {
                     if (!binding.etCadastroUsuario.getText().toString().equals("")) {
                         if (!binding.etCadastroSenha.getText().toString().equals("")) {
-                            if (binding.etCadastroSenha.getText().toString().trim().isEmpty()) {
-                                binding.etCadastroSenha.setError("Erro: informe uma senha válida.");
-                                binding.etCadastroSenha.requestFocus();
-                            } else {
+                            if (!binding.etCadastroSenha.getText().toString().trim().isEmpty()) {
                                 try {
                                     String senha = Hash.encripar(binding.etCadastroSenha.getText().toString(), "SHA-256");
                                     if (!binding.etCadastroCpf.getText().toString().equals("")) {
@@ -110,6 +107,9 @@ public class CadastroFragment extends Fragment {
                                     binding.etCadastroSenha.setError("Erro ao tentar gerar o código hash.");
                                     binding.etCadastroSenha.requestFocus();
                                 }
+                            } else {
+                                binding.etCadastroSenha.setError("Erro: informe uma senha válida.");
+                                binding.etCadastroSenha.requestFocus();
                             }
                         } else {
                             binding.etCadastroSenha.setError("Erro: informe a senha.");

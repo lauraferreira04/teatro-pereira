@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                resultado = conexaoController.criaConexaoServidor("10.0.2.2",12345);
+                resultado = conexaoController.criaConexaoServidor("127.0.0.1",12345);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -68,10 +68,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 if (!binding.etLoginUsuario.getText().toString().equals("")) {
                     if (!binding.etLoginSenha.getText().toString().equals("")) {
-                        if (binding.etLoginSenha.getText().toString().trim().isEmpty()) {
-                            binding.etLoginSenha.setError("Erro: informe uma senha válida.");
-                            binding.etLoginSenha.requestFocus();
-                        } else {
+                        if (!binding.etLoginSenha.getText().toString().trim().isEmpty()) {
                             try {
                                 String senha = Hash.encripar(binding.etLoginSenha.getText().toString(), "SHA-256");
                                 String usuario = binding.etLoginUsuario.getText().toString();
@@ -103,6 +100,9 @@ public class LoginFragment extends Fragment {
                                 binding.etLoginSenha.setError("Erro ao tentar gerar o código hash.");
                                 binding.etLoginSenha.requestFocus();
                             }
+                        } else {
+                            binding.etLoginSenha.setError("Erro: informe uma senha válida.");
+                            binding.etLoginSenha.requestFocus();
                         }
                     } else {
                         binding.etLoginSenha.setError("Erro: informe a senha.");
