@@ -63,14 +63,17 @@ public class ConexaoController {
         return resultado;
     }
     
-    public boolean senhaUsuarioExiste(Usuario usuario){
+    public boolean senhaUsuarioExiste(Usuario usuario, String novaSenha){
         boolean resultado;
         String mensagem;
         try{
-            out.writeObject("SenhaUsuarioExiste");
+            out.writeObject("AtualizacaoSenhaUsuario");
             mensagem = (String) in.readObject();
             out.writeObject(usuario);
-            resultado = (Boolean) in.readObject();
+            mensagem = (String) in.readObject();
+            out.writeObject(novaSenha);
+            resultado = (Boolean) in.readObject();            
+            
         } catch(IOException ioe){
             System.out.println("Erro: " + ioe.getMessage());
             resultado = false;

@@ -4,6 +4,14 @@
  */
 package view;
 
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import modelDominio.Usuario;
 
@@ -123,7 +131,47 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    private void enviarEmail() {
 
+        String remetente = "o.teatropereira@gmail.com";
+        String senhaRemetente = "nmvu riar rljg blsm";
+        String destinatario = jTFEmail.getText();
+        String assunto = "Teatro Pereira: Recuperação de senha";
+        String mensagem = "Sua nova senha é '123456', altere no próximo login.";
+
+        System.out.println(senhaRemetente);
+
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        //properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.ssl.enable", "true");
+
+        Session session = Session.getInstance(properties,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(remetente, senhaRemetente);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(remetente));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+            message.setSubject(assunto);
+            message.setText(mensagem);
+
+            Transport.send(message);
+
+            JOptionPane.showMessageDialog(this, "E-mail enviado com sucesso!");
+
+        } catch (MessagingException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao enviar e-mail: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private void jBAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarActionPerformed
         if(!jTFUsuario.getText().equals("") && !jTFUsuario.getText().equals("Usuário")) {
             String login = jTFUsuario.getText();
@@ -143,8 +191,9 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
                         Usuario usuario1 = new Usuario(login, cpf, email, senha);
                         boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
                         if(resultado == true) { //se alterou sem erro
-
-                            JOptionPane.showMessageDialog(null, "Sua senha foi alterada, nova senha: 123456", 
+                            enviarEmail();
+                                                         
+                            JOptionPane.showMessageDialog(null, "Uma mensagem com sua nova senha foi enviada no email correspondente.", 
                                     "Senha alterada", JOptionPane.INFORMATION_MESSAGE);
                             dispose();
                         } else { //deu erro para alterar

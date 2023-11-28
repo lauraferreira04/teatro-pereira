@@ -123,13 +123,23 @@ public class TrataClienteController extends Thread{
                     ReservaDao reservaDao = new ReservaDao();
                     boolean resultado = reservaDao.efetuarReserva(reserva);
                     out.writeObject(resultado);
-                } else if (comando.equalsIgnoreCase("SenhaUsuarioExiste")){
+                } else if (comando.equalsIgnoreCase("AtualizacaoSenhaUsuario")){
                     out.writeObject("ok");
-                    Usuario usuario = (Usuario) in.readObject();
+                    Usuario usuario = (Usuario) in.readObject();                                        
+                    out.writeObject("ok");
+                    String novaSenha = (String) in.readObject();
                     UsuarioDao usuarioDao = new UsuarioDao();
+                    System.out.println("Atualizando senha - Senha atual: " + usuario.getSenha());
                     boolean resultado = usuarioDao.senhaUsuarioExiste(usuario);
+                    if (resultado == true) {
+                        usuario.setSenha(novaSenha);
+                        System.out.println("Atualizando senha - Senha Nova: " + usuario.getSenha() + ", (var): " + novaSenha);
+                        UsuarioDao usuarioDao2 = new UsuarioDao();
+                        resultado = usuarioDao2.alterarUsuario(usuario);
+                    }
                     out.writeObject(resultado);
                 }
+                System.out.println("Esperando comando");
                 comando = (String)in.readObject();
            }      
            
