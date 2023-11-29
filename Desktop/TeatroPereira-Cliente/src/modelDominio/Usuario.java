@@ -132,6 +132,17 @@ public class Usuario implements Serializable{
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
+    
+    public String getTipoLiteral(){
+        String retorno = "";
+        if(this.tipo == 0){
+            retorno = "Administrador";
+        }
+        else if (this.tipo == 1){
+            retorno = "Comum";
+        }
+        return retorno;
+    }
 
     @Override
     public String toString() {
