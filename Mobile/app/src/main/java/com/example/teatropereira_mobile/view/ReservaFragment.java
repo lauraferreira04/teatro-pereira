@@ -24,12 +24,16 @@ import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
 import java.util.ArrayList;
 
 import modelDominio.Evento;
+import modelDominio.Reserva;
+import modelDominio.Usuario;
 
 public class ReservaFragment extends Fragment {
 
     FragmentReservaBinding binding;
     ReservaAdapter reservaAdapter;
     InformacoesViewModel informacoesViewModel;
+    Reserva reserva;
+    boolean resultado;
     int cadeirasDisponiveis = 0;
 
 
@@ -81,16 +85,42 @@ public class ReservaFragment extends Fragment {
             }
         }); thread.start();
 
-        //fazer o metódo nos dois lugares do servidor
+        //VER O EVENTODAO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        /*confirmar compra
-        Thread thread = new Thread(new Runnable() {
+        binding.bReservaReservar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
+            public void onClick(View v) {
+                if (binding.spReservaQtdCadeiras.getSelectedItemPosition() > 0) {
+                    int idUsuario = informacoesViewModel.getUsuarioLogado().getIdUsuario();
+                    Usuario usuario = informacoesViewModel.getUsuarioLogado();
+                    int qtdCadeiras = binding.spReservaQtdCadeiras.getSelectedItemPosition();
+                    float valorTotal = evento.getValor() * binding.spReservaQtdCadeiras.getSelectedItemPosition();
 
+                    reserva = new Reserva(idUsuario, usuario, evento, qtdCadeiras, valorTotal);
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
+                            resultado = conexaoController.efetuarReserva(reserva);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (resultado == true) {
+                                        //MANDAR O EMAIL FICTICIO SÓ COM UM TEXTO PARA CONFIRMAR O SUCESSO!!!!!!!!!!!!!!!!!
+                                        Navigation.findNavController(view).navigate(R.id.acao_ReservaFragment_MinhasReservasFragment);
+                                    } else {
+                                        Toast.makeText(getContext(), "Erro: reserva não efetuada.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }); thread.start();
+                } else {
+                    Toast.makeText(getContext(), "Erro: informe a quantidade de ingressos.", Toast.LENGTH_SHORT).show();
+                    binding.spReservaQtdCadeiras.requestFocus();
+                }
             }
-        }); thread.start();*/
+        });
 
         binding.bReservaCancelar.setOnClickListener(new View.OnClickListener() {
             @Override

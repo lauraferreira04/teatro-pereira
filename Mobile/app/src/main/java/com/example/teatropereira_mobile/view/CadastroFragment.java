@@ -61,22 +61,28 @@ public class CadastroFragment extends Fragment {
                                                 String cpf = binding.etCadastroCpf.getText().toString();
                                                 String email = binding.etCadastroEmail.getText().toString();
                                                 String telefone = binding.etCadastroTelefone.getText().toString();
+                                                int tipo = 1; //comum
 
-                                                usuario = new Usuario(nome, login, senha, cpf, email, telefone, 1);
+                                                usuario = new Usuario(nome, login, senha, cpf, email, telefone, tipo);
                                                 Thread thread = new Thread(new Runnable() {
                                                     @Override
                                                     public void run() {
                                                         ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
                                                         //criar metodo usuario existe
-                                                        resultado = conexaoController.usuarioExiste(usuario);
-                                                        getActivity().runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                if (resultado == true) {
+                                                        resultado = false; //conexaoController.usuarioExiste(usuario);
+                                                        if (resultado == true) {
+                                                            getActivity().runOnUiThread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
                                                                     Toast.makeText(getContext(), "Nome de usuário já existente, tente novamente.", Toast.LENGTH_SHORT).show();
                                                                     binding.etCadastroUsuario.requestFocus();
-                                                                } else {
-                                                                    resultado = conexaoController.usuarioInserir(usuario);
+                                                                }
+                                                            });
+                                                        } else {
+                                                            resultado = conexaoController.usuarioInserir(usuario);
+                                                            getActivity().runOnUiThread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
                                                                     if (resultado == true) {
                                                                         Toast.makeText(getContext(), "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                                                                         limpaCampos();
@@ -84,8 +90,8 @@ public class CadastroFragment extends Fragment {
                                                                         Toast.makeText(getContext(), "Erro: usuário não cadastrado.", Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
-                                                            }
-                                                        });
+                                                            });
+                                                        }
                                                     }
                                                 }); thread.start();
                                             } else {

@@ -48,7 +48,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                resultado = conexaoController.criaConexaoServidor("127.0.0.1",12345);
+                resultado = conexaoController.criaConexaoServidor("192.168.6.2",12345);
+                //IP IF = 192.168.6.2 || IP CASA = 192.168.0.111
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

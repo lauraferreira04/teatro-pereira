@@ -76,7 +76,7 @@ public class ConexaoController {
         boolean resultado;
         String mensagem;
         try {
-            this.informacoesViewModel.getOutputStream().writeObject("CriaUsuario");
+            this.informacoesViewModel.getOutputStream().writeObject("UsuarioInserir");
             mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
             this.informacoesViewModel.getOutputStream().writeObject(usuario);
             resultado = (Boolean)this.informacoesViewModel.getInputStream().readObject();
