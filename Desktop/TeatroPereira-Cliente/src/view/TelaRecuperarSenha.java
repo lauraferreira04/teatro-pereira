@@ -4,7 +4,11 @@
  */
 package view;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -13,6 +17,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
+import modelDominio.Hash;
 import modelDominio.Usuario;
 
 /**
@@ -187,17 +192,23 @@ public class TelaRecuperarSenha extends javax.swing.JFrame {
                     if (usuarioExiste == true){ // se usuario existe
                         //senha recebe senha padrão de recuperação 123456
                         String senha = "123456";
-                        //cria o objeto com login, cpf, email e senha
-                        Usuario usuario1 = new Usuario(login, cpf, email, senha);
-                        boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
-                        if(resultado == true) { //se alterou sem erro
-                            enviarEmail();
-                                                         
-                            JOptionPane.showMessageDialog(null, "Uma mensagem com sua nova senha foi enviada no email correspondente.", 
-                                    "Senha alterada", JOptionPane.INFORMATION_MESSAGE);
-                            dispose();
-                        } else { //deu erro para alterar
-                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
+                        try {
+                            String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
+                            Usuario usuario1 = new Usuario(login, cpf, email, senhaCriptografada);
+                            boolean resultado = TeatroPereiraCliente.ccont.usuarioAlterar(usuario1);
+                            if(resultado == true) { //se alterou sem erro
+                                enviarEmail();
+
+                                JOptionPane.showMessageDialog(null, "Uma mensagem com sua nova senha foi enviada no email correspondente.", 
+                                        "Senha alterada", JOptionPane.INFORMATION_MESSAGE);
+                                dispose();
+                            } else { //deu erro para alterar
+                                JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser atualizado.");
+                            }
+                        } catch (NoSuchAlgorithmException ex) {
+                            Logger.getLogger(TelaRecuperarSenha.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (UnsupportedEncodingException ex) {
+                            Logger.getLogger(TelaRecuperarSenha.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         
                     } else { //usuario não existe, método usuarioExiste == false

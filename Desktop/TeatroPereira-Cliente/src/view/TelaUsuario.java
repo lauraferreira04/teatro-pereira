@@ -4,9 +4,14 @@
  */
 package view;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelDominio.Administrador;
+import modelDominio.Hash;
 import modelDominio.Usuario;
 import view.tablemodel.UsuarioTableModel;
 
@@ -239,11 +244,11 @@ public class TelaUsuario extends javax.swing.JFrame {
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(230, 230, 230)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLLogo))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTFCpf)
@@ -351,20 +356,28 @@ public class TelaUsuario extends javax.swing.JFrame {
                                         limpaCampos();
                                     }              
                                 } else {
-                                    Administrador administrador = new Administrador(nomeUsuario, login, senha, cpf, email, telefone, 1);
-                                    boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
-                                    if (usuarioExiste == true){
-                                         JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
-                                         jTFUsuario.grabFocus();
-                                    }else {
-                                        boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
-                                        if (resultado == true){
-                                            JOptionPane.showMessageDialog(rootPane, "Usuário inserido com sucesso.");
-                                            atualizaTabela();
-                                            limpaCampos();
-                                        } else {
-                                            JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser cadastrado.");
+                                    
+                                    try {
+                                        String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
+                                        Administrador administrador = new Administrador(nomeUsuario, login, senhaCriptografada, cpf, email, telefone, 1);
+                                        boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
+                                        if (usuarioExiste == true){
+                                             JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
+                                             jTFUsuario.grabFocus();
+                                        }else {
+                                            boolean resultado = TeatroPereiraCliente.ccont.usuarioInserir(administrador);
+                                            if (resultado == true){
+                                                JOptionPane.showMessageDialog(rootPane, "Usuário inserido com sucesso.");
+                                                atualizaTabela();
+                                                limpaCampos();
+                                            } else {
+                                                JOptionPane.showMessageDialog(rootPane, "Erro: usuário não pode ser cadastrado.");
+                                            }
                                         }
+                                    } catch (NoSuchAlgorithmException ex) {
+                                        Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (UnsupportedEncodingException ex) {
+                                        Logger.getLogger(TelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 }
                            } else{

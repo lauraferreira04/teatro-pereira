@@ -19,6 +19,7 @@ public class Evento implements Serializable{
     private LocalDateTime dataHora;
     private float valor;
     private int qtdCadeiras;
+    private byte[] imagem;
 
     public Evento(int idEvento, String nomeEvento, String artista, LocalDateTime dataHora, float valor, int qtdCadeiras) {
         this.idEvento = idEvento;
@@ -29,12 +30,13 @@ public class Evento implements Serializable{
         this.qtdCadeiras = qtdCadeiras;
     }
 
-    public Evento(String nomeEvento, String artista, LocalDateTime dataHora, float valor, int qtdCadeiras) {
+    public Evento(String nomeEvento, String artista, LocalDateTime dataHora, float valor, int qtdCadeiras, byte[] imagem) {
         this.nomeEvento = nomeEvento;
         this.artista = artista;
         this.dataHora = dataHora;
         this.valor = valor;
         this.qtdCadeiras = qtdCadeiras;
+        this.imagem = imagem;
     }
 
     public Evento(int idEvento, String nomeEvento, float valor) {
@@ -91,4 +93,11 @@ public class Evento implements Serializable{
         this.qtdCadeiras = qtdCadeiras;
     }
     
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
 }

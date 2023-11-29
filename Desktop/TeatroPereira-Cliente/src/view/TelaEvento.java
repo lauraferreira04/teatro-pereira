@@ -9,9 +9,12 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelDominio.Evento; 
 import view.tablemodel.EventoTableModel; 
+import view.util.Imagem;
 
 /**
  *  trabalho interdisciplinar
@@ -25,6 +28,7 @@ public class TelaEvento extends javax.swing.JFrame {
     private Evento dataHora;
     private Evento valor;
     private Evento qtdCadeiras;
+    Imagem imagem = null;
 
     private boolean editando = false;
     /**
@@ -57,6 +61,7 @@ public class TelaEvento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFCImagemEvento = new javax.swing.JFileChooser();
         jBVoltar = new javax.swing.JButton();
         jBNovo = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
@@ -66,7 +71,7 @@ public class TelaEvento extends javax.swing.JFrame {
         jTFArtista = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTEventos = new javax.swing.JTable();
-        jLBanner = new javax.swing.JLabel();
+        jLImagemEvento = new javax.swing.JLabel();
         jBUpload = new javax.swing.JButton();
         jFTFData = new javax.swing.JFormattedTextField();
         jCBQtdCadeiras = new javax.swing.JComboBox<>();
@@ -224,7 +229,7 @@ public class TelaEvento extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,20 +238,20 @@ public class TelaEvento extends javax.swing.JFrame {
                             .addComponent(jTFNomeEvento)
                             .addComponent(jTFArtista)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLImagemEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jCBQtdCadeiras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jFTFValor)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jFTFData)
+                                .addComponent(jFTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jFTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(247, 247, 247)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLLogo)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -263,7 +268,7 @@ public class TelaEvento extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLImagemEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTFNomeEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,6 +320,12 @@ public class TelaEvento extends javax.swing.JFrame {
                 if (valor > 0) {
                     if (dataHora != null) {
                         if (jCBQtdCadeiras.getSelectedIndex() > 0){
+                            byte[] imagemEvento;
+                            if (this.imagem != null){
+                                imagemEvento = this.imagem.getImagem();
+                            } else {
+                                imagemEvento = null;
+                            }
                             if (editando) {
                                 // Edição do evento
                                 if (jTEventos.getSelectedRow() >= 0) {
@@ -339,7 +350,7 @@ public class TelaEvento extends javax.swing.JFrame {
                                 }
                             } else {
                                 // Inserção de um novo evento
-                                Evento evento = new Evento(nomeEvento, artista, dataHora, valor, jCBQtdCadeiras.getSelectedIndex());
+                                Evento evento = new Evento(nomeEvento, artista, dataHora, valor, jCBQtdCadeiras.getSelectedIndex(), imagemEvento);
 
                                 // método de inserção no servidor
                                 boolean resultado = TeatroPereiraCliente.ccont.eventoInserir(evento);
@@ -481,19 +492,21 @@ public class TelaEvento extends javax.swing.JFrame {
             // Define a quantidade de cadeiras selecionando o índice correto na ComboBox
                 jCBQtdCadeiras.setSelectedIndex(evento.getQtdCadeiras());
             }
-            //jCBQtdCadeiras.setSelectedItem(String.valueOf(evento.getQtdCadeiras()));
-
+            if (evento.getImagem() != null){
+                Imagem imagem = new Imagem(evento.getImagem());
+                jLImagemEvento.setIcon(imagem.getImageIcon());
+            }
             editando = true;
         }
     }//GEN-LAST:event_jTEventosMouseClicked
 
     private void jBUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUploadActionPerformed
-        /*FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
         jFCImagemEvento.addChoosableFileFilter(imageFilter); 
-        if (jFCImagemEvento.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+        if (jFCImagemEvento.showOpenDialog(this) == jFCImagemEvento.APPROVE_OPTION){
             imagem = new Imagem(jFCImagemEvento.getSelectedFile());
-            jLBanner.setIcon(imagem.getImageIcon());
-        }*/
+            jLImagemEvento.setIcon(imagem.getImageIcon());
+        }
     }//GEN-LAST:event_jBUploadActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
@@ -514,10 +527,11 @@ public class TelaEvento extends javax.swing.JFrame {
     private javax.swing.JButton jBUpload;
     private javax.swing.JButton jBVoltar;
     private javax.swing.JComboBox<String> jCBQtdCadeiras;
+    private javax.swing.JFileChooser jFCImagemEvento;
     private javax.swing.JFormattedTextField jFTFData;
     private javax.swing.JFormattedTextField jFTFHora;
     private javax.swing.JFormattedTextField jFTFValor;
-    private javax.swing.JLabel jLBanner;
+    private javax.swing.JLabel jLImagemEvento;
     private javax.swing.JLabel jLLogo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTEventos;
@@ -532,5 +546,6 @@ public class TelaEvento extends javax.swing.JFrame {
         jFTFHora.setText("Hora");
         jFTFValor.setText("R$");
         jCBQtdCadeiras.setSelectedIndex(0);
+        jLImagemEvento.setIcon(null);
     }
 }
