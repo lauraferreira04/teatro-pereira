@@ -21,12 +21,13 @@ import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
+import modelDominio.Comum;
 import modelDominio.Usuario;
 
 public class CadastroFragment extends Fragment {
     FragmentCadastroBinding binding;
     InformacoesViewModel informacoesViewModel;
-    Usuario usuario;
+    Comum usuario;
     boolean resultado;
 
     @Override
@@ -63,7 +64,7 @@ public class CadastroFragment extends Fragment {
                                                 String telefone = binding.etCadastroTelefone.getText().toString();
                                                 int tipo = 1; //comum
 
-                                                usuario = new Usuario(nome, login, senha, cpf, email, telefone, tipo);
+                                                usuario = new Comum(nome, login, senha, cpf, email, telefone, tipo);
                                                 Thread thread = new Thread(new Runnable() {
                                                     @Override
                                                     public void run() {
