@@ -127,7 +127,7 @@ public class UsuarioDao {
             stmt.setString(4, usuario.getCpf());
             stmt.setString(5, usuario.getEmail());
             stmt.setString(6, usuario.getTelefone());            
-            stmt.setInt(7, 0);  
+            stmt.setInt(7, usuario.getTipo());  
             
             stmt.execute();
             con.commit();
