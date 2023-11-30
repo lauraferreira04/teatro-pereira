@@ -26,34 +26,30 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLLogo" alignment="1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
-                      <Component id="jBAlterar" min="-2" pref="102" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="jLSenhaAtual" min="-2" pref="79" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPFSenhaVelha" min="-2" pref="222" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLSenhaAtual" min="-2" pref="79" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPFSenhaVelha" min="-2" pref="222" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLConfirmaSenha" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
-                                  <Component id="jLSenhaNova" alignment="1" min="-2" pref="87" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPFSenhaNova" pref="222" max="32767" attributes="0"/>
-                                  <Component id="jPFConfirmaSenha" max="32767" attributes="0"/>
-                              </Group>
+                          <Component id="jLSenhaNova" min="-2" pref="87" max="-2" attributes="0"/>
+                          <Component id="jLConfirmaSenha" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jBAlterar" min="-2" pref="102" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jPFSenhaNova" max="32767" attributes="0"/>
+                              <Component id="jPFConfirmaSenha" min="-2" pref="222" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -62,7 +58,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="jLLogo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jPFSenhaVelha" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jLSenhaAtual" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -77,9 +73,9 @@
                   <Component id="jPFConfirmaSenha" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jLConfirmaSenha" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jBAlterar" min="-2" pref="30" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -126,18 +122,27 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLSenhaAtual">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cd" green="5a" red="5a" type="rgb"/>
+        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Senha atual:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLSenhaNova">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cd" green="5a" red="5a" type="rgb"/>
+        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Nova senha:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLConfirmaSenha">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cd" green="5a" red="5a" type="rgb"/>
+        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Confirme senha nova:"/>
       </Properties>
