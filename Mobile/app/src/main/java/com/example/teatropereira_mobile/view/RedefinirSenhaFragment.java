@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.teatropereira_mobile.R;
 import com.example.teatropereira_mobile.controller.ConexaoController;
-import com.example.teatropereira_mobile.databinding.FragmentCadastroBinding;
 import com.example.teatropereira_mobile.databinding.FragmentRedefinirSenhaBinding;
 import com.example.teatropereira_mobile.view.util.Hash;
 import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
@@ -23,6 +23,14 @@ import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import modelDominio.Usuario;
 
@@ -78,7 +86,7 @@ public class RedefinirSenhaFragment extends Fragment {
                                                                 @Override
                                                                 public void run() {
                                                                     if(resultado == true) { //se alterou sem erro
-                                                                        //enviarEmail();
+                                                                        enviarEmail();
 
                                                                         Toast.makeText(getContext(), "Uma mensagem com sua nova senha foi enviada no email correspondente.", Toast.LENGTH_LONG).show();
                                                                         Navigation.findNavController(view).navigateUp();
@@ -127,14 +135,14 @@ public class RedefinirSenhaFragment extends Fragment {
         });
     }
 
-    /*private void enviarEmail() {
+    private void enviarEmail() {
         String remetente = "o.teatropereira@gmail.com";
         String senhaRemetente = "nmvu riar rljg blsm";
         String destinatario = binding.etRedefinirSenhaEmail.getText().toString();
         String assunto = "Teatro Pereira: Recuperação de senha";
         String mensagem = "Sua nova senha é '123456', altere no próximo login.";
 
-        System.out.println(senhaRemetente);
+        Log.e("TeatroPereira", senhaRemetente);
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -165,7 +173,7 @@ public class RedefinirSenhaFragment extends Fragment {
         } catch (MessagingException e) {
             Toast.makeText(getContext(), "Erro ao enviar e-mail: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }*/
+    }
 
     @Override
     public void onDestroyView() {

@@ -71,16 +71,15 @@ public class ReservaFragment extends Fragment {
         binding.tvReservaTitulo.setText(evento.getNomeEvento());
         binding.tvReservaArtista.setText(evento.getArtista());
         //binding.tvReservaData.setText(String.valueOf(evento.getData().getTime()));
-        LocalDateTime dataHora;
-        dataHora = java.sql.Date.valueOf(dataHora.toLocalDate());
-        binding.tvReservaData.setText(dataHora);
-        try {
+        LocalDateTime dataHora = evento.getDataHora();
+        binding.tvReservaData.setText(dataHora.toString());
+        /*try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             dataHora = LocalDateTime.parse(evento.getData(), formatter);
         } catch (Exception e) {
             dataHora = null;
             Log.e("TeatroPereira", "Erro: " + e.getMessage());
-        }
+        }*/
         binding.tvReservaPreco.setText(String.valueOf(evento.getValor()));
         Thread thread = new Thread(new Runnable() {
             @Override

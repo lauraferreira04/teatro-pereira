@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                resultado = conexaoController.criaConexaoServidor("192.168.6.20",12345);
+                resultado = conexaoController.criaConexaoServidor("192.168.0.111",12345);
                 //IP IF = 192.168.6.2 || IP CASA = 192.168.0.111 || IP ADCONTEC = 172.150.0.3
 
                 getActivity().runOnUiThread(new Runnable() {

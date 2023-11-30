@@ -33,8 +33,8 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final EventoAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Evento meuEvento = listaEventos.get(position);
-        if (meuEvento.getBanner() != null) {
-            Bitmap banner = ByteArrayToBitmap(meuEvento.getBanner());
+        if (meuEvento.getImagem() != null) {
+            Bitmap banner = ByteArrayToBitmap(meuEvento.getImagem());
             holder.eventoListRowBinding.ivEventoBanner.setImageBitmap(banner);
         }
         holder.eventoListRowBinding.tvEventoNome.setText(meuEvento.getNomeEvento());
