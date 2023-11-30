@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="15dp"
     android:gravity="center"
-    tools:context=".view.LoginFragment">
+    tools:context=".view.RedefinirSenhaFragment">
 
     <ImageView
         android:layout_width="672px"
@@ -24,13 +24,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:id="@+id/tvLoginUsuario"
+            android:id="@+id/tvRedefinirSenhaUsuario"
             android:text="Usuário: " />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:id="@+id/etLoginUsuario" />
+            android:id="@+id/etRedefinirSenhaUsuario" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,14 +44,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:id="@+id/tvLoginSenha"
-            android:text="Senha: "/>
+            android:id="@+id/tvRedefinirSenhaCpf"
+            android:text="CPF: "/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:inputType="textPassword"
-            android:id="@+id/etLoginSenha"/>
+            android:id="@+id/etRedefinirSenhaCpf"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/tvRedefinirSenhaEmail"
+            android:text="Email: "/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:id="@+id/etRedefinirSenhaEmail"/>
     </LinearLayout>
 
     <LinearLayout
@@ -66,31 +85,15 @@
             android:layout_height="wrap_content"
             android:textSize="19dp"
             android:layout_marginRight="7dp"
-            android:id="@+id/bLoginEntrar"
-            android:text="Entrar"/>
+            android:id="@+id/bRedefinirSenhaAlterar"
+            android:text="Alterar"/>
         <Button
-            android:layout_width="157dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textSize="19dp"
             android:layout_marginLeft="7dp"
-            android:id="@+id/bLoginCadastrar"
-            android:text="Cadastrar"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp"
-        android:layout_marginTop="20dp">
-
-        <Button
-            android:layout_width="325dp"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:id="@+id/bLoginRedefinirSenha"
-            android:text="Esqueci minha senha"/>
+            android:id="@+id/bRedefinirSenhaCancelar"
+            android:text="Cancelar"/>
     </LinearLayout>
 
 </LinearLayout>

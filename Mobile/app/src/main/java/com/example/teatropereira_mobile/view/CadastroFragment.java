@@ -52,7 +52,7 @@ public class CadastroFragment extends Fragment {
                         if (!binding.etCadastroSenha.getText().toString().equals("")) {
                             if (!binding.etCadastroSenha.getText().toString().trim().isEmpty()) {
                                 try {
-                                    String senha = Hash.encripar(binding.etCadastroSenha.getText().toString(), "SHA-256");
+                                    String senha = Hash.encriptar(binding.etCadastroSenha.getText().toString(), "SHA-256");
                                     if (!binding.etCadastroCpf.getText().toString().equals("")) {
                                         if (!binding.etCadastroEmail.getText().toString().equals("")) {
                                             if (!binding.etCadastroTelefone.getText().toString().equals("")) {
@@ -69,8 +69,7 @@ public class CadastroFragment extends Fragment {
                                                     @Override
                                                     public void run() {
                                                         ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                                                        //criar metodo usuario existe
-                                                        resultado = false; //conexaoController.usuarioExiste(usuario);
+                                                        conexaoController.usuarioExiste(usuario);
                                                         if (resultado == true) {
                                                             getActivity().runOnUiThread(new Runnable() {
                                                                 @Override

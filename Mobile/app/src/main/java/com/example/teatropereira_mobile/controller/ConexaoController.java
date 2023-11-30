@@ -90,6 +90,24 @@ public class ConexaoController {
         return resultado;
     }
 
+    public boolean usuarioAlterar (Usuario usuario) {
+        boolean resultado;
+        String mensagem;
+        try {
+            this.informacoesViewModel.getOutputStream().writeObject("UsuarioAlterar");
+            mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
+            this.informacoesViewModel.getOutputStream().writeObject(usuario);
+            resultado = (Boolean)this.informacoesViewModel.getInputStream().readObject();
+        } catch (IOException ioe) {
+            Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
+            resultado = false;
+        } catch (ClassNotFoundException classe) {
+            Log.e("TeatroPereira", "Erro: " + classe.getMessage());
+            resultado = false;
+        }
+        return resultado;
+    }
+
     public ArrayList<Evento> eventoLista() {
         ArrayList<Evento> listaEventos;
         try {

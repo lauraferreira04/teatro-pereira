@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
 
 public class Hash {
-    public static String encripar(String texto, String algoritmo) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static String encriptar(String texto, String algoritmo) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest message = MessageDigest.getInstance(algoritmo);
         byte messageDigest[] = message.digest(retirarAcento(texto).getBytes("UTF-8"));
 

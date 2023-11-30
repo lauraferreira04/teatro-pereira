@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                resultado = conexaoController.criaConexaoServidor("172.150.0.3",12345);
+                resultado = conexaoController.criaConexaoServidor("192.168.6.20",12345);
                 //IP IF = 192.168.6.2 || IP CASA = 192.168.0.111 || IP ADCONTEC = 172.150.0.3
 
                 getActivity().runOnUiThread(new Runnable() {
@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
                     if (!binding.etLoginSenha.getText().toString().equals("")) {
                         if (!binding.etLoginSenha.getText().toString().trim().isEmpty()) {
                             try {
-                                String senha = Hash.encripar(binding.etLoginSenha.getText().toString(), "SHA-256");
+                                String senha = Hash.encriptar(binding.etLoginSenha.getText().toString(), "SHA-256");
                                 String usuario = binding.etLoginUsuario.getText().toString();
                                 //String senha = binding.etLoginSenha.getText().toString();
 
@@ -116,10 +116,17 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        binding.bLoginCadastro.setOnClickListener(new View.OnClickListener() {
+        binding.bLoginCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.acao_LoginFragment_CadastroFragment);
+            }
+        });
+
+        binding.bLoginRedefinirSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.acao_LoginFragment_RedefinirSenhaFragment);
             }
         });
     }

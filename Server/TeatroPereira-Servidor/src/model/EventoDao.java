@@ -182,7 +182,7 @@ public class EventoDao {
                 stmt = con.prepareStatement(sql);
                 stmt.setInt(1, evento.getIdEvento());
             } else {
-                //ESGOTADO -> ver com fabinho
+                cadeirasDisponiveis = 0;
             }
             ResultSet res = stmt.executeQuery();
             cadeirasDisponiveis = res.getInt("qtdcadeiras");

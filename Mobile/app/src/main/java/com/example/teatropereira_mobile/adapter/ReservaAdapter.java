@@ -31,8 +31,8 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final ReservaAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Reserva minhaReserva = listaReservas.get(position);
-        //Bitmap banner = ByteArrayToBitmap(minhaReserva.getEvento().getBanner());
-        //holder.reservaListRowBinding.ivMinhasReservasBanner.setImageBitmap(banner);
+        Bitmap banner = ByteArrayToBitmap(minhaReserva.getEvento().getBanner());
+        holder.reservaListRowBinding.ivMinhasReservasBanner.setImageBitmap(banner);
         holder.reservaListRowBinding.tvMinhasReservasTitulo.setText(String.valueOf(minhaReserva.getEvento().getNomeEvento()));
         holder.reservaListRowBinding.tvMinhasReservasArtista.setText(String.valueOf(minhaReserva.getEvento().getArtista()));
         holder.reservaListRowBinding.tvMinhasReservasData.setText(String.valueOf(minhaReserva.getEvento().getData()));

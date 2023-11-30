@@ -1,5 +1,7 @@
 package com.example.teatropereira_mobile.view;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavAction;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.teatropereira_mobile.R;
-import com.example.teatropereira_mobile.adapter.ReservaAdapter;
+import com.example.teatropereira_mobile.adapter.EventoAdapter;
 import com.example.teatropereira_mobile.controller.ConexaoController;
 import com.example.teatropereira_mobile.databinding.FragmentReservaBinding;
 import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
 
+import java.io.ByteArrayInputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import modelDominio.Evento;
@@ -30,7 +36,6 @@ import modelDominio.Usuario;
 public class ReservaFragment extends Fragment {
 
     FragmentReservaBinding binding;
-    ReservaAdapter reservaAdapter;
     InformacoesViewModel informacoesViewModel;
     Reserva reserva;
     boolean resultado;
@@ -61,9 +66,21 @@ public class ReservaFragment extends Fragment {
         informacoesViewModel = new ViewModelProvider(getActivity()).get(InformacoesViewModel.class);
         ReservaFragmentArgs argumentos = ReservaFragmentArgs.fromBundle(getArguments());
         Evento evento = argumentos.getEvento();
+        //Bitmap banner = ByteArrayToBitmap(evento.getBanner());
+        //binding.ivReservaBanner.setImageBitmap(banner);
         binding.tvReservaTitulo.setText(evento.getNomeEvento());
         binding.tvReservaArtista.setText(evento.getArtista());
-        binding.tvReservaData.setText(evento.getData().toString());
+        //binding.tvReservaData.setText(String.valueOf(evento.getData().getTime()));
+        LocalDateTime dataHora;
+        dataHora = java.sql.Date.valueOf(dataHora.toLocalDate());
+        binding.tvReservaData.setText(dataHora);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            dataHora = LocalDateTime.parse(evento.getData(), formatter);
+        } catch (Exception e) {
+            dataHora = null;
+            Log.e("TeatroPereira", "Erro: " + e.getMessage());
+        }
         binding.tvReservaPreco.setText(String.valueOf(evento.getValor()));
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -78,14 +95,11 @@ public class ReservaFragment extends Fragment {
                         }
                     });
                 } else {
-                    //colocar um where no select do banco OU
                     Toast.makeText(getContext(), "EVENTO ESGOTADO", Toast.LENGTH_LONG).show();
                     Navigation.findNavController(view).navigateUp();
                 }
             }
         }); thread.start();
-
-        //VER O EVENTODAO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         binding.bReservaReservar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +120,6 @@ public class ReservaFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     if (resultado == true) {
-                                        //MANDAR O EMAIL FICTICIO SÓ COM UM TEXTO PARA CONFIRMAR O SUCESSO!!!!!!!!!!!!!!!!!
                                         Navigation.findNavController(view).navigate(R.id.acao_ReservaFragment_MinhasReservasFragment);
                                     } else {
                                         Toast.makeText(getContext(), "Erro: reserva não efetuada.", Toast.LENGTH_SHORT).show();
@@ -135,6 +148,12 @@ public class ReservaFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.acao_ReservaFragment_SuporteFragment);
             }
         });
+    }
+
+    public Bitmap ByteArrayToBitmap(byte[] byteArray) {
+        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(byteArray);
+        Bitmap bitmap = BitmapFactory.decodeStream(arrayInputStream);
+        return bitmap;
     }
 
     @Override
