@@ -359,7 +359,7 @@ public class TelaUsuario extends javax.swing.JFrame {
                                     
                                     try {
                                         String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
-                                        Administrador administrador = new Administrador(nomeUsuario, login, senhaCriptografada, cpf, email, telefone, 1);
+                                        Administrador administrador = new Administrador(nomeUsuario, login, senhaCriptografada, cpf, email, telefone, 0);
                                         boolean usuarioExiste = TeatroPereiraCliente.ccont.usuarioExiste(administrador);
                                         if (usuarioExiste == true){
                                              JOptionPane.showMessageDialog(rootPane, "Nome de usuário já existente. Tente outro");
