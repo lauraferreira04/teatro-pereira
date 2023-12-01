@@ -16,13 +16,10 @@ public class TelaHome extends javax.swing.JFrame {
      * Creates new form TelaHome
      */
     public TelaHome() {
-        this.usuarioLogado = usuarioLogado;
+        
         initComponents();
         
-        if (usuarioLogado.getTipo() == 1) {
-            jBUsuarios.setEnabled(false);
-            jBEventos.setEnabled(false);
-        }
+        
     }
 
     /**

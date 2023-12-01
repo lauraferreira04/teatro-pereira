@@ -5,10 +5,8 @@
 package view;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -244,7 +242,7 @@ public class TelaEvento extends javax.swing.JFrame {
                             .addComponent(jCBQtdCadeiras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jFTFValor)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jFTFData, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jFTFData)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jFTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -336,6 +334,8 @@ public class TelaEvento extends javax.swing.JFrame {
                                     evento.setDataHora(dataHora);
                                     evento.setValor(valor);
                                     evento.setQtdCadeiras(jCBQtdCadeiras.getSelectedIndex());
+                                    
+                                    jBUpload.setEnabled(false);
 
                                     // método de atualização no servidor
                                     boolean resultado = TeatroPereiraCliente.ccont.eventoAlterar(evento);
@@ -495,7 +495,10 @@ public class TelaEvento extends javax.swing.JFrame {
             if (evento.getImagem() != null){
                 Imagem imagem = new Imagem(evento.getImagem());
                 jLImagemEvento.setIcon(imagem.getImageIcon());
+            } else {
+                jLImagemEvento.setIcon(null);
             }
+            jBUpload.setEnabled(false);
             editando = true;
         }
     }//GEN-LAST:event_jTEventosMouseClicked
@@ -547,5 +550,6 @@ public class TelaEvento extends javax.swing.JFrame {
         jFTFValor.setText("R$");
         jCBQtdCadeiras.setSelectedIndex(0);
         jLImagemEvento.setIcon(null);
+        jBUpload.setEnabled(true);
     }
 }
