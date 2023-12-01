@@ -4,22 +4,18 @@
  */
 package view;
 
-import modelDominio.Usuario;
 
 /**
  *  trabalho interdisciplinar
  * @author laura ferreira & gabriel hackenhaar
  */
 public class TelaHome extends javax.swing.JFrame {
-    private Usuario usuarioLogado;
     /**
      * Creates new form TelaHome
      */
     public TelaHome() {
         
-        initComponents();
-        
-        
+        initComponents();        
     }
 
     /**
