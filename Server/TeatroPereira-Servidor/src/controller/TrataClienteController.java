@@ -136,8 +136,19 @@ public class TrataClienteController extends Thread{
                         System.out.println("Atualizando senha - Senha Nova: " + usuario.getSenha() + ", (var): " + novaSenha);
                         UsuarioDao usuarioDao2 = new UsuarioDao();
                         resultado = usuarioDao2.alterarUsuario(usuario);
-                    }
+                    } 
                     out.writeObject(resultado);
+                } else if (comando.equalsIgnoreCase("EnviarEmail")){
+                    try {
+                        out.writeObject("ok");
+                        String emailDestinatario = (String) in.readObject();
+                        UsuarioDao usuarioDao = new UsuarioDao();
+                        boolean resultado = usuarioDao.enviarEmail(emailDestinatario);
+                        out.writeObject(resultado);
+                    } catch (IOException | ClassNotFoundException e) {
+                        System.out.println("Erro: " + e.getMessage());
+                        out.writeObject(false); // Indicar falha ao cliente
+                    }
                 }
                 System.out.println("Esperando comando");
                 comando = (String)in.readObject();

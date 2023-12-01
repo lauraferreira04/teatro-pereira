@@ -5,11 +5,21 @@
 package model;
 
 import factory.Conector;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
 import modelDominio.Administrador;
 import modelDominio.Comum;
 import modelDominio.Usuario;
@@ -271,4 +281,44 @@ public class UsuarioDao {
         }
         return listaUsuarios;
     }
+    
+    public boolean enviarEmail(String emailDestinatario) {
+        boolean resultado;
+        String remetente = "o.teatropereira@gmail.com";
+        String senhaRemetente = "nmvu riar rljg blsm";
+        String assunto = "Teatro Pereira: Recuperação de senha";
+        String mensagem = "Sua nova senha é '123456', altere no próximo login.";
+
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.ssl.enable", "true");
+
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(remetente, senhaRemetente);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(remetente));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDestinatario));
+            message.setSubject(assunto);
+            message.setText(mensagem);
+
+            Transport.send(message);
+
+            resultado = true;
+
+        } catch (MessagingException e) {
+            resultado = false;
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
+    
 }
