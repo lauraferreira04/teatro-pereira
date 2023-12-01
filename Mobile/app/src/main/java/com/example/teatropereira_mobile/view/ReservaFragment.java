@@ -26,7 +26,6 @@ import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
 
 import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import modelDominio.Evento;

@@ -22,15 +22,6 @@ import com.example.teatropereira_mobile.viewModel.InformacoesViewModel;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import modelDominio.Usuario;
 
@@ -71,42 +62,36 @@ public class RedefinirSenhaFragment extends Fragment {
                                     boolean usuarioExiste = conexaoController.usuarioExiste(usuario);
                                     if (usuarioExiste == true){ // se usuario existe
                                         //senha recebe senha padrão de recuperação 123456
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                String senha = "123456";
-                                                try {
-                                                    String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
-                                                    Usuario usuario1 = new Usuario(login, cpf, email, senhaCriptografada);
-                                                    Thread thread1 = new Thread(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            boolean resultado = conexaoController.usuarioAlterar(usuario1);
-                                                            getActivity().runOnUiThread(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    if(resultado == true) { //se alterou sem erro
-                                                                        enviarEmail();
-
-                                                                        Toast.makeText(getContext(), "Uma mensagem com sua nova senha foi enviada no email correspondente.", Toast.LENGTH_LONG).show();
-                                                                        Navigation.findNavController(view).navigateUp();
-                                                                    } else { //deu erro para alterar
-                                                                        binding.etRedefinirSenhaUsuario.setError("Erro: usuário não pode ser atualizado.");
-                                                                        binding.etRedefinirSenhaUsuario.requestFocus();
-                                                                    }
-                                                                }
-                                                            });
+                                        String senha = "123456";
+                                        try {
+                                            String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
+                                            Usuario usuario1 = new Usuario(login, cpf, email, senhaCriptografada);
+                                            boolean resultado = conexaoController.usuarioAlterar(usuario1);
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    if(resultado == true) { //se alterou sem erro
+                                                        boolean resultado = conexaoController.enviarEmail(email);
+                                                        if (resultado == true) {
+                                                            Toast.makeText(getContext(), "Uma mensagem com sua nova senha foi enviada no email correspondente.", Toast.LENGTH_LONG).show();
+                                                            Navigation.findNavController(view).navigateUp();
+                                                        } else {
+                                                            binding.etRedefinirSenhaUsuario.setError("Erro: não foi possível enviar email.");
+                                                            binding.etRedefinirSenhaEmail.requestFocus();
                                                         }
-                                                    }); thread1.start();
-                                                } catch (NoSuchAlgorithmException ex) {
-                                                    binding.etRedefinirSenhaEmail.setError("Erro ao tentar gerar o código hash.");
-                                                    binding.etRedefinirSenhaEmail.requestFocus();
-                                                } catch (UnsupportedEncodingException ex) {
-                                                    binding.etRedefinirSenhaEmail.setError("Erro ao tentar gerar o código hash.");
-                                                    binding.etRedefinirSenhaEmail.requestFocus();
+                                                    } else { //deu erro para alterar
+                                                        binding.etRedefinirSenhaUsuario.setError("Erro: usuário não pode ser atualizado.");
+                                                        binding.etRedefinirSenhaUsuario.requestFocus();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        } catch (NoSuchAlgorithmException ex) {
+                                            binding.etRedefinirSenhaEmail.setError("Erro ao tentar gerar o código hash.");
+                                            binding.etRedefinirSenhaEmail.requestFocus();
+                                        } catch (UnsupportedEncodingException ex) {
+                                            binding.etRedefinirSenhaEmail.setError("Erro ao tentar gerar o código hash.");
+                                            binding.etRedefinirSenhaEmail.requestFocus();
+                                        }
                                     } else { //usuario não existe, método usuarioExiste == false
                                         Toast.makeText(getContext(), "O usuário, cpf e/ou email informado não existe, confira se as informações estão corretas", Toast.LENGTH_LONG).show();
                                     }
@@ -133,46 +118,6 @@ public class RedefinirSenhaFragment extends Fragment {
                 Navigation.findNavController(view).navigateUp();
             }
         });
-    }
-
-    private void enviarEmail() {
-        String remetente = "o.teatropereira@gmail.com";
-        String senhaRemetente = "nmvu riar rljg blsm";
-        String destinatario = binding.etRedefinirSenhaEmail.getText().toString();
-        String assunto = "Teatro Pereira: Recuperação de senha";
-        String mensagem = "Sua nova senha é '123456', altere no próximo login.";
-
-        Log.e("TeatroPereira", senhaRemetente);
-
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        //properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        properties.put("mail.smtp.ssl.enable", "true");
-
-        Session session = Session.getInstance(properties,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(remetente, senhaRemetente);
-                    }
-                });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(remetente));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
-            message.setSubject(assunto);
-            message.setText(mensagem);
-
-            Transport.send(message);
-
-            Toast.makeText(getContext(), "E-mail enviado com sucesso!", Toast.LENGTH_SHORT).show();
-
-        } catch (MessagingException e) {
-            Toast.makeText(getContext(), "Erro ao enviar e-mail: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override

@@ -16,13 +16,6 @@
             android:layout_width="448px"
             android:layout_height="160px"
             android:src="@drawable/logo_pereira"/>
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:textSize="19dp"
-            android:id="@+id/bReservaCancelar"
-            android:text="Cancelar"/>
     </LinearLayout>
 
     <LinearLayout
@@ -79,13 +72,27 @@
             android:text="Reservar"/>
     </LinearLayout>
 
-    <Button
-        android:layout_width="150dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:textSize="19dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/bReservaSuporte"
-        android:text="Suporte"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="19dp"
+            android:id="@+id/bReservaCancelar"
+            android:text="Cancelar"/>
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="19dp"
+            android:id="@+id/bReservaSuporte"
+            android:text="Suporte"/>
+    </LinearLayout>
 
 </LinearLayout>

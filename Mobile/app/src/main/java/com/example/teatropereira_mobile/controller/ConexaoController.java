@@ -108,6 +108,26 @@ public class ConexaoController {
         return resultado;
     }
 
+    public boolean senhaUsuarioExiste(Usuario usuario, String novaSenha) {
+        boolean resultado;
+        String mensagem;
+        try{
+            this.informacoesViewModel.getOutputStream().writeObject("AtualizacaoSenhaUsuario");
+            mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
+            this.informacoesViewModel.getOutputStream().writeObject(usuario);
+            mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
+            this.informacoesViewModel.getOutputStream().writeObject(novaSenha);
+            resultado = (Boolean)this.informacoesViewModel.getInputStream().readObject();
+        } catch(IOException ioe){
+            Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
+            resultado = false;
+        } catch(ClassNotFoundException classe){
+            Log.e("TeatroPereira", "Erro: " + classe.getMessage());
+            resultado = false;
+        }
+        return resultado;
+    }
+
     public ArrayList<Evento> eventoLista() {
         ArrayList<Evento> listaEventos;
         try {
@@ -172,5 +192,23 @@ public class ConexaoController {
             listaReservas = null;
         }
         return listaReservas;
+    }
+
+    public boolean enviarEmail(String emailDestinatario) {
+        boolean resultado;
+        String mensagem;
+        try {
+            this.informacoesViewModel.getOutputStream().writeObject("EnviarEmail");
+            mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
+            this.informacoesViewModel.getOutputStream().writeObject(emailDestinatario);
+            resultado = (Boolean)this.informacoesViewModel.getInputStream().readObject();
+        } catch (IOException ioe) {
+            Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
+            resultado = false;
+        } catch (ClassNotFoundException classe) {
+            Log.e("TeatroPereira", "Erro: " + classe.getMessage());
+            resultado = false;
+        }
+        return resultado;
     }
 }

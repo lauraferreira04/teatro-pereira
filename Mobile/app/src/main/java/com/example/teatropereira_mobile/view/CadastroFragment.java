@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,6 @@ import modelDominio.Usuario;
 public class CadastroFragment extends Fragment {
     FragmentCadastroBinding binding;
     InformacoesViewModel informacoesViewModel;
-    Comum usuario;
     boolean resultado;
 
     @Override
@@ -64,12 +64,14 @@ public class CadastroFragment extends Fragment {
                                                 String telefone = binding.etCadastroTelefone.getText().toString();
                                                 int tipo = 1; //comum
 
-                                                usuario = new Comum(nome, login, senha, cpf, email, telefone, tipo);
+                                                Comum comum = new Comum(nome, login, senha, cpf, email, telefone, tipo);
                                                 Thread thread = new Thread(new Runnable() {
                                                     @Override
                                                     public void run() {
                                                         ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                                                        conexaoController.usuarioExiste(usuario);
+                                                        conexaoController.usuarioExiste(comum);
+                                                        Log.e("TeatroPereira", comum.toString());
+                                                        Log.e("TeatroPereira", "" + resultado);
                                                         if (resultado == true) {
                                                             getActivity().runOnUiThread(new Runnable() {
                                                                 @Override
@@ -79,7 +81,7 @@ public class CadastroFragment extends Fragment {
                                                                 }
                                                             });
                                                         } else {
-                                                            resultado = conexaoController.usuarioInserir(usuario);
+                                                            resultado = conexaoController.usuarioInserir(comum);
                                                             getActivity().runOnUiThread(new Runnable() {
                                                                 @Override
                                                                 public void run() {
