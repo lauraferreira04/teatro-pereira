@@ -106,12 +106,12 @@ public class TrataClienteController extends Thread{
                     EventoDao eventoDao = new EventoDao();
                     boolean resultado = eventoDao.excluirEvento(evento);
                     out.writeObject(resultado);
-                } else if (comando.equalsIgnoreCase("CadeiraLista")) {
+                } else if (comando.equalsIgnoreCase("ReservaCadeira")) {
                     out.writeObject("ok");
                     Evento evento = (Evento) in.readObject();
                     EventoDao eventoDao = new EventoDao();
-                    int cadeirasDisponiveis = eventoDao.getCadeirasDisponiveis(evento);
-                    out.writeObject(cadeirasDisponiveis);
+                    boolean reservarCadeira = eventoDao.reservarCadeira(evento);
+                    out.writeObject(reservarCadeira);
                 } else if (comando.equalsIgnoreCase("ReservaLista")){
                     //
                     ReservaDao reservaDao = new ReservaDao();

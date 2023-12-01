@@ -172,20 +172,48 @@ public class EventoDao {
         return listaEventos;
     }
     
-    public int getCadeirasDisponiveis(Evento evento) {
-        int cadeirasDisponiveis;
+    public boolean reservarCadeira (Evento evento) {
+        int cadeirasDisponiveis = 0;
+        boolean resultado = false;
         PreparedStatement stmt = null;
+        ResultSet res = null;
         try {
-            String sql = "select qtdcadeiras from evento where idevento = ?";
+            String sql = "SELECT qtdcadeiras FROM evento WHERE idevento = ?";
             
+            //se a quantidade de cadeiras que a pessoa escolheu é diferente de 0
             if (evento.getQtdCadeiras() != 0) {
                 stmt = con.prepareStatement(sql);
                 stmt.setInt(1, evento.getIdEvento());
+                res = stmt.executeQuery();
+                
+                if (res.next()) {
+                    int qtdCadeirasDisponiveis = res.getInt("qtdcadeiras");
+                    
+                    //se tem cadeira disponível
+                    if (qtdCadeirasDisponiveis > 0) {
+                        //verifica se o usuário solicitou um número válido de cadeiras
+                        if (evento.getQtdCadeiras() > 0 && evento.getQtdCadeiras() <= qtdCadeirasDisponiveis) { 
+                            //qtd cadeiras disponíveis  - quantidade que o usuario solicitou
+                            int restoCadeira = qtdCadeirasDisponiveis - evento.getQtdCadeiras();
+                            //se restoCadeiras for = 0 ou > 0, é pq tinha cadeira no banco
+                            if (restoCadeira >= 0){
+                                // Atualiza o banco de dados com a nova quantidade de cadeiras disponíveis
+                                String updateSql = "UPDATE evento SET qtdcadeiras = ? WHERE idevento = ?";
+                                PreparedStatement updateStmt = con.prepareStatement(updateSql);
+                                updateStmt.setInt(1, restoCadeira);
+                                updateStmt.setInt(2, evento.getIdEvento());
+                                updateStmt.executeUpdate();
+                                updateStmt.close();
+                                resultado = true;
+                            }    
+                        }else {
+                            resultado = false;
+                        }
+                    }    
+                }
             } else {
-                cadeirasDisponiveis = 0;
+                resultado = false;
             }
-            ResultSet res = stmt.executeQuery();
-            cadeirasDisponiveis = res.getInt("qtdcadeiras");
             
             res.close();
             con.close();            
@@ -194,6 +222,6 @@ public class EventoDao {
             System.out.println("Erro: " + exc.getMessage());
             cadeirasDisponiveis = 0;
         }
-        return cadeirasDisponiveis;
+        return resultado;
     }
 }
