@@ -237,6 +237,21 @@ public class ConexaoController {
         return listaReservas;
     }
     
+    public boolean enviarEmail(String emailDestinatario) {
+        boolean resultado;
+        String mensagem;
+        try {
+            out.writeObject("EnviarEmail");
+            mensagem = (String) in.readObject();
+            out.writeObject(emailDestinatario); // Envie apenas o e-mail
+            resultado = (Boolean) in.readObject();
+        } catch(IOException | ClassNotFoundException e) {
+            System.out.println("Erro: " + e.getMessage());
+            resultado = false;
+        }
+        return resultado;
+    }
+    
     public void fim() {
         try {
             out.writeObject("fim");
