@@ -82,8 +82,9 @@ public class EventoDao {
             stmt.setObject(3, java.sql.Timestamp.valueOf(evento.getDataHora()));
             stmt.setFloat(4, evento.getValor());
             stmt.setInt(5, evento.getQtdCadeiras());  
-            stmt.setInt(6, evento.getIdEvento());
-            stmt.setBytes(7, evento.getImagem());
+            stmt.setBytes(6, evento.getImagem());
+            stmt.setInt(7, evento.getIdEvento());
+            
             
             stmt.execute();
             con.commit();

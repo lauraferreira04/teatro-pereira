@@ -44,6 +44,7 @@ public class UsuarioDao {
             stmt.setString(1, usuario.getLogin());
             stmt.setString(2, usuario.getSenha());
             ResultSet res = stmt.executeQuery();
+            
             while (res.next()){
                 int idUsuario = res.getInt("idusuario");
                 String nomeUsuario = res.getString("nomeusuario");
