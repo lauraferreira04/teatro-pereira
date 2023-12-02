@@ -42,64 +42,73 @@ public class AlterarSenhaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         informacoesViewModel = new ViewModelProvider(getActivity()).get(InformacoesViewModel.class);
 
-        String senhaVelha = binding.etAlterarSenhaAntiga.getText().toString();
-        String senhaNova = binding.etAlterarSenhaNova.getText().toString();
-        String confirmaSenha = binding.etAlterarSenhaConfirmar.getText().toString();
-        if (!senhaVelha.equals("")){
-            if (!senhaNova.equals("")){
-                if (!confirmaSenha.equals("")){
-                    if (senhaNova.equals(confirmaSenha)){
-                        try {
-                            String senhaCriptografadaVelha = Hash.encriptar(senhaVelha, "SHA-256");
-                            //this.usuario.setSenha(senhaCriptografadaVelha);
-                            informacoesViewModel.getUsuarioLogado().setSenha(senhaCriptografadaVelha);
-                            //System.out.println("Senha: " + this.usuario.getSenha());
-                            Log.e("TeatroPereira", "Senha: " + informacoesViewModel.getUsuarioLogado().getSenha());
-                            String senhaCriptografadaNova = Hash.encriptar(senhaNova, "SHA-256");
-                            Thread thread = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                                    //boolean senhaExiste = TeatroPereiraCliente.ccont.senhaUsuarioExiste(usuario, senhaCriptografadaNova);
-                                    boolean senhaExiste = conexaoController.senhaUsuarioExiste(informacoesViewModel.getUsuarioLogado(), senhaCriptografadaNova);
-
-                                    getActivity().runOnUiThread(new Runnable() {
+        binding.bAlterarSenhaAlterar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String senhaVelha = binding.etAlterarSenhaAntiga.getText().toString();
+                String senhaNova = binding.etAlterarSenhaNova.getText().toString();
+                String confirmaSenha = binding.etAlterarSenhaConfirmar.getText().toString();
+                if (!senhaVelha.equals("")){
+                    if (!senhaNova.equals("")){
+                        if (!confirmaSenha.equals("")){
+                            if (senhaNova.equals(confirmaSenha)){
+                                try {
+                                    String senhaCriptografadaVelha = Hash.encriptar(senhaVelha, "SHA-256");
+                                    informacoesViewModel.getUsuarioLogado().setSenha(senhaCriptografadaVelha);
+                                    Log.e("TeatroPereira", "Senha: " + informacoesViewModel.getUsuarioLogado().getSenha());
+                                    String senhaCriptografadaNova = Hash.encriptar(senhaNova, "SHA-256");
+                                    Thread thread = new Thread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if (senhaExiste == true){
-                                                informacoesViewModel.getUsuarioLogado().setSenha(senhaCriptografadaNova);
-                                                Toast.makeText(getContext(), "Senha alterarda com sucesso.", Toast.LENGTH_SHORT).show();
-                                                Navigation.findNavController(view).navigateUp();
-                                            } else {
-                                                Toast.makeText(getContext(), "Erro ao alterar senha.", Toast.LENGTH_SHORT).show();
-                                            }
+                                            ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
+                                            boolean senhaExiste = conexaoController.senhaUsuarioExiste(informacoesViewModel.getUsuarioLogado(), senhaCriptografadaNova);
+
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    if (senhaExiste == true){
+                                                        informacoesViewModel.getUsuarioLogado().setSenha(senhaCriptografadaNova);
+                                                        Toast.makeText(getContext(), "Senha alterarda com sucesso.", Toast.LENGTH_SHORT).show();
+                                                        Navigation.findNavController(view).navigateUp();
+                                                    } else {
+                                                        Toast.makeText(getContext(), "Erro ao alterar senha.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
                                         }
-                                    });
+                                    }); thread.start();
+                                } catch (NoSuchAlgorithmException ex) {
+                                    binding.etAlterarSenhaNova.setError("Erro ao tentar gerar o código hash.");
+                                    binding.etAlterarSenhaNova.requestFocus();
+                                } catch (UnsupportedEncodingException ex) {
+                                    binding.etAlterarSenhaNova.setError("Erro ao tentar gerar o código hash.");
+                                    binding.etAlterarSenhaNova.requestFocus();
                                 }
-                            }); thread.start();
-                        } catch (NoSuchAlgorithmException ex) {
-                            binding.etAlterarSenhaNova.setError("Erro ao tentar gerar o código hash.");
-                            binding.etAlterarSenhaNova.requestFocus();
-                        } catch (UnsupportedEncodingException ex) {
-                            binding.etAlterarSenhaNova.setError("Erro ao tentar gerar o código hash.");
-                            binding.etAlterarSenhaNova.requestFocus();
+                            } else {
+                                binding.etAlterarSenhaConfirmar.setError("Erro: as senhas não coincidem.");
+                                binding.etAlterarSenhaConfirmar.requestFocus();
+                            }
+                        } else {
+                            binding.etAlterarSenhaConfirmar.setError("Erro: confirme a senha nova.");
+                            binding.etAlterarSenhaConfirmar.requestFocus();
                         }
                     } else {
-                        binding.etAlterarSenhaConfirmar.setError("Erro: as senhas não coincidem.");
-                        binding.etAlterarSenhaConfirmar.requestFocus();
+                        binding.etAlterarSenhaNova.setError("Erro: informe a nova senha.");
+                        binding.etAlterarSenhaNova.requestFocus();
                     }
                 } else {
-                    binding.etAlterarSenhaConfirmar.setError("Erro: confirme a senha nova.");
-                    binding.etAlterarSenhaConfirmar.requestFocus();
+                    binding.etAlterarSenhaAntiga.setError("Erro: informe a senha atual.");
+                    binding.etAlterarSenhaAntiga.requestFocus();
                 }
-            } else {
-                binding.etAlterarSenhaNova.setError("Erro: informe a nova senha.");
-                binding.etAlterarSenhaNova.requestFocus();
             }
-        } else {
-            binding.etAlterarSenhaAntiga.setError("Erro: informe a senha atual.");
-            binding.etAlterarSenhaAntiga.requestFocus();
-        }
+        });
+
+        binding.bAlterarSenhaCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigateUp();
+            }
+        });
     }
 
     @Override

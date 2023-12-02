@@ -143,22 +143,22 @@ public class ConexaoController {
         return listaEventos;
     }
 
-    public int listaCadeiras(Evento evento) {
-        int cadeirasDisponiveis;
+    public boolean listaCadeiras(Evento evento) {
+        boolean resultado;
         String mensagem;
         try {
-            this.informacoesViewModel.getOutputStream().writeObject("CadeiraLista");
+            this.informacoesViewModel.getOutputStream().writeObject("ReservaCadeira");
             mensagem = (String)this.informacoesViewModel.getInputStream().readObject();
             this.informacoesViewModel.getOutputStream().writeObject(evento);
-            cadeirasDisponiveis = (int)this.informacoesViewModel.getInputStream().readObject();
+            resultado = (Boolean)this.informacoesViewModel.getInputStream().readObject();
         } catch (IOException ioe) {
             Log.e("TeatroPereira", "Erro: " + ioe.getMessage());
-            cadeirasDisponiveis = 0;
+            resultado = false;
         } catch (ClassNotFoundException classe) {
             Log.e("TeatroPereira", "Erro: " + classe.getMessage());
-            cadeirasDisponiveis = 0;
+            resultado = false;
         }
-        return cadeirasDisponiveis;
+        return resultado;
     }
 
     public boolean efetuarReserva(Reserva reserva) {

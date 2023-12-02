@@ -51,6 +51,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        binding.bHomeAlterarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.acao_HomeFragment_AlterarSenhaFragment);
+            }
+        });
+
         binding.bHomeSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

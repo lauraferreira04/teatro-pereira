@@ -58,7 +58,6 @@ public class CadastroFragment extends Fragment {
                                             if (!binding.etCadastroTelefone.getText().toString().equals("")) {
                                                 String nome = binding.etCadastroNome.getText().toString();
                                                 String login = binding.etCadastroUsuario.getText().toString();
-                                                //String senha = binding.etCadastroSenha.getText().toString();
                                                 String cpf = binding.etCadastroCpf.getText().toString();
                                                 String email = binding.etCadastroEmail.getText().toString();
                                                 String telefone = binding.etCadastroTelefone.getText().toString();

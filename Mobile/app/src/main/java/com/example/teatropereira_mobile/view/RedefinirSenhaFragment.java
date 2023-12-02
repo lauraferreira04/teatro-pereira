@@ -67,24 +67,27 @@ public class RedefinirSenhaFragment extends Fragment {
                                             String senhaCriptografada = Hash.encriptar(senha, "SHA-256");
                                             Usuario usuario1 = new Usuario(login, cpf, email, senhaCriptografada);
                                             boolean resultado = conexaoController.usuarioAlterar(usuario1);
-                                            getActivity().runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    if(resultado == true) { //se alterou sem erro
-                                                        boolean resultado = conexaoController.enviarEmail(email);
-                                                        if (resultado == true) {
+                                            if(resultado == true) { //se alterou sem erro
+                                                boolean resultado1 = conexaoController.enviarEmail(usuario1.getEmail());
+                                                Log.e("TeatroPereira", "Resultado enviar email: " + resultado1);
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Log.e("TeatroPereira", "Resultado usuario alterar: " + resultado1);
+                                                        if (resultado1 == true) {
                                                             Toast.makeText(getContext(), "Uma mensagem com sua nova senha foi enviada no email correspondente.", Toast.LENGTH_LONG).show();
                                                             Navigation.findNavController(view).navigateUp();
                                                         } else {
                                                             binding.etRedefinirSenhaUsuario.setError("Erro: não foi possível enviar email.");
                                                             binding.etRedefinirSenhaEmail.requestFocus();
                                                         }
-                                                    } else { //deu erro para alterar
-                                                        binding.etRedefinirSenhaUsuario.setError("Erro: usuário não pode ser atualizado.");
-                                                        binding.etRedefinirSenhaUsuario.requestFocus();
                                                     }
-                                                }
-                                            });
+                                                });
+
+                                            } else { //deu erro para alterar
+                                                binding.etRedefinirSenhaUsuario.setError("Erro: usuário não pode ser atualizado.");
+                                                binding.etRedefinirSenhaUsuario.requestFocus();
+                                            }
                                         } catch (NoSuchAlgorithmException ex) {
                                             binding.etRedefinirSenhaEmail.setError("Erro ao tentar gerar o código hash.");
                                             binding.etRedefinirSenhaEmail.requestFocus();

@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="27dp"
+            android:textSize="33dp"
             android:layout_marginTop="20dp"
             android:id="@+id/tvSuporteTituloQuemSomos"
             android:text="Quem somos?"/>
@@ -31,13 +31,14 @@
             android:layout_height="wrap_content"
             android:textSize="19dp"
             android:layout_marginTop="5dp"
+            android:justificationMode="inter_word"
             android:id="@+id/tvSuporteTextoQuemSomos"
-            android:text="Lorem Ipsum"/>
+            android:text="Nós somos apaixonados por arte e nos dedicamos a simplificar a organização de espetáculos, proporcionando uma experiência eficiente para artistas, produtores e público"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="27dp"
+            android:textSize="33dp"
             android:layout_marginTop="20dp"
             android:id="@+id/tvSuporteTituloComoNosContatar"
             android:text="Como nos contatar?"/>
@@ -46,13 +47,14 @@
             android:layout_height="wrap_content"
             android:textSize="19dp"
             android:layout_marginTop="5dp"
+            android:justificationMode="inter_word"
             android:id="@+id/tvSuporteTextoComoNosContatar"
-            android:text="Lorem Ipsum"/>
+            android:text="Estamos disponíveis para ajudar e receber feedback. Utilize algum dos métodosde contato informados abaixo."/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="27dp"
+            android:textSize="33dp"
             android:layout_marginTop="20dp"
             android:id="@+id/tvSuporteTituloContatos"
             android:text="Contatos"/>
@@ -62,6 +64,6 @@
             android:textSize="19dp"
             android:layout_marginTop="5dp"
             android:id="@+id/tvSuporteTextoContatos"
-            android:text="Lorem Ipsum"/>
+            android:text="E-mail: o.teatropereira@gmail.com\nTelefone: (51) 99643-3703\nInstagram: @TeatroPereira"/>
     </LinearLayout>
 </LinearLayout>

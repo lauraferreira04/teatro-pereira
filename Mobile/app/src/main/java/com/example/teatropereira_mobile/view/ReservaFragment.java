@@ -38,7 +38,6 @@ public class ReservaFragment extends Fragment {
     InformacoesViewModel informacoesViewModel;
     Reserva reserva;
     boolean resultado;
-    int cadeirasDisponiveis = 0;
 
 
     @Override
@@ -65,36 +64,33 @@ public class ReservaFragment extends Fragment {
         informacoesViewModel = new ViewModelProvider(getActivity()).get(InformacoesViewModel.class);
         ReservaFragmentArgs argumentos = ReservaFragmentArgs.fromBundle(getArguments());
         Evento evento = argumentos.getEvento();
-        //Bitmap banner = ByteArrayToBitmap(evento.getBanner());
-        //binding.ivReservaBanner.setImageBitmap(banner);
+        Bitmap banner = ByteArrayToBitmap(evento.getImagem());
+        binding.ivReservaBanner.setImageBitmap(banner);
         binding.tvReservaTitulo.setText(evento.getNomeEvento());
         binding.tvReservaArtista.setText(evento.getArtista());
-        //binding.tvReservaData.setText(String.valueOf(evento.getData().getTime()));
         LocalDateTime dataHora = evento.getDataHora();
         binding.tvReservaData.setText(dataHora.toString());
-        /*try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            dataHora = LocalDateTime.parse(evento.getData(), formatter);
-        } catch (Exception e) {
-            dataHora = null;
-            Log.e("TeatroPereira", "Erro: " + e.getMessage());
-        }*/
         binding.tvReservaPreco.setText(String.valueOf(evento.getValor()));
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
-                cadeirasDisponiveis = conexaoController.listaCadeiras(evento);
-                if (cadeirasDisponiveis > 0) {
+                resultado = conexaoController.listaCadeiras(evento);
+                if (resultado == true) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            carregaSpinnerCadeiras(cadeirasDisponiveis);
+                            carregaSpinnerCadeiras(evento.getQtdCadeiras());
                         }
                     });
                 } else {
-                    Toast.makeText(getContext(), "EVENTO ESGOTADO", Toast.LENGTH_LONG).show();
-                    Navigation.findNavController(view).navigateUp();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getContext(), "EVENTO ESGOTADO", Toast.LENGTH_LONG).show();
+                            Navigation.findNavController(view).navigateUp();
+                        }
+                    });
                 }
             }
         }); thread.start();
@@ -118,6 +114,7 @@ public class ReservaFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     if (resultado == true) {
+                                        Toast.makeText(getContext(), "Reserva efetuada com sucesso.", Toast.LENGTH_SHORT).show();
                                         Navigation.findNavController(view).navigate(R.id.acao_ReservaFragment_MinhasReservasFragment);
                                     } else {
                                         Toast.makeText(getContext(), "Erro: reserva não efetuada.", Toast.LENGTH_SHORT).show();

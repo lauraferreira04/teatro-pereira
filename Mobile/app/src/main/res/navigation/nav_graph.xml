@@ -38,6 +38,9 @@
         <action
             android:id="@+id/acao_HomeFragment_SuporteFragment"
             app:destination="@id/suporteFragment" />
+        <action
+            android:id="@+id/acao_HomeFragment_AlterarSenhaFragment"
+            app:destination="@id/alterarSenhaFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventosFragment"
@@ -76,6 +79,11 @@
     <fragment
         android:id="@+id/redefinirSenhaFragment"
         android:name="com.example.teatropereira_mobile.view.RedefinirSenhaFragment"
-        android:label="fragment_redefinir_senha"
+        android:label="Redefinir Senha"
         tools:layout="@layout/fragment_redefinir_senha" />
+    <fragment
+        android:id="@+id/alterarSenhaFragment"
+        android:name="com.example.teatropereira_mobile.view.AlterarSenhaFragment"
+        android:label="Alterar Senha"
+        tools:layout="@layout/fragment_alterar_senha" />
 </navigation>
