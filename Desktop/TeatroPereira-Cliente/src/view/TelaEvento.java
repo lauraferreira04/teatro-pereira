@@ -46,7 +46,7 @@ public class TelaEvento extends javax.swing.JFrame {
         jTFArtista.addActionListener(e -> jFTFData.requestFocus());
         jFTFData.addActionListener(e -> jFTFHora.requestFocus());
         jFTFHora.addActionListener(e -> jFTFValor.requestFocus());
-        jFTFValor.addActionListener(e -> jCBQtdCadeiras.requestFocus());
+        jFTFValor.addActionListener(e -> jTFQtdCadeiras.requestFocus());
         //jCBQtdCadeiras.addActionListener(e -> jBSalvar.doClick());
     }
 
@@ -72,9 +72,9 @@ public class TelaEvento extends javax.swing.JFrame {
         jLImagemEvento = new javax.swing.JLabel();
         jBUpload = new javax.swing.JButton();
         jFTFData = new javax.swing.JFormattedTextField();
-        jCBQtdCadeiras = new javax.swing.JComboBox<>();
         jFTFValor = new javax.swing.JFormattedTextField();
         jFTFHora = new javax.swing.JFormattedTextField();
+        jTFQtdCadeiras = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Evento");
@@ -188,10 +188,6 @@ public class TelaEvento extends javax.swing.JFrame {
             }
         });
 
-        jCBQtdCadeiras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jCBQtdCadeiras.setForeground(new java.awt.Color(153, 153, 153));
-        jCBQtdCadeiras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quantidade cadeiras", "5", "50", "100", "200", "300", "500" }));
-
         jFTFValor.setForeground(new java.awt.Color(153, 153, 153));
         jFTFValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFTFValor.setText("R$");
@@ -218,6 +214,18 @@ public class TelaEvento extends javax.swing.JFrame {
             }
         });
 
+        jTFQtdCadeiras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTFQtdCadeiras.setForeground(new java.awt.Color(153, 153, 153));
+        jTFQtdCadeiras.setText("Quantidade cadeiras");
+        jTFQtdCadeiras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTFQtdCadeirasFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFQtdCadeirasFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,12 +247,12 @@ public class TelaEvento extends javax.swing.JFrame {
                                 .addComponent(jLImagemEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jCBQtdCadeiras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jFTFValor)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jFTFData)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jFTFHora, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTFQtdCadeiras)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,7 +271,7 @@ public class TelaEvento extends javax.swing.JFrame {
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLImagemEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,13 +287,13 @@ public class TelaEvento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFTFValor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCBQtdCadeiras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTFQtdCadeiras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -317,7 +325,8 @@ public class TelaEvento extends javax.swing.JFrame {
                 String artista = jTFArtista.getText();
                 if (valor > 0) {
                     if (dataHora != null) {
-                        if (jCBQtdCadeiras.getSelectedIndex() > 0){
+                        if (!jTFQtdCadeiras.getText().equals("")){
+                            String qtdCadeiras = jTFQtdCadeiras.getText();
                             byte[] imagemEvento;
                             if (this.imagem != null){
                                 imagemEvento = this.imagem.getImagem();
@@ -333,7 +342,7 @@ public class TelaEvento extends javax.swing.JFrame {
                                     evento.setArtista(artista);
                                     evento.setDataHora(dataHora);
                                     evento.setValor(valor);
-                                    evento.setQtdCadeiras(jCBQtdCadeiras.getSelectedIndex());
+                                    evento.setQtdCadeiras(Integer.parseInt(qtdCadeiras));
                                     
                                     jBUpload.setEnabled(false);
 
@@ -350,7 +359,7 @@ public class TelaEvento extends javax.swing.JFrame {
                                 }
                             } else {
                                 // Inserção de um novo evento
-                                Evento evento = new Evento(nomeEvento, artista, dataHora, valor, jCBQtdCadeiras.getSelectedIndex(), imagemEvento);
+                                Evento evento = new Evento(nomeEvento, artista, dataHora, valor, Integer.parseInt(qtdCadeiras), imagemEvento);
 
                                 // método de inserção no servidor
                                 boolean resultado = TeatroPereiraCliente.ccont.eventoInserir(evento);
@@ -488,10 +497,7 @@ public class TelaEvento extends javax.swing.JFrame {
             jTFNomeEvento.setText(evento.getNomeEvento());
             jTFArtista.setText(evento.getArtista());
             jFTFValor.setValue(evento.getValor());
-            if (jCBQtdCadeiras.getSelectedIndex() != evento.getQtdCadeiras()) {
-            // Define a quantidade de cadeiras selecionando o índice correto na ComboBox
-                jCBQtdCadeiras.setSelectedIndex(evento.getQtdCadeiras());
-            }
+            jTFQtdCadeiras.setText(String.valueOf(evento.getQtdCadeiras()));
             if (evento.getImagem() != null){
                 Imagem imagem = new Imagem(evento.getImagem());
                 jLImagemEvento.setIcon(imagem.getImageIcon());
@@ -516,6 +522,18 @@ public class TelaEvento extends javax.swing.JFrame {
         limpaCampos();
         editando = false;
     }//GEN-LAST:event_jBNovoActionPerformed
+
+    private void jTFQtdCadeirasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFQtdCadeirasFocusGained
+        if (jTFQtdCadeiras.getText().equals("Quantidade cadeiras")) {
+            jTFQtdCadeiras.setText("");
+        }
+    }//GEN-LAST:event_jTFQtdCadeirasFocusGained
+
+    private void jTFQtdCadeirasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFQtdCadeirasFocusLost
+        if (jTFQtdCadeiras.getText().isEmpty()) {
+            jTFQtdCadeiras.setText("Quantidade cadeiras");
+        }
+    }//GEN-LAST:event_jTFQtdCadeirasFocusLost
     private void atualizaTabela() {
         ArrayList<Evento> listaEventos = TeatroPereiraCliente.ccont.eventoLista();
 
@@ -529,7 +547,6 @@ public class TelaEvento extends javax.swing.JFrame {
     private javax.swing.JButton jBSalvar;
     private javax.swing.JButton jBUpload;
     private javax.swing.JButton jBVoltar;
-    private javax.swing.JComboBox<String> jCBQtdCadeiras;
     private javax.swing.JFileChooser jFCImagemEvento;
     private javax.swing.JFormattedTextField jFTFData;
     private javax.swing.JFormattedTextField jFTFHora;
@@ -540,6 +557,7 @@ public class TelaEvento extends javax.swing.JFrame {
     private javax.swing.JTable jTEventos;
     private javax.swing.JTextField jTFArtista;
     private javax.swing.JTextField jTFNomeEvento;
+    private javax.swing.JTextField jTFQtdCadeiras;
     // End of variables declaration//GEN-END:variables
 
     private void limpaCampos() {
@@ -548,7 +566,7 @@ public class TelaEvento extends javax.swing.JFrame {
         jFTFData.setText("Data");
         jFTFHora.setText("Hora");
         jFTFValor.setText("R$");
-        jCBQtdCadeiras.setSelectedIndex(0);
+        jTFQtdCadeiras.setText("Quantidade cadeiras");
         jLImagemEvento.setIcon(null);
         jBUpload.setEnabled(true);
     }
