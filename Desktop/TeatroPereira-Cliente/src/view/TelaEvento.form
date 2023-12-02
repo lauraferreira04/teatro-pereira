@@ -47,13 +47,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBUpload" min="-2" pref="57" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jCBQtdCadeiras" alignment="0" max="32767" attributes="0"/>
                           <Component id="jFTFValor" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jFTFData" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jFTFHora" min="-2" pref="72" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jTFQtdCadeiras" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -80,7 +80,7 @@
                   </Group>
               </Group>
               <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jLImagemEvento" min="-2" pref="89" max="-2" attributes="0"/>
@@ -98,8 +98,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jFTFValor" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jCBQtdCadeiras" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jTFQtdCadeiras" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jBExcluir" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="jBSalvar" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="352" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -275,30 +275,6 @@
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFDataFocusLost"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jCBQtdCadeiras">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="0"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
-            <StringItem index="0" value="Quantidade cadeiras"/>
-            <StringItem index="1" value="5"/>
-            <StringItem index="2" value="50"/>
-            <StringItem index="3" value="100"/>
-            <StringItem index="4" value="200"/>
-            <StringItem index="5" value="300"/>
-            <StringItem index="6" value="500"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFTFValor">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -333,6 +309,21 @@
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFHoraFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jFTFHoraFocusLost"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTFQtdCadeiras">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="99" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Quantidade cadeiras"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFQtdCadeirasFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFQtdCadeirasFocusLost"/>
       </Events>
     </Component>
   </SubComponents>
