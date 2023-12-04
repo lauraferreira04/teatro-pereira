@@ -26,18 +26,19 @@ public class EventoTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Evento ev = listaEventos.get(rowIndex);
         switch (columnIndex) {
-            case 0: return ev.getNomeEvento();
-            case 1: return ev.getArtista();
-            case 2: return ev.getValor();
-            case 3: return ev.getDataHora();
-            case 4: return ev.getQtdCadeiras();
+            case 0: return ev.getIdEvento();
+            case 1: return ev.getNomeEvento();
+            case 2: return ev.getArtista();
+            case 3: return ev.getValor();
+            case 4: return ev.getDataHora();
+            case 5: return ev.getQtdCadeiras();
             default: return "";
         }
     }
@@ -45,17 +46,19 @@ public class EventoTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         switch (column) {
-            case 0: return "Nome Evento";
-            case 1: return "Artista";
-            case 2: return "Valor";
-            case 3: return "Data e Hora";
-            case 4: return "Qtd cadeiras";
+            case 0: return "ID";
+            case 1: return "Nome Evento";
+            case 2: return "Artista";
+            case 3: return "Valor";
+            case 4: return "Data e Hora";
+            case 5: return "Qtd cadeiras";
             default: return "NoName";
         }
     }
     
     public Evento getEvento(int row){
         Evento evento = this.listaEventos.get(row);
+        System.out.println("Evento: " + evento);
         return evento;
     } 
 }
