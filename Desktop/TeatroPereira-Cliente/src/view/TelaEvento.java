@@ -394,7 +394,7 @@ public class TelaEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_jBVoltarActionPerformed
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
-        if (jTEventos.getSelectedRow() > 0){
+        if (jTEventos.getSelectedRow() >= 0){
             int resposta = JOptionPane.showConfirmDialog(rootPane,
                     "Deseja realmente excluir o evento?",
                     "Excluir",

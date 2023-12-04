@@ -26,7 +26,7 @@ public class EventoTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
     
     @Override
@@ -49,6 +49,7 @@ public class EventoTableModel extends AbstractTableModel{
             case 1: return "Artista";
             case 2: return "Valor";
             case 3: return "Data e Hora";
+            case 4: return "Qtd cadeiras";
             default: return "NoName";
         }
     }
