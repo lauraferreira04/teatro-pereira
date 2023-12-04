@@ -76,7 +76,7 @@ public class ReservaFragment extends Fragment {
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
                 resultado = conexaoController.listaCadeiras(evento);
-                if (resultado == true) {
+                if (resultado == false) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
