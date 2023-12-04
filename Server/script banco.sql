@@ -36,7 +36,6 @@ CREATE TABLE reserva (
   FOREIGN KEY (idevento) REFERENCES evento (idevento),
   FOREIGN KEY (idusuario) REFERENCES usuario (idusuario)
 );
-select login from usuario
-where login = "laurinha";
 
-insert into usuario (idusuario, nomeusuario, login, senha, cpf, email, telefone, tipo) VALUES (2, 'Laura Ferreira', 'ferreira', '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', '123', 'laurinhagameplayzin@gmail.com', '123', 1);
+insert into usuario (idusuario, nomeusuario, login, senha, cpf, email, telefone, tipo) VALUES (1, 'Laura Ferreira', 'ferreira', '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', '234.567.890-11', 'laurinhagameplayzin@gmail.com', '51996905617', 0); /*administrador*/
+insert into usuario (idusuario, nomeusuario, login, senha, cpf, email, telefone, tipo) VALUES (2, 'Gabriel Hackenhaar', 'gabriel', '8D969EEF6ECAD3C29A3A629280E686CF0C3F5D5A86AFF3CA12020C923ADC6C92', '123.456.789-00', 'gabrielhackenhaar9@gmail.com', '51996433703', 1); /*comum*/
