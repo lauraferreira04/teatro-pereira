@@ -94,4 +94,9 @@ public class Evento implements Serializable{
         this.imagem = imagem;
     }
 
+    @Override
+    public String toString() {
+        return "Evento{" + "idEvento=" + idEvento + ", nomeEvento=" + nomeEvento + ", artista=" + artista + ", dataHora=" + dataHora + ", valor=" + valor + ", qtdCadeiras=" + qtdCadeiras + ", imagem=" + imagem + '}';
+    }
+
 }
