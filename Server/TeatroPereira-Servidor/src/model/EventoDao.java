@@ -30,17 +30,16 @@ public class EventoDao {
         PreparedStatement stmt = null;
         try {
             con.setAutoCommit(false);
-            String sql = "insert into evento (idevento, nomeartista, nomeevento, datahora, valor, qtdcadeiras, imagem) " +
-                            " values (?,?,?,?,?,?,?)";
+            String sql = "insert into evento (nomeartista, nomeevento, datahora, valor, qtdcadeiras, imagem) " +
+                            " values (?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             
-            stmt.setInt(1, evento.getIdEvento());
-            stmt.setString(2, evento.getArtista());
-            stmt.setString(3, evento.getNomeEvento());
-            stmt.setObject(4, java.sql.Timestamp.valueOf(evento.getDataHora()));
-            stmt.setFloat(5, evento.getValor());
-            stmt.setInt(6, evento.getQtdCadeiras());
-            stmt.setBytes(7, evento.getImagem());
+            stmt.setString(1, evento.getArtista());
+            stmt.setString(2, evento.getNomeEvento());
+            stmt.setObject(3, java.sql.Timestamp.valueOf(evento.getDataHora()));
+            stmt.setFloat(4, evento.getValor());
+            stmt.setInt(5, evento.getQtdCadeiras());
+            stmt.setBytes(6, evento.getImagem());
             
             stmt.execute();
             con.commit();
@@ -151,6 +150,7 @@ public class EventoDao {
             ResultSet res = stmt.executeQuery();
             
             while(res.next()){
+                int idEvento = res.getInt("idevento");
                 String nomeEvento = res.getString("nomeevento");
                 String nomeArtista = res.getString("nomeartista");
                 LocalDateTime dataHora = res.getTimestamp("datahora").toLocalDateTime();
@@ -159,6 +159,7 @@ public class EventoDao {
                 byte[]imagem = res.getBytes("imagem");
                 
                 Evento evento = new Evento(nomeEvento, nomeArtista, dataHora, valor, qtdCadeiras, imagem);
+                evento.setIdEvento(idEvento);
                 
                 listaEventos.add(evento);
             }
