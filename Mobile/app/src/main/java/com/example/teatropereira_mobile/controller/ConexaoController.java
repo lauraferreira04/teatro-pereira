@@ -143,7 +143,7 @@ public class ConexaoController {
         return listaEventos;
     }
 
-    public boolean listaCadeiras(Evento evento) {
+    public boolean reservaCadeira(Evento evento) {
         boolean resultado;
         String mensagem;
         try {

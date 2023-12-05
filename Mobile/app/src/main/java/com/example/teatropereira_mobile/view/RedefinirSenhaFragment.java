@@ -78,7 +78,7 @@ public class RedefinirSenhaFragment extends Fragment {
                                                             Toast.makeText(getContext(), "Uma mensagem com sua nova senha foi enviada no email correspondente.", Toast.LENGTH_LONG).show();
                                                             Navigation.findNavController(view).navigateUp();
                                                         } else {
-                                                            binding.etRedefinirSenhaUsuario.setError("Erro: não foi possível enviar email.");
+                                                            binding.etRedefinirSenhaEmail.setError("Erro: não foi possível enviar email.");
                                                             binding.etRedefinirSenhaEmail.requestFocus();
                                                         }
                                                     }
@@ -96,7 +96,12 @@ public class RedefinirSenhaFragment extends Fragment {
                                             binding.etRedefinirSenhaEmail.requestFocus();
                                         }
                                     } else { //usuario não existe, método usuarioExiste == false
-                                        Toast.makeText(getContext(), "O usuário, cpf e/ou email informado não existe, confira se as informações estão corretas", Toast.LENGTH_LONG).show();
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(getContext(), "O usuário, cpf e/ou email informado não existe, confira se as informações estão corretas", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
                                     }
                                 }
                             }); thread.start();

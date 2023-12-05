@@ -53,7 +53,7 @@ public class ReservaFragment extends Fragment {
         String[] cadeiras = new String[cadeirasDisponiveis + 1];
         cadeiras[0] = "<< Selecionar >>";
         for (int x = 1; x <= cadeirasDisponiveis; x++) {
-            cadeiras[x + 1] = String.valueOf(x);
+            cadeiras[x] = String.valueOf(x);
         }
         binding.spReservaQtdCadeiras.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, cadeiras));
     }
@@ -71,7 +71,14 @@ public class ReservaFragment extends Fragment {
         LocalDateTime dataHora = evento.getDataHora();
         binding.tvReservaData.setText(dataHora.toString());
         binding.tvReservaPreco.setText(String.valueOf(evento.getValor()));
-        Thread thread = new Thread(new Runnable() {
+        if (evento.getQtdCadeiras() > 0) {
+            carregaSpinnerCadeiras(evento.getQtdCadeiras());
+        } else {
+            Toast.makeText(getContext(), "EVENTO ESGOTADO", Toast.LENGTH_LONG).show();
+            Navigation.findNavController(view).navigateUp();
+        }
+
+        /*Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
@@ -93,34 +100,48 @@ public class ReservaFragment extends Fragment {
                     });
                 }
             }
-        }); thread.start();
+        }); thread.start();*/
 
         binding.bReservaReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (binding.spReservaQtdCadeiras.getSelectedItemPosition() > 0) {
-                    int idUsuario = informacoesViewModel.getUsuarioLogado().getIdUsuario();
                     Usuario usuario = informacoesViewModel.getUsuarioLogado();
                     int qtdCadeiras = binding.spReservaQtdCadeiras.getSelectedItemPosition();
                     float valorTotal = evento.getValor() * binding.spReservaQtdCadeiras.getSelectedItemPosition();
 
-                    reserva = new Reserva(idUsuario, usuario, evento, qtdCadeiras, valorTotal);
+                    reserva = new Reserva(usuario, evento, qtdCadeiras, valorTotal);
+                    Evento evento1 = new Evento(evento.getIdEvento(), evento.getNomeEvento(), evento.getArtista(), evento.getDataHora(), valorTotal, qtdCadeiras);
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             ConexaoController conexaoController = new ConexaoController(informacoesViewModel);
+                            Log.e("TeatroPereira", "Reserva: " + reserva.toString());
                             resultado = conexaoController.efetuarReserva(reserva);
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (resultado == true) {
-                                        Toast.makeText(getContext(), "Reserva efetuada com sucesso.", Toast.LENGTH_SHORT).show();
-                                        Navigation.findNavController(view).navigate(R.id.acao_ReservaFragment_MinhasReservasFragment);
-                                    } else {
-                                        Toast.makeText(getContext(), "Erro: reserva não efetuada.", Toast.LENGTH_SHORT).show();
+                            Log.e("TeatroPereira", "efetuarReserva: " + resultado);
+                            if (resultado == true) {
+                                resultado = conexaoController.reservaCadeira(evento1);
+                                Log.e("TeatroPereira", "reservaCadeira: " + resultado);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (resultado == true) {
+                                            Toast.makeText(getContext(), "Reserva efetuada com sucesso.", Toast.LENGTH_SHORT).show();
+                                            Navigation.findNavController(view).navigate(R.id.acao_ReservaFragment_MinhasReservasFragment);
+                                        } else {
+                                            Toast.makeText(getContext(), "Erro: informe uma quantidade válida de cadeiras.", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(), "Erro: reserva não efetuada.", Toast.LENGTH_SHORT).show();
+                                        binding.spReservaQtdCadeiras.requestFocus();
+                                    }
+                                });
+                            }
                         }
                     }); thread.start();
                 } else {

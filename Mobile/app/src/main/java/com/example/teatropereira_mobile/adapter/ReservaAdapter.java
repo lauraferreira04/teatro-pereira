@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teatropereira_mobile.databinding.ReservaListRowBinding;
 
 import java.io.ByteArrayInputStream;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import modelDominio.Reserva;
@@ -35,9 +36,10 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.MyViewHo
             Bitmap banner = ByteArrayToBitmap(minhaReserva.getEvento().getImagem());
             holder.reservaListRowBinding.ivMinhasReservasBanner.setImageBitmap(banner);
         }
-        holder.reservaListRowBinding.tvMinhasReservasTitulo.setText(String.valueOf(minhaReserva.getEvento().getNomeEvento()));
-        holder.reservaListRowBinding.tvMinhasReservasArtista.setText(String.valueOf(minhaReserva.getEvento().getArtista()));
-        holder.reservaListRowBinding.tvMinhasReservasData.setText(String.valueOf(minhaReserva.getEvento().getDataHora()));
+        holder.reservaListRowBinding.tvMinhasReservasTitulo.setText(minhaReserva.getEvento().getNomeEvento());
+        holder.reservaListRowBinding.tvMinhasReservasArtista.setText(minhaReserva.getEvento().getArtista());
+        LocalDateTime dataHora = minhaReserva.getEvento().getDataHora();
+        holder.reservaListRowBinding.tvMinhasReservasData.setText(dataHora.toString());
         holder.reservaListRowBinding.tvMinhasReservasQtdCadeiras.setText(String.valueOf(minhaReserva.getQtdCadeiras()));
     }
 

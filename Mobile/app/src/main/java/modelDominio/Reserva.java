@@ -64,4 +64,15 @@ public class Reserva implements Serializable {
     public void setValorTotal(float valorTotal) {
         this.valorTotal = valorTotal;
     }
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "idReserva=" + idReserva +
+                ", usuario=" + usuario +
+                ", evento=" + evento +
+                ", qtdCadeiras=" + qtdCadeiras +
+                ", valorTotal=" + valorTotal +
+                '}';
+    }
 }
