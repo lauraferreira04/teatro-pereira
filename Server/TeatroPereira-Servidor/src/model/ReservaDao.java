@@ -10,6 +10,7 @@ import modelDominio.Reserva;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import modelDominio.Evento;
 import modelDominio.Usuario;
@@ -29,15 +30,15 @@ public class ReservaDao {
         boolean resultado;
         PreparedStatement stmt = null;
         try {
-            String sql = "insert into reserva (idreserva,idusuario,idevento,qtdcadeiras,valortotal) " +
-                         "values (?,?,?,?,?)";
+            con.setAutoCommit(false);
+            String sql = "insert into reserva (idusuario,idevento,qtdingressos,valortotal) " +
+                         "values (?,?,?,?)";
             
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, reserva.getIdReserva());
-            stmt.setInt(2, reserva.getUsuario().getIdUsuario());
-            stmt.setInt(3, reserva.getEvento().getIdEvento());
-            stmt.setInt(4, reserva.getQtdCadeiras());
-            stmt.setFloat(5, reserva.getValorTotal());
+            stmt.setInt(1, reserva.getUsuario().getIdUsuario());
+            stmt.setInt(2, reserva.getEvento().getIdEvento());
+            stmt.setInt(3, reserva.getQtdCadeiras());
+            stmt.setFloat(4, reserva.getValorTotal());
             
             stmt.execute();
             con.commit();
@@ -77,16 +78,27 @@ public class ReservaDao {
             while(res.next()){
                 int idReserva = res.getInt("idreserva");
                 int idUsuario = res.getInt("idusuario");
-                String nomeUsuario = res.getString("nomeusuario");
-                Usuario usuario = new Usuario(idUsuario, nomeUsuario);
+                String nomeusuario = res.getString("nomeusuario");
+                String login = res.getString("login");
+                String senha = res.getString("senha");
+                String cpf = res.getString("cpf");
+                String email = res.getString("email");
+                String telefone = res.getString("telefone");
+                int tipo = res.getInt("tipo");
+                Usuario usuario = new Usuario(idUsuario, nomeusuario, login, senha, cpf, email, telefone, tipo);
                 int idEvento = res.getInt("idevento");
                 String nomeEvento = res.getString("nomeevento");
+                String nomeArtista = res.getString("nomeartista");
+                LocalDateTime dataHora = res.getTimestamp("datahora").toLocalDateTime();
                 float valor = res.getFloat("valor");
-                Evento evento = new Evento(idEvento, nomeEvento, valor);
                 int qtdCadeiras = res.getInt("qtdcadeiras");
+                byte[]imagem = res.getBytes("imagem");
+                Evento evento = new Evento(nomeEvento, nomeArtista, dataHora, valor, qtdCadeiras, imagem);
+                evento.setIdEvento(idEvento);
+                int qtdIngressos = res.getInt("qtdingressos");
                 float valorTotal = res.getFloat("valortotal");
                 
-                Reserva reserva = new Reserva(idReserva, usuario, evento, qtdCadeiras, valorTotal);
+                Reserva reserva = new Reserva(idReserva, usuario, evento, qtdIngressos, valorTotal);
                 
                 listaReservas.add(reserva);
             }
